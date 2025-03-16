@@ -24,9 +24,9 @@ class Command(BaseCommand):
         'advisor_name': club['advisor']['name']
         'advisor_email': club['advisor']['email']
       })
-      #User.objects.create_user(name = club['president']['name'], email = club['president']['email'])
-      #User.objects.create_user(name = club['advisor']['name'], email = club['advisor']['email'])
-  #User.objects.create_user(name = "Jenna Hopkins", email = "jhopkins2@willamette.edu", password = "jhopkins2")
+      User.objects.create_user(name = club['president']['name'], email = club['president']['email'])
+      User.objects.create_user(name = club['advisor']['name'], email = club['advisor']['email'])
+  User.objects.create_user(name = "Jenna Hopkins", email = "jhopkins2@willamette.edu", password = "jhopkins2")
     
 
 

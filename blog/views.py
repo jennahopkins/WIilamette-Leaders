@@ -339,7 +339,7 @@ class LoginView(LoginView):
       form = LoginForm(request=request, data=request.POST)
       if form.errors:
         return render(request, 'auth/login.html', {"errors": form.errors, "form": form, "site_key": settings.RECAPTCHA_SITE_KEY})
-      return redirect('/')
+      return redirect(reverse('home'))
     else:
       return HttpResponse('Recaptcha is not valid')
 
@@ -352,7 +352,7 @@ class SignupView(LoginView):
       form = SignupForm(request=request, data=request.POST)
       if form.errors:
         return render(request, 'auth/signup.html', {"errors": form.errors, "form": form, "site_key": settings.RECAPTCHA_SITE_KEY})
-      return redirect(reverse("signup"))
+      return redirect(reverse("home"))
     else:
       return HttpResponse('Recaptcha is not valid')
 
@@ -377,6 +377,6 @@ edit_about_view = CKEditor.as_view(extra_context=set_context('edit-about'))
 edit_article_view = CKEditor.as_view(extra_context=set_context('edit-article'))
 
 login_view = LoginView.as_view(extra_context={'site_key': settings.RECAPTCHA_SITE_KEY})
-signup_view = SignupView.as_view()
+signup_view = SignupView.as_view(extra_context={'site_key': settings.RECAPTCHA_SITE_KEY})
 logout_view = LogoutView.as_view()
 not_found = NotFound.as_view()
