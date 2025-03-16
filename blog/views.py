@@ -343,7 +343,7 @@ class LoginView(LoginView):
     else:
       return HttpResponse('Recaptcha is not valid')
 
-class SignupView(base.View):
+class SignupView(LoginView):
   template_name = 'auth/signup.html'
   form_class = SignupForm
   def post(self, request):
