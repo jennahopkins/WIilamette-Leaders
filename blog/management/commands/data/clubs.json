@@ -1,0 +1,990 @@
+{
+    "Academic":{
+        "Archaeology Club": {
+            "description": "The Archaeology Club aims to engage students in extracurricular archaeological activities, projects and events. The club hopes to give students more hands-on learning opportunities",
+            "president": {
+                "name": "Rose Ceglia",
+                "email": "hrceglia@willamette.edu"
+            },
+            "advisor": {
+                "name": "Reyna Meyers",
+                "email": "rmeyers@willamette.edu"
+            }
+            
+        },
+        "Chemistry Club": {
+            "description": "The purpose of the Chemistry Club is to engage the Willamette community in chemistry-related activities both on campus and around Salem. The club provides teaching experience, along with training in lab safety techniques, for members who perform science demonstrations at local elementary and middle schools. The Chemistry Club also provides opportunities to learn about possible careers in chemistry. Science and humanities majors alike are welcome.",
+            "president": {
+                "name": "Mollie McGibbon",
+                "email": "mkmcgibbon@willamette.edu"
+            },
+            "advisor": {
+                "name": "Cooper Battle",
+                "email": "cbattle@willamette.edu"
+            }
+        },
+        "Computer Science Students Association": {
+            "description": "The mission of the Computer Science Student's Association is to advance the computer science skills of all members, to help members and students find resources both provided and not provided by the university, for all members to support the endeavors of other members, and to provide a space/community for members to pursue computer science topics not covered by the current curricula.",
+            "president": {
+                "name": "James Thomas Ostler",
+                "email": "jtostler@willamette.edu"
+            },
+            "advisor": {
+                "name": "Calvin Deutschbein",
+                "email": "ckdeutschbein@willamette.edu"
+            }
+        },
+        "Debate Union": {
+            "description": "This club will serve as an extension to the already existing Debate Union class. Club members will learn how to do British Parliamentary Debate, practive debating, and do drills to enhance participants' public speaking ability.",
+            "president": {
+                "name": "Mitch Septoff",
+                "email": "mdseptoff@willamette.edu"
+            },
+            "advisor": {
+                "name": "Kyle Sessions",
+                "email": "ksessions@willamette.edu"
+            }
+        },
+        "Eye Health and Pre-Optometry Club": {
+            "description": "The mission of the Eye Health and Pre-Optometry Club is to provide a space for students to meet other students with similar interests, and to benefit the community by completing community",
+            "president": {
+                "name": "Gavin Klipfel",
+                "email": "gsklipfel@willamette.edu"
+            },
+            "advisor": {
+                "name": "Cooper Battle",
+                "email": "cbattle@willamette.edu"
+            }
+
+        }, 
+        "Financial Literacy Club": {
+            "description": "The Financial Literacy Club will work with the Central Willamette Credit Union to hold lessons on personal financial literacy in addition to hosting discrussions and events relating to personal finance.",
+            "president": {
+                "name": "Rae Ota",
+                "email": "rmota@willamette.edu"
+            },
+            "advisor": {
+                "name": "Dave Sundby",
+                "email": "dhsundby@willamette.edu"
+            }
+        },
+        "German Club": {
+            "description": "A club to provide community for German students and those with an interest in German language and culture.",
+            "president": {
+                "name": "Sofia Daukas",
+                "email": "sndaukas@willamette.edu"
+            },
+            "advisor": {
+                "name": "Aili Zheng",
+                "email": "azheng@willamette.edu"
+            }
+        },
+        "Health Professions Club": {
+            "description": "This group aims to provide academic, social, and professional support for students interested in pursuing a career in the healthcare field.",
+            "president": {
+                "name": "Gavin Klipfel",
+                "email": "gsklipfel@willamette.edu"
+            },
+            "advisor": {
+                "name": "Cooper Battle",
+                "email": "cbattle@willamette.edu"
+            }
+        },
+        "Math Club": {
+            "description": "The purpose of the Willamette University Math Club is to provide an environment in which members can explore extracurricular mathematics.",
+            "president": {
+                "name": "Colin Davis",
+                "email": "cmdavis@willamette.edu"
+            },
+            "advisor": {
+                "name": "Josh Laison",
+                "email": "jlaison@willamette.edu"
+            }
+        },
+        "Model United Nations": {
+            "description": "The purpose of Model United Nations is to teach Willamette students about global issues and affairs through Model UN simulations that the school may host or travel to participate in.",
+            "president": {
+                "name": "Keenan Yoshizawa",
+                "email": "kayoshizawa@willamette.edu"
+            },
+            "advisor": {
+                "name": "Greg Felker",
+                "email": "gfelker@willamette.edu"
+            }
+        },
+        "Philosophy Club": {
+            "description": "The Philosophy Club's intention is to be a meeting place for philosophy majors, minors, or philosophy enthusiasts who are majoring or minoring in another field to come together to philosophize.",
+            "president": {
+                "name": "Rhiannon Gabrielsen-Shimp",
+                "email": "rmgabrielsenshim@willamette.edu"
+            },
+            "advisor": {
+                "name": "Anthony Coleman",
+                "email": "colemana@willamette.edu"
+            }
+        },
+        "Physics Club": {
+            "description": "It is the mission of the Physics Club to create a supportive student community focused on expanding aerospace and other relevant physical knowledge.",
+            "president": {
+                "name": "Cole Debois",
+                "email": "cndebois@willamette.edu"
+            },
+            "advisor": {
+                "name": "Rick Watkins",
+                "email": "rwatkins@willamette.edu"
+            }
+        },
+        "Psychology Club": {
+            "description": "It is the mission of the Psychology Club to be a place for those interested in psychology regardless of major to come together, discuss, and promote the academic discipline we enjoy. We aim to connect and make accessible the field of psychology with the larger Willamette community and beyond.",
+            "president": {
+                "name": "Fiona McKellar",
+                "email": "kgmckellar@willamette.edu"
+            },
+            "advisor": {
+                "name": "Jeremy Miller",
+                "email": "millerj@willamette.edu"
+            }
+        },
+        "Slavic Club": {
+            "description": "The purpose of the Slavic Club is to promote awareness and a greater appreciation of the Slavic culture and also to provide an opportunity for students of the Slavic Department to associate and socialize.",
+            "president": {
+                "name": "Eleanor Smith",
+                "email": "essmith@willamette.edu"
+            },
+            "advisor": {
+                "name": "Sarah Bishop",
+                "email": "sbishop@willamette.edu"
+            }
+        }
+    }, 
+    "Fraternity and Sorority Life": {
+        "Interfraternity Council": {
+            "description": "IFC is the governing body for the men's fraternities, composed of elected representatives from each of Willamette's fraternities.",
+            "president": {
+                "name": "Aaron Perez-Sales",
+                "email": "amperezsales@willamette.edu"
+            },
+            "advisor": {
+                "name": "Lisa Holliday",
+                "email": "lcjones@willamette.edu"
+            }
+        }, 
+        "Kappa Sigma Theta Delta": {
+            "description": "By striving for excellence in Kappa Sigma's Four Pillars of Fellowship, Leadership, Scholarship, and Service, we seek to produce Brothers who are involved in all aspects of compus life; who excel academically as students and professionally upon graduation; who develop lifelong bonds with those around them and who aupport those peers; and who serve their colleges and communities.",
+            "president": {
+                "name": "Joel Garcia-Pena",
+                "email": "jgarciapena@willamette.edu"
+            },
+            "advisor": {
+                "name": "Edgar Nevarez Lechuga",
+                "email": "enevarez@willamette.edu"
+            }
+        },
+        "Sigma Chi": {
+            "description": "The purpose of this fraternity shall be to cultivate and maintain the high ideals of friendship, justice and learning upon which Sigma Chi was founded.",
+            "president": {
+                "name": "Dylan Green",
+                "email": "dgreen@willamette.edu"
+            },
+            "advisor": {
+                "name": "Emilio Solano",
+                "email": "easolano@willamette.edu"
+            }
+        },
+        "Panhellenic Council": {
+            "description": "PHC is the governing body for the women's sororities, composed of elected representatives from each of Willamette's three sororities.",
+            "president": {
+                "name": "Nora Wade",
+                "email": "nmwade@willamette.edu"
+            },
+            "advisor": {
+                "name": "Lisa Holliday",
+                "email": "lcjones@willamette.edu"
+            }
+        },
+        "Alpha Chi Omega": {
+            "description": "Alpha Chi Omega seeks to positively contribute to our surrounding community through philanthropy, educational activities and social events. We strive for excellence in academics, leadership, responsibility, character, and seek to create strong bonds of friendship among our members.",
+            "president": {
+                "name": "Allison Ruskell",
+                "email": "akruskell@willamette.edu"
+            },
+            "advisor": {
+                "name": "Anne Lapour",
+                "email": "aslapour@willamette.edu"
+            }
+        }, 
+        "Alpha Phi": {
+            "description": "Alpha Phi is a women's fraternity that seeks the highest ideals of womanhood through sisterhood, scholarship, service, leadership, loyalty, and character development.",
+            "president": {
+                "name": "Alexia Gookin-Lopez",
+                "email": "aagoonkinlopez@willamette.edu"
+            },
+            "advisor": {
+                "name": "Sarah Schollmeyer",
+                "email": "sschollmeyer@willamette.edu"
+            }
+        }
+    }, 
+    "Honorary": {
+        "Delta Alpha Phi": {
+            "description": "Delta Alpha Phi is an academic honor society founded to recognize high-achieving students with disabilites. This dynamic organization celebrates and supports academic achievement, leadership, and advocacy for post-secondary students with disabilities.",
+            "president": {
+                "name": "Christie Spring",
+                "email": "cspring@willamette.edu"
+            },
+            "advisor": {
+                "name": "Jeff Larson",
+                "email": "jlarson2@willamette.edu"
+            }
+        }, 
+        "Sigma Tau Delta": {
+            "description": "We are Sigma Tau Delta.",
+            "president": {
+                "name": "Hailey Nelson",
+                "email": "hnelson2@willamette.edu"
+            },
+            "advisor": {
+                "name": "Teresa Hernandez",
+                "email": "thernandez@willamette.edu"
+            }
+        }
+    },
+    "Media": {
+        "Radio Club": {
+            "description": "The Radio Club exists to provide a space for students to have radio shows to share music.",
+            "president": {
+                "name": "Savanna Starks",
+                "email": "spstarks@willamette.edu"
+            },
+            "advisor": {
+                "name": "Heather Kropf",
+                "email": "hkropf@willamette.edu"
+            }
+        },
+        "The Collegian": {
+            "description": "The Collegian strives to teach journalistic skills and ethics while providing Willamette's weekly student paper.",
+            "president": {
+                "name": "Eleanor Hu",
+                "email": "erhu@willamette.edu"
+            },
+            "advisor": {
+                "name": "Sarah Schneider",
+                "email": "saschneider@willamette.edu"
+            }
+        },
+        "The Mill": {
+            "description": "The Mill exists primarily to publish a magazine of student literary work but also to promote literary art on campus more broadly.",
+            "president": {
+                "name":"Lilly Thies",
+                "email": "lathies@willamette.edu"
+            },
+            "advisor": {
+                "name": "Scott Nadelson",
+                "email": "snadelso@willamette.edu"
+            }
+        }
+    },
+    "Cultural": {
+        "Alianza": {
+            "description": "The purpose of Alianza is to promote the Latino culture as well as empower the outer Latin community in effort to seek a higher education. We will provide the campus with ethnic celebrations, films, speakers, and a supportive environmnet for multicultural students through potlucks, trips, and other cultural gatherings.",
+            "president": {
+                "name": "Eduardo Ojeda-Sierra",
+                "email": "eojedasierra@willamette.edu"
+            },
+            "advisor": {
+                "name": "Emilio Solano",
+                "email": "easolano@willamette.edu"
+            }
+        },
+        "Asian Coalition for Equality": {
+            "description": "The mission of the Asian Coalition for Equality (ACE) is to educate and promote interest in awareness of Asian American issues within the Willamette University community through the use of films, lectures, outings, and other events. ACE will also attend events of groups that we recognize in solidarity on campus. These include groups representing marginalized students, groups centered around activism, and groups holding educational or informational events. ACE is here to conduct Asian American education and activism, but we also seek to build connections and support other groups representing marginalized populations on campus.",
+            "president": {
+                "name": "Lexie Burns",
+                "email": "lkburns@willamette.edu"
+            },
+            "advisor": {
+                "name": "Aili Zheng",
+                "email": "azheng@willamette.edu"
+            }
+        },
+        "Black Student Union": {
+            "description": "The Black Student Union is dedicated to the unification and healing of African-Americans, people of African descent and others that are part of the African Diaspora through self-determination, cultural education, and academic excellence. Through the Implementation of these principles and others, the Black Student Union will strive to continue the struggle for Black liberation and the liberation of all.",
+            "president": {
+                "name": "Kayla Davis",
+                "email": "ktdavis@willamette.edu"
+            },
+            "advisor": {
+                "name": "Quinn Nottage",
+                "email": "qnottage@willamette.edu"
+            }
+        },
+        "Hawaii Club": {
+            "description": "The Hawaii Club strives to produce a more comfortable environment for students, both from Hawaii and those interested in the culture. It provides a support group that participates in activities, service projects, and educational programs, especially through the luau put on at the end of the school year. It also funtionas as a transitory resource to assist students while finding their niche at Willamette University.",
+            "president": {
+                "name": "Jace Higa",
+                "email": "jkhiga@willamette.edu"
+            },
+            "advisor": {
+                "name": "Heather Kitada-Smalley",
+                "email": "hsmalley@willamette.edu"
+            }
+        },
+        "Japanese Studies Student Leaders": {
+            "description": "JSSL is an organization open ot all students interested in Japan, with the purpose of organizing engaging academic activities centered around Japanese culture, society and language for the Willamette, TIUA and Salem communities.",
+            "president": {
+                "name": "Sean Olson",
+                "email": "sbolson@willamette.edu"
+            },
+            "advisor": {
+                "name": "Miho Fujiwara",
+                "email": "mfujiwara@willamette.edu"
+            }
+        },
+        "Jewish Student Union": {
+            "description": "This organization strives to provide a forum and community for Jewish students of WU to practice and talk about Jewish culture.",
+            "president": {
+                "name": "Theo Balwit",
+                "email": "tjbalwit@willamette.edu"
+            },
+            "advisor": {
+                "name": "Meredy Goldberg Edelson",
+                "email": "medelson@willamette.edu"
+            }
+        },
+        "Multicultural Book Club": {
+            "description": "Willamette's community deserves a safe space dedicated to the fostering of BIPOC and minoritized student's creative energies, whether that be in reflecting on representative literature oe engaging in cultural literary practices. Such a space, being the one the Multicultural Book Club endeavors to create, will allow students the comfort, community, and freedom to read and interact with the literature they so choose, while developing a unique individual literary taste without the pressure to conform to a singular narrative on what is or is not 'correct' literature.",
+            "president": {
+                "name": "Inez Anais Nieves",
+                "email": "ianieves@willamette.edu"
+            },
+            "advisor": {
+                "name": "Teresa Hernandez",
+                "email": "thernandez@willamette.edu"
+            }
+        },
+        "Multiracial Collective": {
+            "description": "The Multicultural Collective seeks to create community among bi/multi-racial students, as well as connect members with community resources, hold multicultural events, and host multicultural speakers.",
+            "president": {
+                "name": "Rachel Oh",
+                "email": "rmoh@willamette.edu"
+            },
+            "advisor": {
+                "name": "Emilio Solano",
+                "email": "easolano@willamette.edu"
+            }
+        },
+        "Native & Indigenous Student Union (NISU)": {
+            "description": "The purpose of the Native and Indigenous Student Union is to enlighten its members to the cultural diversity of the Native American people. This association will help Native Americans to identify with an organization on campus and all other students of different origins to be enlightened by the activities, debates and lectures this association may offer.",
+            "president": {
+                "name": "Hattie Mercier",
+                "email": "hrmercier@willamette.edu"
+            },
+            "advisor": {
+                "name": "Reyna Meyers",
+                "email": "rmeyers@willamette.edu"
+            }
+        },
+        "Pro Immigrant Rights Student Union (PIRSU)": {
+            "description": "Pro Immigrant Right Student Union (PRISU) is a pro-immigrant rights organization. We represent a diverse group of activists who recognize that immigration affects the wider Willamette and Salem communiites. We advocate for human rights, equity, and justice by taking political action, spreading awareness, and educating the Willamette community and the broader public.",
+            "president": {
+                "name": "Samantha Nesta-Arteaga",
+                "email": "snestaarteaga@willamette.edu"
+            },
+            "advisor": {
+                "name": "Teresa Hernandez",
+                "email": "thernandez@willamette.edu"
+            }
+        },
+        "Sinophone Cultural Association": {
+            "description": "The Sinophone Cultural Association strives to bridge the gap between Chinese, Chinese American, and Willamette Students and to facilitate communication among these cultures on Willamette campus.",
+            "president": {
+                "name": "Emily Hanlin",
+                "email": "ehhanlin@willamette.edu"
+            },
+            "advisor": {
+                "name": "Huike Wen",
+                "email": "hwen@willamette.edu"
+            }
+        },
+        "South Asian Student Union": {
+            "description": "SASU aims to create a safe space for people who identify with South Asian heritage. Along with creating a sense of community, SASU hosts events relevant to South Asian culture such as Holi, Diwali, Lodi, and Eid.",
+            "president": {
+                "name": "Gia Patel",
+                "email": "ghpatel@willamette.edu"
+            },
+            "advisor": {
+                "name": "Sidd Saini",
+                "email": "ssaini@willamette.edu"
+            }
+        },
+        "Spanish Club": {
+            "description": "A club to provide resources to Willamette University students and offer the opportunity of knowledge about different Spanish speaking cultures and places.",
+            "president": {
+                "name": "Samantha Nesta-Arteaga",
+                "email": "snestaarteaga@willamette.edu"
+            },
+            "advisor": {
+                "name": "Gustavo Fonseca",
+                "email": "gfonseca@willamette.edu"
+            }
+        }
+    },
+    "Performing Arts": {
+        "Flow Arts Club": {
+            "description": "Flow Arts Club promotes, expresses and teaches the art of poi on the Willamette campus. We will gather regularly to practice and improve each others' skills. Performances will be in conjunction with other clubs at WU including but not limited to the DJ and Hawaii club. The tools used in poi are varied; the include poi balls, flowsticks, zuni, beaming poi and fine poi among others.",
+            "president": {
+                "name": "Francesca Finch",
+                "email": "frfinch@willamette.edu"
+            },
+            "advisor": {
+                "name": "Randall Havas",
+                "email": "rhavas@willamette.edu"
+            }
+        },
+        "Headband": {
+            "description": "Headband is a vivacious group of tenors, baritones, basses and vocal percussionists who perform contemporary a cappella music in a variety of genres! Headband performs on Willamette's campus, sings around Salem, travels to regional festivals, and competes in the International Competition of Collegiate A Cappella (you can check them out on YouTube and Spotify, too).",
+            "president": {
+                "name": "Ash Scott",
+                "email": "awscott@willamette.edu"
+            },
+            "advisor": {
+                "name": "Tyler Eaton",
+                "email": "teaton@willamette.edu"
+            }
+        },
+        "Millstream Sailors": {
+            "description": "An audition free, lower commitment, all-gender and voice inclusive a-capella group dedicated to singing sea shanties.",
+            "president": {
+                "name": "Tito Pyne",
+                "email": "crpyne@willamette.edu"
+            },
+            "advisor": {
+                "name": "Anna Song",
+                "email": "asong@willamette.edu"
+            }
+        },
+        "Student Theatre Arts Group for Equity": {
+            "description": "STAGE is dedicated to supporting and funding theatrical endeavors on campus. Their goal is to create more inclusidve student-led arts community on the Willamette campus as well as organize and support creative expression outside of the academic department.",
+            "president": {
+                "name": "Juno Tejchman",
+                "email": "jltejchman@willamette.edu"
+            },
+            "advisor": {
+                "name": "Susan Coromel",
+                "email": "scoromel@willamette.edu"
+            }
+        }, 
+        "Tandem": {
+            "description": "Tandem is a co-ed a capella choir that arranges, learns and performs a variety of popular music.",
+            "president": {
+                "name": "Ella Chatalas",
+                "email": "ezchatalas@willamette.edu"
+            },
+            "advisor": {
+                "name": "Anna Song",
+                "email": "asong@willamette.edu"
+            }
+        },
+        "Up Top": {
+            "description": "Up Top is a student-run treble a cappella musical group comprised of full-time Willamette students of any major. It strives to promote a creative and performance outlet through the process of performing and arranging ariginal and 'covered' vocal pieces.",
+            "president": {
+                "name": "Christina Kroker",
+                "email": "cakroker@willamette.edu"
+            },
+            "advisor": {
+                "name": "Kaelyn Kappes",
+                "email": "kkappes@willamette.edu"
+            }
+        },
+        "W Improv Posse": {
+            "description": "W Improv Posse meets to learn and practice the skills associated with improvisational comedy. We strive to educate people on the benefits of improv and stage confidence, including teamwork, communication, positivity, and adaptability.",
+            "president": {
+                "name": "Blue Kalmbach",
+                "email": "bskalmbach@willamette.edu"
+            },
+            "advisor": {
+                "name": "Chuck Williamson",
+                "email": "jcwillia@willamette.edu"
+            }
+        },
+        "Willamette Dance Company": {
+            "description": "The Willamette Dance Company is an organization of dancers and dance enthusiasts with the common goal of creating and performing a fall and spring dance concert.",
+            "president": {
+                "name": "Siera Ramchandani",
+                "email": "sramchandani@willamette.edu"
+            },
+            "advisor": {
+                "name": "Lisa Holliday",
+                "email": "lcjones@willamette.edu"
+            }
+        }
+    },
+    "Religious": {
+        "Campus Ambassadors": {
+            "description": "Campus Ambassadors Christian Fellowship desires to help students grow in the knowledge and love of God, guided by the authority of Scripture and prayer. We work to fulrill our mission through worship, Bible study, community service, daily prayer and retreats.",
+            "president": {
+                "name": "Serenna Thorsen",
+                "email": "slthorsen@willamette.edu"
+            },
+            "advisor": {
+                "name": "Sue Corner",
+                "email": "scorner@willamette.edu"
+            }
+        },
+        "InterVarsity Christian Fellowship": {
+            "description": "InterVarsity Christian Fellowship is a student-led organization that is working with Jesus to cause a revolution through which all students will experience the kingdom of God, be transformed by His love and be sent out to change the world. Students lead small group Bible studies and prayer meetings in order to know Jesus personally.",
+            "president": {
+                "name": "Sarah Jenner",
+                "email": "sejenner@willamette.edu"
+            },
+            "advisor": {
+                "name": "Sue Corner",
+                "email": "scorner@willamette.edu"
+            }
+        }
+    },
+    "Service": {
+        "Best Buddies": {
+            "description": "The Best Buddies Club at Willamette University aims to foster meaningul friendships between students and individuals with diabilities in the Salem community. Through one-on-one interactions and inclusive activites, we strive to promote social responsibility and create a supportive environment where everyone feels valued and accepted.",
+            "president": {
+                "name": "Nolan Wright",
+                "email": "nrwright@willamette.edu"
+            },
+            "advisor": {
+                "name": "Tommy Van Cleave",
+                "email": "tvancleave@willamette.edu"
+            }
+        }, 
+        "Burning Bright": {
+            "description": "Burning Bright provides a variety of opportunities to volunteer with children with serious illnesses. Opportunities include service at the hospital, fundraisers, organizational events and specialized camps.",
+            "president": {
+                "name": "Gavin Klipfel",
+                "email": "gsklipfel@willamette.edu"
+            },
+            "advisor": {
+                "name": "Eric Lassahn",
+                "email": "elassahn@willamette.edu"
+            }
+        },
+        "Sexual Assault Response Advocates": {
+            "description": "SARA aims to provide a safe group of trained volunteers to which survivors of sexual assault and their allies can go to seek support, advocacy, and information.",
+            "president": {
+                "name": "Amanda Padgett",
+                "email": "acpadgett@willamette.edu"
+            },
+            "advisor": {
+                "name": "Lisa Logan",
+                "email": "llogan@willamette.edu"
+            }
+        },
+        "Willamette Emergency Medical Services": {
+            "description": "To encourage and facilitate training of students expressing interests in emergency medical services to include but not limited to training in CPR and First Aid. To provide certification in CPR to the Willamette Community.",
+            "president": {
+                "name":"Milo Maltz",
+                "email": "lmmaltz@willamette.edu"
+            },
+            "advisor": {
+                "name": "Michael Lockhard",
+                "email": "mlockhard@willamette.edu"
+            }
+        }
+    },
+    "Social and Support": {
+        "Art Club": {
+            "description": "Art Club is a casual place for people to come together and create art. We want to provide a space for people who aren't majors/minors and don't have regular access to art supplies to meet and create. We want to bring Willamette's art community together.",
+            "president": {
+                "name": "Aissiatou Coyle",
+                "email": "amcoule@willamette.edu"
+            },
+            "advisor": {
+                "name": "Alexandra Opie",
+                "email": "aopie@willamette.edu"
+            }
+        }, 
+        "Associated Students of Willamette University": {
+            "description": "The student governing body of the student government at Willamette University.",
+            "president": {
+                "name": "Anastasiia Lemesh",
+                "email": "avlemesh@willamette.edu"
+            },
+            "advisor": {
+                "name": "Lisa Holliday",
+                "email": "lcjones@willamette.edu"
+            }
+        },
+        "Choice Action Team": {
+            "description": "Choice Action Team is associated with the nationwide organization Reproductive Freedom for All. Our mission is to advocate for reproductive justice throguh volunteer work, legislative action, and community organizing.",
+            "president": {
+                "name": "Morgan Watenpaugh",
+                "email": "mwatenpaugh@willamette.edu"
+            },
+            "advisor": {
+                "name": "Lisa Logan",
+                "email": "llogan@willamette.edu"
+            }
+        },
+        "Climate Action Alliance": {
+            "description": "Climate Action Alliance is meant to provide opportunities to learn about and engage in sustainability, environmental justice, and other relevant topics.",
+            "president": {
+                "name": "Megan McNaughton",
+                "email": "mgmcnaughton@willamette.edu"
+            },
+            "advisor": {
+                "name": "Janet Lorenzen",
+                "email": "jalorenze@willamette.edu"
+            }
+        },
+        "College Democrats": {
+            "description": "Willamette College Democrats will serve as a source of ideas, organization, and activism directed towards supporting the community members of WU who seek to gain experience in local, state, or national politics through voter education, voter registration, get out the vote efforts, as well as those who seek to gain experience by aiding candidates or campaigns aligned with the ideals found within the platform, heritage, or future direction of the Democratic Party.",
+            "president": {
+                "name": "Josiah Southern",
+                "email": "brsouthern@willamette.edu"
+            },
+            "advisor": {
+                "name": "Richard Ellis",
+                "email": "rellis@willamette.edu"
+            }
+        },
+        "Cult Cinema Club": {
+            "description": "The mission of the Cult Cinema Club is to serve as a safe and welcoming space for people to explore new films they have never seen and to form new relationships with one another through the showing of films publicly for the Willamette Community and privately for club members.",
+            "president": {
+                "name": "Charis Brown",
+                "email": "cmbrown@willamette.edu"
+            },
+            "advisor": {
+                "name": "Ambrin Ling",
+                "email": "aling@willamette.edu"
+            }
+        },
+        "Disability Advocacy Club": {
+            "description": "To provide a safe community and uplifting environment for current students with disabilities, as well as their allies.",
+            "president": {
+                "name": "Maxwell Bachmann",
+                "email": "mcbachmann@willamette.edu"
+            },
+            "advisor": {
+                "name": "Justin Leibowitz",
+                "email": "jleibowitz@willamette.edu"
+            }
+        },
+        "Fabric, Yarn, and Textiles Club": {
+            "description": "Fabric Yarn and Textile club will meet with the purpose of building community and giving back to the larger Salem community through craft projects.",
+            "president": {
+                "name": "Abigail Macalpine",
+                "email": "ajmacalpine@willamette.edu"
+            },
+            "advisor": {
+                "name": "David Altman",
+                "email": "daltman@willamette.edu"
+            }
+        },
+        "Millstream Adventurer's Guild": {
+            "description": "The vision of the Millstream Adventurer's Guild is to be a vibrant hub where creativity, teamwork, and adventure flourish through the magic of shared narratives and storytelling. We are dedicated to fostering an inclusive, imaginative, and collaborative community.",
+            "president": {
+                "name": "Diego Diaz",
+                "email": "ddiaz2@willamette.edu"
+            },
+            "advisor": {
+                "name": "Josh Laison",
+                "email": "jlaison@willamette.edu"
+            }
+        },
+        "Millstream Board Games Collective": {
+            "description": "The Millstream Board Games Collective seeks to provide a sense of community for students, offering a safe, equitable, and inviting space to enjoy games through play, conversation, and creation.",
+            "president": {
+                "name": "Eclipse Albert",
+                "email": "elalbert@willamette.edu"
+            },
+            "advisor": {
+                "name": "Josh Laison",
+                "email": "jlaison@willamette.edu"
+            }
+        },
+        "Mushroom Club": {
+            "description": "Mushroom Club's purpose is to create and facilitate an environment where people can learn about and participate in finding and growing mushrooms.",
+            "president": {
+                "name": "Ashton Ellis",
+                "email": "aellis@willamette.edu"
+            },
+            "advisor": {
+                "name": "Nikola Douglas-Tavani",
+                "email": "ndouglastavani@willamette.edu"
+            }
+        },
+        "Neurodivergent Student Union": {
+            "description": "The mission of this organization is to be a community space for neurodivergent students to create relationships with others like them, to offer support with navigating university resources, and to educate the community about Autism, ADHD, ADD, and neurodiversity.",
+            "president": {
+                "name": "Emory Lindblad",
+                "email": "salindblad@willamette.edu"
+            },
+            "advisor": {
+                "name":"Karen Holman",
+                "email": "kholman@willamette.edu"
+            }
+        },
+        "New Roots Non Traditional Student Union": {
+            "description": "Non Traditional Student Union creates a safe space for non traditional students to connect with each other and share experiences while also connecting to the larger Willamette community.",
+            "president": {
+                "name": "Lucas Morales",
+                "email": "ldmorales@willamette.edu"
+            },
+            "advisor": {
+                "name": "Ryan Wegryzn",
+                "email": "rwegrzyn@willamette.edu"
+            }
+        },
+        "Poetry Club": {
+            "description": "A community of poets dedicated to creating a safe space to write and share art with each other and the greater community.",
+            "president": {
+                "name": "Arlo Craft",
+                "email": "akcraft@willamette.edu"
+            },
+            "advisor": {
+                "name": "Karen Delsman",
+                "email": "kidelsman@willamette.edu"
+            }
+        },
+        "Queer Literary Society": {
+            "description": "It is the mission of the Queer Literary Society to foster an inclusive, open, and diverse environment through the exploration of queer literature and media.",
+            "president": {
+                "name": "Keegan Stershic",
+                "email": "krstershic@willamette.edu"
+            },
+            "advisor": {
+                "name": "Jodi Santillie",
+                "email": "jsantillie@willamette.edu"
+            }
+        },
+        "Queer Student Union": {
+            "description": "The Queer Student Union is dedicated to providing support, resources, and visibility for queer students in the Willamette community. We aim to build community and create a welcoming space for organizing towards queer liberation that celebrates all intersections of identitty held by our members.",
+            "president": {
+                "name": "Spencer Finden",
+                "email": "nefiden@willamette.edu"
+            },
+            "advisor": {
+                "name": "Lisa Logan",
+                "email": "llogan@willamette.edu"
+            }
+        }, 
+        "Restorative Justic Coalition": {
+            "description": "This group will share information in regards to and advocate for reformation of criminal justice.",
+            "president": {
+                "name": "Sara McNaughton",
+                "email": "scmcnaughton@willamette.edu"
+            },
+            "advisor": {
+                "name": "Melissa Buis",
+                "email": "mbuis@willamette.edu"
+            }
+        },
+        "Student Athlete Advisory Committee": {
+            "description": "The mission of the NCAA Divison III Student-Athlete Advisory Committee (SAAC) is to enhance the total student-athlete experience by promoting opportunity for all student-athletes; protecting student-athlete welfare; and fostering a positive student-athlete image, while maintaining the tenets of the Divison III philosophy.",
+            "president": {
+                "name": "Tenly Grant",
+                "email": "tpgrant@willamette.edu"
+            },
+            "advisor": {
+                "name": "Brent Summers",
+                "email": "bmsummers@willamette.edu"
+            }
+        }, 
+        "Students for a Democratic Society": {
+            "description": "The mission of SDS is to achieve genuine democracy in all aspects of society.",
+            "president": {
+                "name": "Sophie Gelfand",
+                "email": "svgelfand@willamette.edu"
+            },
+            "advisor": {
+                "name": "Seth Cotlar",
+                "email": "scotlar@willamette.edu"
+            }
+        },
+        "Video Game Club": {
+            "description": "It is the mission of the Video Game Club to promote teamwork and communication between video gamers on cmapus, and build an environment of harassment-free sportsmanship through on-campus competition.",
+            "president": {
+                "name": "Fenn Corsello",
+                "email": "fjcorsello@willamette.edu"
+            },
+            "advisor": {
+                "name": "Calvin Deutschbein",
+                "email": "ckdeutschbein@willamette.edu"
+            }
+        }, 
+        "Willamette Events Board": {
+            "description": "The purpose of Willamette Events Board is to provide programs that complement, reflect and respond to the Willamette University community. These programs shall be designed to be an educational experience for those involved in planning and presenting of the programs, as well as those who participate. These programs should remain consistent with stated objectives, regulations, and missions of the Office of Student Engagement & Leadership and Willamette University.",
+            "president": {
+                "name": "Maya Talia",
+                "email": "mctalia@willamette.edu"
+            },
+            "advisor": {
+                "name": "Jodi Santillie",
+                "email": "jsantillie@willamette.edu"
+            }
+        },
+        "WU Bird Nerds": {
+            "description": "This club focuses on the study of birds on and around the WU campus. By leading bird-watching groups to increase student interest in the local birds, we will monitor bird populations and explore our local natural history.",
+            "president": {
+                "name": "David Gregg",
+                "email": "dgregg@willamette.edu"
+            },
+            "advisor": {
+                "name": "David Craig",
+                "email": "dpcraig@willamette.edu"
+            }
+        }
+    },
+    "Sports and Recreational": {
+        "Basketball Club": {
+            "description": "A club where that meets weekly to practice and/or play basketball, and will compete as a group outside of the Willamette community.",
+            "president": {
+                "name": "Joaquin Ocana",
+                "email": "jaocana@willamette.edu"
+            },
+            "advisor": {
+                "name": "Quinn Nottage",
+                "email": "qnottage@willamette.edu"
+            }
+        },
+        "Bearcat Bowling League": {
+            "description": "A club dedicated to getting WU students engaged with the Salem community through bowling.",
+            "president": {
+                "name":"Izzy Long-McGie",
+                "email": "ijlongmcgie@willamette.edu"
+            },
+            "advisor": {
+                "name": "None",
+                "email": "None"
+            }
+        },
+        "Castaway Club": {
+            "description": "Castaway Club is dedicated to fostering a passion for fishing while promoting environmental stewardship and inclusivity.",
+            "president": {
+                "name": "Eyan Hackney",
+                "email": "emhackney@willamette.edu"
+            },
+            "advisor": {
+                "name": "David Craig",
+                "email": "dpcraig@willamette.edu"
+            }
+        },
+        "Bearcat Cheer": {
+            "description": "We are Bearcat Cheer.",
+            "president": {
+                "name": "Tabi Momeyer",
+                "email": "tmmomeyer@willamette.edu"
+            },
+            "advisor": {
+                "name": "Quinn Nottage",
+                "email": "qnottage@willamette.edu"
+            }
+        },
+        "Willamette Men's Rugby Club": {
+            "description": "Men's Rugby plays a challenging schedule in both the fall and spring semesters, and tour all over the country - from home games at McCulloch Stadium to campuses across the Northwest and California. Students with any ability level are welcome! Live your golden years playing the greatest sport in the world, and forming friendships you'll have the rest of your life. GO BEARCATS!!",
+            "president": {
+                "name": "Ben Randall",
+                "email": "btrandall@willamette.edu"
+            },
+            "advisor": {
+                "name": "Quinn Nottage",
+                "email": "qnottage@willamette.edu"
+            }
+        },
+        "Nerf Club": {
+            "description": "The Nerf Club fosters a safe, friendly, social, and inclusive community centered around the Nerfing hobby.",
+            "president": {
+                "name": "Kai Bernstein-Lawler",
+                "email": "kbernsteinlawler@willamette.edu"
+            },
+            "advisor": {
+                "name": "Quinn Nottage",
+                "email": "qnottage@willamette.edu"
+            }
+        }, 
+        "Outdoor Program": {
+            "description": "The Outdoor Program aims to provide students with accessible opportunities to engage in outdoor recreation.",
+            "president": {
+                "name": "Kira Grimes",
+                "email": "kmgrimes@willamette.edu"
+            },
+            "advisor": {
+                "name": "Sarah Schneider",
+                "email": "saschneider@willamette.edu"
+            }
+        },
+        "Pickleball Club": {
+            "description": "Pickleball Club is open to all who would like to play Pickleball a few times a week.",
+            "president": {
+                "name": "Caroline Wagoner",
+                "email": "ccwagoner@willamette.edu"
+            },
+            "advisor": {
+                "name": "Raechelle Mascarenhas",
+                "email": "rmascare@willamette.edu"
+            }
+        },
+        "Swim Club": {
+            "description": "The Willamette Swim Club aims to provide an environment for swimmers on Willamette's campus to participate in structured club workouts and meetings with the central goal of building community around recreational group exercise.",
+            "president": {
+                "name": "Gavin Klipfel",
+                "email": "gsklipfel@willamette.edu"
+            },
+            "advisor": {
+                "name": "Sydney Kanne",
+                "email": "skanne@willamette.edu"
+            }
+        },
+        "Tennis Club": {
+            "description": "A non-competitive club for people wanting to play tennis. Meets twice a week as weather permits. Club members can come with any skill level to rally, play matches, or even learn new strokes and the rules of the game.",
+            "president": {
+                "name": "Grace Corsac",
+                "email": "gmcorsac@willamette.edu"
+            },
+            "advisor": {
+                "name": "Annette Hulbert",
+                "email": "ahulbert@willamette.edu"
+            }
+        },
+        "Ultimate Frisbee": {
+            "description": "This club exists to play Ultimate Frisbee and lots of it. Group members strive to develop skills, play in intercollegiate games and tournaments and to have fun in every weather condition.",
+            "president": {
+                "name": "Mitch Septoff",
+                "email": "mdseptoff@willamette.edu"
+            },
+            "advisor": {
+                "name": "Quinn Nottage",
+                "email": "qnottage@willamette.edu"
+            }
+        },
+        "Volleyball Club": {
+            "description": "This organization seeks to gather students of Willamette University to play volleyball and increase their skills in the sport.",
+            "president": {
+                "name": "Juaren Bongadillo",
+                "email": "jbongadillo@willamette.edu"
+            },
+            "advisor": {
+                "name": "Quinn Nottage",
+                "email": "qnottage@willamette.edu"
+            }
+        },
+        "Willamette Rugby Football Club": {
+            "description": "Our purpose at Willamette University is to promote the love of rugby in a positive and fun manner by providing women, non-binary, and transgender folks with a fun and athletic pastime outside of varsity sports. By participating in Willamette Rugby Football Club, students have a chance to participate in a unique sport and get involved in the Willamette community.",
+            "president": {
+                "name": "Grace Jackson",
+                "email": "gajackson@willamette.edu"
+            },
+            "advisor": {
+                "name": "Quinn Nottage",
+                "email": "qnottage@willamette.edu"
+            }
+        },
+        "Willamette Soccer Club": {
+            "description": "The Willamette Soccer Club provides students the opportunity to play competitive soccer.",
+            "president": {
+                "name": "Forrest Davis",
+                "email": "fsdavis@willamette.edu"
+            },
+            "advisor": "Quinn Nottage",
+            "email": "qnottage@willamette.edu"
+        }
+    }
+}

@@ -1,0 +1,84 @@
+/* AUTH FORM */
+.form-container {
+  width: 400px;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+.signin-form {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #e3e3e3;
+  border-radius: 16px;
+  box-sizing: border-box;
+  font-family: Source Sans Pro;
+  left: 0;
+  padding: 48px;
+  text-align: left;
+}
+
+.signin-form label {
+  display: inline-block;
+  font-family: Source Sans Pro;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 10px 0 0;
+}
+
+.signin-form input {
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin: 6px 0;
+  padding: 14px;
+  width: 100%;
+}
+
+.default-button {
+  display: block;
+  margin: auto;
+  margin-top: 16px;
+  padding: 8px 16px;
+  background-color: #04AA6D;
+  color: white;
+  border: none;
+  font-size: 18px;
+  width: 200px;
+  border-radius: 25px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.sign-up-button {
+  display: block;
+  margin: auto;
+  margin-top: 16px;
+  padding: 8px 16px;
+  background-color: black;
+  color: white;
+  border: none;
+  font-size: 18px;
+  width: 200px;
+  border-radius: 25px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.error-box {
+  text-align: center;
+  padding: .25em .5em;
+  margin-top: 40px;
+}
+
+.error-box .message p {
+  font-size: normal;
+  font-weight: 700;
+}
+
+.t-center {
+  text-align: center;
+}

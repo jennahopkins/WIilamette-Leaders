@@ -1,0 +1,11 @@
+Django
+Pillow
+django-ckeditor
+django-environ
+argon2-cffi
+argon2-cffi-bindings
+psycopg2-binary
+django-seed
+requests
+bs4
+daphne

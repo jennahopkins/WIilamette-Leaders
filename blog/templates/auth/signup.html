@@ -1,0 +1,43 @@
+ {% extends "base.html" %}
+
+{% block head %}
+{% load static %}
+<link rel="stylesheet" href="{% static '/css/auth.style.css' %}" />
+<script src='https://www.google.com/recaptcha/api.js'></script>
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+<form method="post" action="{% url 'signup' %}" class="signup-form" id="signup-form">
+{% csrf_token %}
+
+<h1 class="t-center">Sign Up</h1>
+{{ form.email.label_tag }}
+{{ form.email }}
+
+{{ form.password.label_tag }}
+{{ form.password }}
+
+<input type="hidden" name="next" value="{{ next }}">
+<button class="g-recaptcha default-button"
+data-sitekey="{{site_key}}"
+data-callback='signup'
+data-action='submit'>Sign Up</button>
+
+
+<div class="error-box">
+  {% if errors %}
+  <div class="message">
+    <p>Credentials didn't match.</p>
+    <p>Please try again.</p>
+  </div>
+  {% endif %}
+</div>
+</form>
+</div>
+<script>
+  function login(token) {
+    document.getElementById("signup-form").submit();
+  }
+</script>
+{% endblock %}
