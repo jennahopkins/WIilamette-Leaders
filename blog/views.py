@@ -14,6 +14,7 @@ from django.conf import settings
 
 from .forms import LoginForm
 from django.contrib.auth.views import LoginView
+import json
 
 class HomeView(base.View):
 
@@ -333,15 +334,21 @@ class CKEditor(FormView):
 class LoginView(LoginView):
   template_name = 'auth/login.html'
   form_class = LoginForm
+
   def post(self, request):
-    isRecaptchaValid = recaptchaCheck(request.POST['g-recaptcha-response'])
+    form = LoginForm(request=request, data=request.POST)
+    if form.errors:
+      return render(request, 'auth/login.html', {"errors": form.errors, "form": form, "site_key": settings.RECAPTCHA_SITE_KEY})
+    return redirect('/')
+    
+    """isRecaptchaValid = recaptchaCheck(request.POST['g-recaptcha-response'])
     if isRecaptchaValid:
       form = LoginForm(request=request, data=request.POST)
       if form.errors:
         return render(request, 'auth/login.html', {"errors": form.errors, "form": form, "site_key": settings.RECAPTCHA_SITE_KEY})
-      return redirect(reverse('home'))
+      return redirect('/')
     else:
-      return HttpResponse('Recaptcha is not valid')
+      return HttpResponse('Recaptcha is not valid')"""
 
 class SignupView(LoginView):
   template_name = 'auth/signup.html'
@@ -352,7 +359,7 @@ class SignupView(LoginView):
       form = SignupForm(request=request, data=request.POST)
       if form.errors:
         return render(request, 'auth/signup.html', {"errors": form.errors, "form": form, "site_key": settings.RECAPTCHA_SITE_KEY})
-      return redirect(reverse("home"))
+      return redirect(reverse("signup"))
     else:
       return HttpResponse('Recaptcha is not valid')
 
@@ -377,6 +384,6 @@ edit_about_view = CKEditor.as_view(extra_context=set_context('edit-about'))
 edit_article_view = CKEditor.as_view(extra_context=set_context('edit-article'))
 
 login_view = LoginView.as_view(extra_context={'site_key': settings.RECAPTCHA_SITE_KEY})
-signup_view = SignupView.as_view(extra_context={'site_key': settings.RECAPTCHA_SITE_KEY})
+signup_view = SignupView.as_view()
 logout_view = LogoutView.as_view()
 not_found = NotFound.as_view()

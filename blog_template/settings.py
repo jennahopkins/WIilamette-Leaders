@@ -14,7 +14,7 @@ from ckeditor.configs import DEFAULT_CONFIG  # noqa
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/home"
 environ.Env.read_env(os.path.join(BASE_DIR + '/w3s-dynamic-storage', '.env'))
 env = environ.Env()
 

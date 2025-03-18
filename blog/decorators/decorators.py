@@ -17,7 +17,7 @@ def authentication_required(view_func, redirect_url="/not-found"):
     return redirect(redirect_url)
   return wrapper
 
-def if_authenthicated_redirect_from_login(view_func, redirect_url="/"):
+def if_authenthicated_redirect_from_login(view_func, redirect_url="/home"):
   """
       this decorator ensures that if a user is logged in,
       and if a user goes to a login route,

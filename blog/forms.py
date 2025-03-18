@@ -38,12 +38,13 @@ class LoginForm(AuthenticationForm):
 
   class Meta:
     model = User
-    fields = ('email', 'password',)
+    fields = ('username', 'password',)
 
   def clean(self, *args, **kwargs):
-    email = self.cleaned_data.get('email')
+    username = self.cleaned_data.get('username')
     password = self.cleaned_data.get('password')
-    user = authenticate(self, email=email, password=password)
+    user = authenticate(self, username=username, password=password)
+    print("login successful")
     if user is not None:
       if not user:
         print('No user found')
@@ -73,12 +74,12 @@ class SignupForm(AuthenticationForm):
 
   class Meta:
     model = User
-    fields = ('email', 'password',)
+    fields = ('username', 'password',)
 
   def clean(self, *args, **kwargs):
-    email = self.cleaned_data.get('email')
+    username = self.cleaned_data.get('username')
     password = self.cleaned_data.get('password')
-    user = authenticate(self, email=email, password=password)
+    user = authenticate(self, username=username, password=password)
     if user is not None:
       if not user:
         print('No user found')

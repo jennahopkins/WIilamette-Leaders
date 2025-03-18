@@ -14,22 +14,27 @@ class Command(BaseCommand):
   json_data = json.load(json_file)
 
   
-  def seed_articles(self):
+  def seed_clubs(self):
     for club in self.json_data:
       self.seeder.add_entity(Club, 1, {
         'club_name': club,
-        'description': club['description'],
-        'president_name': club['president']['name'],
-        'president_email': club['president']['email'],
-        'advisor_name': club['advisor']['name']
-        'advisor_email': club['advisor']['email']
+        'description': self.json_data[club]['description'],
+        'president_name': self.json_data[club]['president']['name'],
+        'president_email': self.json_data[club]['president']['email']
+        #'advisor_name': self.json_data[club]['advisor']['name'],
+        #'advisor_email': self.json_data[club]['advisor']['email']
       })
-      president_user = User.objects.create_user(name = club['president']['name'], email = club['president']['email'])
-      president_user.save()
-      advisor_user = User.objects.create_user(name = club['advisor']['name'], email = club['advisor']['email'])
-      advisor_user.save()
-  jenna = User.objects.create_user(name = "Jenna Hopkins", email = "jhopkins2@willamette.edu", password = "jhopkins2")
-  jenna.save()
+      try:
+        User.objects.get(username = self.json_data[club]['president']['email'])
+        #User.objects.get(username = self.json_data[club]['advisor']['email'])
+      except User.DoesNotExist:
+        User.objects.create_user(username = self.json_data[club]['president']['email'])
+        #User.objects.create_user(username = self.json_data[club]['advisor']['email'])
+    
+    try:
+      User.objects.get(username="jhopkins2@willamette.edu")
+    except User.DoesNotExist:
+      User.objects.create_user(username = "jhopkins2@willamette.edu", password = "jhopkins2")
 
 
   def handle(self, *args, **options):
