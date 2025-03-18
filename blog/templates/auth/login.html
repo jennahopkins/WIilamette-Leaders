@@ -8,7 +8,7 @@
 
 {% block content %}
 <div class="form-container">
-<form method="post" action="{% url 'login' %}" class="signin-form" id="signin-form">
+<form method="post" action="{% url 'login-home' %}" class="signin-form" id="signin-form">
 {% csrf_token %}
 
 <h1 class="t-center">Sign In</h1>

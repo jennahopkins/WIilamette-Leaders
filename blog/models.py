@@ -2,6 +2,21 @@ from django.db import models
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 
+# models jenna made
+class Club(models.Model):
+  club_name = models.CharField(("club_name"), max_length = 500)
+  description = models.TextField(("description"))
+  president_name = models.CharField(("president_name"), max_length = 500)
+  president_email = models.EmailField(("president_email"), max_length = 100)
+  advisor_name = models.CharField(("advisor_name"), max_length = 500)
+  advisor_email = models.EmailField(("advisor_email"), max_length = 100)
+  class Meta:
+    verbose_name = "club"
+  
+  def __str__(self):
+      return self.club_name
+
+
 # Create your models here.
 class Article(models.Model):
   title = RichTextField(('title'), blank=True)
