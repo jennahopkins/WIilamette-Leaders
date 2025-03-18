@@ -44,7 +44,6 @@ class LoginForm(AuthenticationForm):
     username = self.cleaned_data.get('username')
     password = self.cleaned_data.get('password')
     user = authenticate(self, username=username, password=password)
-    print("login successful")
     if user is not None:
       if not user:
         print('No user found')

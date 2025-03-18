@@ -339,8 +339,8 @@ class LoginView(LoginView):
     form = LoginForm(request=request, data=request.POST)
     if form.errors:
       return render(request, 'auth/login.html', {"errors": form.errors, "form": form, "site_key": settings.RECAPTCHA_SITE_KEY})
-    return redirect('/')
-    
+    return redirect('/home')
+
     """isRecaptchaValid = recaptchaCheck(request.POST['g-recaptcha-response'])
     if isRecaptchaValid:
       form = LoginForm(request=request, data=request.POST)
