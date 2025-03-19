@@ -47,7 +47,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('content', models.TextField(verbose_name='content')),
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='created_at')),
-                ('article', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='blog.article')),
+                ('article', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='wuleaders.article')),
             ],
             options={
                 'verbose_name': 'comment',

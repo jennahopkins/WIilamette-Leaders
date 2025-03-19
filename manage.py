@@ -7,7 +7,7 @@ from django.core.management.commands.runserver import Command as runserver
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'blog_template.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'wuleaders_template.settings')
     runserver.default_port = '3000'
     runserver.default_addr = '0.0.0.0'
     try:

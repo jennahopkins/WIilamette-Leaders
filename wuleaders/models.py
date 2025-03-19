@@ -4,7 +4,7 @@ from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 
 # models jenna made
-"""class Post(models.Model):
+class Post(models.Model):
   image = models.ImageField(upload_to = "uploads/")
   #author = models.ManyToManyField(Club, on_delete = models.CASCADE)
   caption = RichTextField(("caption"), blank = True)
@@ -13,7 +13,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
     verbose_name = "post"
 
   def __str__(self):
-    return self.caption"""
+    return self.caption
 
 
 class Club(models.Model):
@@ -23,19 +23,19 @@ class Club(models.Model):
   president_email = models.EmailField(("president_email"), max_length = 100)
   advisor_name = models.CharField(("advisor_name"), max_length = 500)
   advisor_email = models.EmailField(("advisor_email"), max_length = 100)
-  #posts = models.ManyToManyField(Post)
+  posts = models.ManyToManyField(Post, blank = True)
   class Meta:
     verbose_name = "club"
 
-  """@property
+  @property
   def postlist(self):
-    return list(self.posts.all())"""
+    return list(self.posts.all())
   
   def __str__(self):
     return self.club_name
 
 
-"""class Member(models.Model):
+class Member(models.Model):
   user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete = models.CASCADE, primary_key = True)
   clubs = models.ManyToManyField(Club)
   class Meta:
@@ -54,7 +54,7 @@ class Club(models.Model):
     return self.user.email
 
   def __str__(self):
-    return self.name"""
+    return self.name
 
 
 

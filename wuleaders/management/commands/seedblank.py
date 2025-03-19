@@ -49,7 +49,7 @@ class Command(BaseCommand):
           os.makedirs(os.path.dirname(media_path))
         except:
           pass
-        static_path = os.path.join('/home/app/blog/static/img', img_file)
+        static_path = os.path.join('/home/app/wuleaders/static/img', img_file)
         shutil.copy(static_path, media_path)
       self.seeder.execute()
       print('Seeding database completed!')

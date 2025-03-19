@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog',
+    'wuleaders',
     'ckeditor',
     'ckeditor_uploader',
     'django_seed'
@@ -64,7 +64,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
 ]
 
-ROOT_URLCONF = 'blog_template.urls'
+ROOT_URLCONF = 'wuleaders_template.urls'
 
 TEMPLATES = [
     {
@@ -82,7 +82,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'blog_template.wsgi.application'
+WSGI_APPLICATION = 'wuleaders_template.wsgi.application'
 
 PASSWORD_HASHERS = [
   'django.contrib.auth.hashers.Argon2PasswordHasher',
