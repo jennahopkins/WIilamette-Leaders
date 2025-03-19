@@ -90,6 +90,86 @@ class HomeView(base.View):
       request.session['request_error'] = '500 - Server error.'
       return redirect(reverse("home"))
 
+
+class MemberHome(base.View):
+
+  def get(self, request):
+    is_auth = request.user.is_authenticated
+    context = {}
+    context['is_authenticated'] = is_auth
+    if 'request_error' in request.session:
+      # Can be:
+      # - Article not found.
+      # - 500 - Server error.
+      # - Server failed.
+      context['request_error'] = request.session['request_error']
+      del request.session['request_error']
+
+    member = 
+    try:
+      context['posts'] = 
+
+    try:
+      context['about'] = About.objects.get(id=1)
+    except About.DoesNotExist:
+      context['about'] = None
+      context['error'] = "About not found."
+    except Exception as e:
+      print(e)
+      context['about'] = None
+      context['error'] = '500 - Server error'
+    try:
+      articles = Article.objects.all().order_by('created_at').reverse()
+      context['articles'] = articles
+      for article in context['articles']:
+        try:
+          comments = Comment.objects.filter(article_id=article.id)
+        except Exception as e:
+          print(e)
+          comments=[]
+        titleParser = ArticleHTMLParser()
+        contentParser = ArticleHTMLParser()
+        contentParser.feed(article.content)
+        if(contentParser.sources and contentParser.sources[0]):
+          article.img_source = contentParser.sources[0]
+          article.content = re.sub("(<img.*?>)", "", article.content, 0, re.IGNORECASE | re.DOTALL | re.MULTILINE)
+          contentParser.sources.clear()
+        contentParser.data = ''
+        article.title = re.sub("(<img.*?>)", "", article.title, 0, re.IGNORECASE | re.DOTALL | re.MULTILINE)
+        titleParser.feed(article.title)
+        contentParser.feed(article.content)
+        if(len(titleParser.data) > 45):
+          slicer = slice(45)
+          article.title = titleParser.data[slicer] + '...'
+        else:
+          article.title = titleParser.data
+        article.content = contentParser.data
+        article.total_comments = len(comments)
+      return render(request, 'home.html', context)
+    except Exception as e:
+      print(e)
+      context['articles'] = None
+      context['error'] = '500 - Server error'
+      raise Http404
+
+  def post(self, request):
+    try:
+      id_list = [int(x) for x in request.POST['id-list'].split(',')]
+      for article_id in id_list:
+        article = Article.objects.get(id=article_id)
+        slug = article.slug
+        article.delete()
+        new_images_handler('delete', slug)
+      return redirect(reverse('home'))
+
+    except Article.DoesNotExist:
+      request.session['request_error'] = 'Article not found.'
+      return redirect(reverse('home'))
+    except Exception as e:
+      print(e)
+      request.session['request_error'] = '500 - Server error.'
+      return redirect(reverse("home"))
+
 class ArticleView(base.View):
 
   def get(self, request, slug):
