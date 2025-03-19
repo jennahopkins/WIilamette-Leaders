@@ -12,6 +12,10 @@ class Post(models.Model):
   class Meta:
     verbose_name = "post"
 
+  @property
+  def authors(self):
+    return list(self.authors.all())
+
   def __str__(self):
     return self.caption
 
@@ -23,13 +27,19 @@ class Club(models.Model):
   president_email = models.EmailField(("president_email"), max_length = 100)
   advisor_name = models.CharField(("advisor_name"), max_length = 500)
   advisor_email = models.EmailField(("advisor_email"), max_length = 100)
-  posts = models.ManyToManyField(Post, blank = True)
+  posts = models.ManyToManyField(Post, blank = True, related_name = "authors")
+  slug = models.CharField(("slug"), max_length=250)
   class Meta:
     verbose_name = "club"
+    constraints = [
+      models.UniqueConstraint(fields=['slug'], name='unique_slug')
+    ]
 
   @property
   def postlist(self):
-    return list(self.posts.all())
+    postlist = list(self.posts.all())
+    #order_by('created_at').reverse()
+    return sorted(postlist, key = lambda post: post.posted_at, reverse = True)
   
   def __str__(self):
     return self.club_name

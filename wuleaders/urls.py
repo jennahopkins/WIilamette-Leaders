@@ -11,6 +11,9 @@ urlpatterns = [
   path('', if_authenthicated_redirect_from_login(login_view), name='login-home'),
   path('signup', signup_view, name ="signup"),
   path('home', home_view, name = 'home'),
+  path('member-home', member_home_view, name = 'member-home'),
+  path('club/<str:slug>', club_page_view, name = "club-page"),
+
   path('new-article', authentication_required(new_article_view), name="new-article"),
   path('edit-about', authentication_required(edit_about_view), name="edit-about"),
   path('article/<str:slug>', article_view, name="article"),

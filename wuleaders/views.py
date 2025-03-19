@@ -91,7 +91,7 @@ class HomeView(base.View):
       return redirect(reverse("home"))
 
 
-class MemberHome(base.View):
+class MemberHomeView(base.View):
 
   def get(self, request):
     is_auth = request.user.is_authenticated
@@ -105,70 +105,81 @@ class MemberHome(base.View):
       context['request_error'] = request.session['request_error']
       del request.session['request_error']
 
-    member = 
-    try:
-      context['posts'] = 
+    member = Member.objects.get(user = request.user.id)
+    posts_dict = {}
+    posts_dates = []
+    for club in member.clublist:
+      for post in club.postlist:
+        posts_dict[post.posted_at] = post
+        posts_dates.append(post.posted_at)
+    posts_dates = sorted(posts_dates, reverse = True)
 
     try:
-      context['about'] = About.objects.get(id=1)
-    except About.DoesNotExist:
-      context['about'] = None
-      context['error'] = "About not found."
+      context['posts_dict'] = posts_dict
+      context['posts_dates'] = posts_dates
     except Exception as e:
       print(e)
-      context['about'] = None
       context['error'] = '500 - Server error'
-    try:
-      articles = Article.objects.all().order_by('created_at').reverse()
-      context['articles'] = articles
-      for article in context['articles']:
-        try:
-          comments = Comment.objects.filter(article_id=article.id)
-        except Exception as e:
-          print(e)
-          comments=[]
-        titleParser = ArticleHTMLParser()
-        contentParser = ArticleHTMLParser()
-        contentParser.feed(article.content)
-        if(contentParser.sources and contentParser.sources[0]):
-          article.img_source = contentParser.sources[0]
-          article.content = re.sub("(<img.*?>)", "", article.content, 0, re.IGNORECASE | re.DOTALL | re.MULTILINE)
-          contentParser.sources.clear()
-        contentParser.data = ''
-        article.title = re.sub("(<img.*?>)", "", article.title, 0, re.IGNORECASE | re.DOTALL | re.MULTILINE)
-        titleParser.feed(article.title)
-        contentParser.feed(article.content)
-        if(len(titleParser.data) > 45):
-          slicer = slice(45)
-          article.title = titleParser.data[slicer] + '...'
-        else:
-          article.title = titleParser.data
-        article.content = contentParser.data
-        article.total_comments = len(comments)
-      return render(request, 'home.html', context)
-    except Exception as e:
-      print(e)
-      context['articles'] = None
-      context['error'] = '500 - Server error'
-      raise Http404
 
+    return render(request, 'member-home.html', context)
+    
   def post(self, request):
     try:
       id_list = [int(x) for x in request.POST['id-list'].split(',')]
-      for article_id in id_list:
-        article = Article.objects.get(id=article_id)
-        slug = article.slug
-        article.delete()
-        new_images_handler('delete', slug)
-      return redirect(reverse('home'))
+      for post_id in id_list:
+        post = Post.objects.get(id=post_id)
+        #slug = article.slug
+        #article.delete()
+        #new_images_handler('delete', slug)
+      return redirect(reverse('member-home'))
 
-    except Article.DoesNotExist:
+    except Post.DoesNotExist:
       request.session['request_error'] = 'Article not found.'
-      return redirect(reverse('home'))
+      return redirect(reverse('member-home'))
     except Exception as e:
       print(e)
       request.session['request_error'] = '500 - Server error.'
-      return redirect(reverse("home"))
+      return redirect(reverse("member-home"))
+
+class ClubPageView(base.View):
+
+  def get(self, request, slug):
+    is_auth = request.user.is_authenticated
+    context = {}
+    context['is_authenticated'] = is_auth
+    context['site_key'] = settings.RECAPTCHA_SITE_KEY
+    referer = ''
+    if 'HTTP_REFERER' in request.META:
+      referer = request.META.get('HTTP_REFERER')
+    if 'request_error' in request.session:
+      # Can be:
+      # - Failed to save comment.
+      # - Failed to delete comment.
+      # - 500 - Server error.
+      if request.session['request_error'] == 'Failed to save comment.':
+        context['request_error_content'] = request.session['request_error_content']
+      context['request_error'] = request.session['request_error']
+      del request.session['request_error']
+    try:
+      club = Club.objects.get(slug = quote_plus(slug))
+      context['club'] = club
+      return render(request, 'club-page.html', context)
+    except Club.DoesNotExist:
+      raise Http404
+    except Exception as e:
+      print(e)
+      context['request_error'] = 'Server error'
+      return redirect(reverse('member-home'))
+
+  def post(self, request, slug):
+    is_auth = request.user.is_authenticated
+    context = {}
+    context['is_authenticated'] = is_auth
+    try:
+      club = Club.objects.get(slug = slug)
+
+    return redirect(reverse('club-page', args = [slug]))
+
 
 class ArticleView(base.View):
 
@@ -456,6 +467,8 @@ class NotFound(base.View):
     raise Http404
 
 home_view = HomeView.as_view()
+member_home_view = MemberHomeView.as_view()
+club_page_view = ClubPageView.as_view()
 
 article_view = ArticleView.as_view()
 

@@ -68,15 +68,15 @@
       New article button
     {% endcomment %}
     <section class="posts-gallery">
-    {% for post_date in posts_dates %}
+    {% for post in club.postlist %}
       <div class = "post">
         <figure>
-          <img class = "post_img", height = "50px", src = "{{posts_dict[post_date].image}}">
-          {% for author in posts_dict[post_date].authors %}
-            <h4 OnClick = "window.location.href = '/club/{{Club.objects.get(club_name = author).slug}}'">{{author}}</h4>
+          <img class = "post_img", height = "50px", src = "{{post.image}}">
+          {% for author in post.authors %}
+            <h4 OnClick = "window.location.href = '/club-page/{{Club.objects.get(club_name = author).slug}}'">{{author}}</h4>
           {% endfor %}
-          <h5>{{posts_dict[post_date].caption}}</h5>
-          <p>{{post_date}}</p>
+          <h5>{{post.caption}}</h5>
+          <p>{{post.posted_at}}</p>
         </figure>
       </div>
     {% endfor %}
