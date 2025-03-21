@@ -4,9 +4,8 @@ from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 
 # models jenna made
-class Post(models.Model):
+"""class Post(models.Model):
   image = models.ImageField(upload_to = "uploads/")
-  #author = models.ManyToManyField(Club, on_delete = models.CASCADE)
   caption = RichTextField(("caption"), blank = True)
   posted_at = models.DateTimeField(("posted_at"), auto_now = True)
   class Meta:
@@ -17,7 +16,7 @@ class Post(models.Model):
     return list(self.authors.all())
 
   def __str__(self):
-    return self.caption
+    return self.caption"""
 
 
 class Club(models.Model):
@@ -27,33 +26,66 @@ class Club(models.Model):
   president_email = models.EmailField(("president_email"), max_length = 100)
   advisor_name = models.CharField(("advisor_name"), max_length = 500)
   advisor_email = models.EmailField(("advisor_email"), max_length = 100)
-  posts = models.ManyToManyField(Post, blank = True, related_name = "authors")
+  #posts = models.ManyToManyField(Post, blank = True, related_name = "authors")
   slug = models.CharField(("slug"), max_length=250)
   class Meta:
     verbose_name = "club"
-    #constraints = [
-      #models.UniqueConstraint(fields=['slug'], name='unique_slug')
-    #]
+    constraints = [
+      models.UniqueConstraint(fields=['slug'], name='club_unique_slug')
+    ]
 
   @property
   def postlist(self):
     postlist = list(self.posts.all())
     #order_by('created_at').reverse()
     return sorted(postlist, key = lambda post: post.posted_at, reverse = True)
+
+  @property
+  def memberlist(self):
+    return list(self.member.all())
+
+  @property
+  def roledict(self):
+    roledict = {}
+    rolelist = list(self.role.all())
+    for role in rolelist:
+      roledict[role] = role.memberlist
+    return roledict
+
   
   def __str__(self):
     return self.club_name
 
 
+class Role(models.Model):
+  club = models.ForeignKey(Club, related_name = "role", on_delete = models.CASCADE)
+  role = models.CharField(("role"), max_length = 100)
+
+  @property
+  def memberlist(self):
+    return list(self.member.all())
+
+  def member(self):
+    return self.member
+
+  def __str__(self):
+    return self.role
+
+
 class Member(models.Model):
   user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete = models.CASCADE, primary_key = True)
-  clubs = models.ManyToManyField(Club)
+  clubs = models.ManyToManyField(Club, blank = True, related_name = "member")
+  roles = models.ManyToManyField(Role, blank = True, related_name = "member")
   class Meta:
     verbose_name = "member"
 
   @property
   def clublist(self):
     return list(self.clubs.all())
+
+  @property
+  def roleslist(self):
+    return list(self.roles.all())
 
   @property
   def name(self):
@@ -68,6 +100,8 @@ class Member(models.Model):
 
 
 
+
+
 # Create your models here.
 class Article(models.Model):
   title = RichTextField(('title'), blank=True)
@@ -79,9 +113,9 @@ class Article(models.Model):
   class Meta:
     verbose_name = "article"
     verbose_name_plural = 'articles'
-    #constraints = [
-      #models.UniqueConstraint(fields=['slug'], name='unique_slug')
-    #]
+    constraints = [
+      models.UniqueConstraint(fields=['slug'], name='article_unique_slug')
+    ]
   
   def __str__(self):
       return self.slug
