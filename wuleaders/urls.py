@@ -2,15 +2,18 @@ from django.urls import path
 from .views import *
 from .decorators.decorators import authentication_required, if_authenthicated_redirect_from_login
 import os, environ
+from. import views
 
 env = environ.Env()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 urlpatterns = [
-  path('', if_authenthicated_redirect_from_login(login_view), name='login-home'),
+  #path('', if_authenthicated_redirect_from_login(login_view), name='login-home'),
   path('signup', signup_view, name ="signup"),
   path('home', home_view, name = 'home'),
+  path('', home_view, name = "home"),
+  path("login", views.login_view, name = "login"),
   path('member-home', member_home_view, name = 'member-home'),
   path('club/<str:slug>', club_page_view, name = "club-page"),
 

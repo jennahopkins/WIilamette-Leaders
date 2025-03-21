@@ -1,11 +1,11 @@
 /* AUTH FORM */
-.form-container {
+.login-form-container {
   width: 400px;
   margin: 0 auto;
   margin-top: 100px;
 }
 
-.signin-form {
+.login-form {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -20,7 +20,7 @@
   text-align: left;
 }
 
-.signin-form label {
+.login-form label {
   display: inline-block;
   font-family: Source Sans Pro;
   font-size: 16px;
@@ -28,7 +28,7 @@
   margin: 10px 0 0;
 }
 
-.signin-form input {
+.login-form input {
   background-color: #fff;
   border: 1px solid #ced4da;
   border-radius: 4px;
@@ -38,12 +38,12 @@
   width: 100%;
 }
 
-.default-button {
+.login-button {
   display: block;
   margin: auto;
   margin-top: 16px;
   padding: 8px 16px;
-  background-color: #04AA6D;
+  background-color: #ec1818;
   color: white;
   border: none;
   font-size: 18px;

@@ -45,12 +45,17 @@
 
   <section class="articles-container">
     <div class="{% if is_authenticated %}heading-container-logged-in{% else %}heading-container-logged-out{% endif %}">
-      {% if is_authenticated %}
+      {% if user.is_authenticated %}
       <div class='new-article-container' onClick="window.location.href = '/new-article'">
         <button class="add-article-button"><img width="16px" height="16px" src="{% static 'img/plus-icon.png' %}" alt="plus-icon" /></button>
         <span class="add-article-text d-none-mobile">Add</span>
       </div>
+      <h3> Hi {{user.username}}!</h3>
+      {% else %}
+      <p> You are not logged in </p>
+      <a href = "{% url 'login' %}">Log In</a>
       {% endif %}
+
       <h1 class="article-gallery-title">Articles</h1>
       {% if is_authenticated %}
       <form method="POST" id="delete-article-form" name="delete-articles-form">

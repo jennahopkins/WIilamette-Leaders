@@ -31,9 +31,9 @@ class Club(models.Model):
   slug = models.CharField(("slug"), max_length=250)
   class Meta:
     verbose_name = "club"
-    constraints = [
-      models.UniqueConstraint(fields=['slug'], name='unique_slug')
-    ]
+    #constraints = [
+      #models.UniqueConstraint(fields=['slug'], name='unique_slug')
+    #]
 
   @property
   def postlist(self):
@@ -79,9 +79,9 @@ class Article(models.Model):
   class Meta:
     verbose_name = "article"
     verbose_name_plural = 'articles'
-    constraints = [
-      models.UniqueConstraint(fields=['slug'], name='unique_slug')
-    ]
+    #constraints = [
+      #models.UniqueConstraint(fields=['slug'], name='unique_slug')
+    #]
   
   def __str__(self):
       return self.slug

@@ -23,7 +23,7 @@ class CkEditorAboutForm(forms.Form):
   content = RichTextUploadingFormField(
     config_name="content-editor"
   )
-class LoginForm(AuthenticationForm):
+"""class LoginForm(AuthenticationForm):
   email = forms.CharField(
     label='Email:',
     widget=forms.TextInput()
@@ -55,10 +55,9 @@ class LoginForm(AuthenticationForm):
     elif user is None:
       print('Email or password are incorrect')
       raise forms.ValidationError('Email or password are incorrect')
-    return super(LoginForm, self).clean(*args, **kwargs)
+    return super(LoginForm, self).clean(*args, **kwargs)"""
 
-
-class SignupForm(AuthenticationForm):
+class LoginForm(forms.Form):
   email = forms.CharField(
     label='Email:',
     widget=forms.TextInput()
@@ -68,7 +67,17 @@ class SignupForm(AuthenticationForm):
     widget=forms.PasswordInput()
   )
 
-  def __init__(self, *args, **kwargs):
+class SignupForm(forms.Form):
+  email = forms.CharField(
+    label='Email:',
+    widget=forms.TextInput()
+  )
+  password = forms.CharField(
+    label='Password:', 
+    widget=forms.PasswordInput()
+  )
+
+  """def __init__(self, *args, **kwargs):
     super(SignupForm, self).__init__(*args, **kwargs)
 
   class Meta:
@@ -90,4 +99,4 @@ class SignupForm(AuthenticationForm):
     elif user is None:
       print('Email or password are incorrect')
       raise forms.ValidationError('Email or password are incorrect')
-    return super(SignupForm, self).clean(*args, **kwargs)
+    return super(SignupForm, self).clean(*args, **kwargs)"""

@@ -1,3 +1,4 @@
+import logging
 import re
 from urllib.parse import quote_plus
 from copy import deepcopy
@@ -11,10 +12,13 @@ from .forms import *
 from .utilities import *
 from django.contrib.auth import logout as custom_logout
 from django.conf import settings
+from django.contrib.auth.models import User
 
 from .forms import LoginForm
 from django.contrib.auth.views import LoginView
 import json
+
+logger = logging.getLogger(__name__)
 
 class HomeView(base.View):
 
@@ -177,7 +181,8 @@ class ClubPageView(base.View):
     context['is_authenticated'] = is_auth
     try:
       club = Club.objects.get(slug = slug)
-
+    except:
+      pass
     return redirect(reverse('club-page', args = [slug]))
 
 
@@ -422,37 +427,42 @@ class CKEditor(FormView):
       redirect_url = set_redirect_url(context['type'], slug)
       return redirect(redirect_url)
 
-class LoginView(LoginView):
-  template_name = 'auth/login.html'
-  form_class = LoginForm
+def login_view(request):
+  if request.method == "POST":
+    form = LoginForm(request.POST)
+    if form.is_valid():
+      email = form.cleaned_data['email']
+      password = form.cleaned_data['password']
+      user = authenticate(request, username = email, password = password)
+      if user is not None:
+        login(request, user)
+        return render(request, 'home.html', {'user': user})
+      else:
+        return render(request, 'auth/login.html', {'form': form, 'errors': form.errors})
+  else:
+    form = LoginForm()
+  return render(request, 'auth/login.html', {'form': form})
 
-  def post(self, request):
-    form = LoginForm(request=request, data=request.POST)
-    if form.errors:
-      return render(request, 'auth/login.html', {"errors": form.errors, "form": form, "site_key": settings.RECAPTCHA_SITE_KEY})
-    return redirect('/home')
 
-    """isRecaptchaValid = recaptchaCheck(request.POST['g-recaptcha-response'])
-    if isRecaptchaValid:
-      form = LoginForm(request=request, data=request.POST)
-      if form.errors:
-        return render(request, 'auth/login.html', {"errors": form.errors, "form": form, "site_key": settings.RECAPTCHA_SITE_KEY})
-      return redirect('/')
-    else:
-      return HttpResponse('Recaptcha is not valid')"""
-
-class SignupView(LoginView):
-  template_name = 'auth/signup.html'
-  form_class = SignupForm
-  def post(self, request):
-    isRecaptchaValid = recaptchaCheck(request.POST['g-recaptcha-response'])
-    if isRecaptchaValid:
-      form = SignupForm(request=request, data=request.POST)
-      if form.errors:
-        return render(request, 'auth/signup.html', {"errors": form.errors, "form": form, "site_key": settings.RECAPTCHA_SITE_KEY})
-      return redirect(reverse("signup"))
-    else:
-      return HttpResponse('Recaptcha is not valid')
+def signup_view(request):
+  if request.method == "POST":
+    form = SignupForm(request.POST)
+    if form.is_valid():
+      email = form.cleaned_data['email']
+      password = form.cleaned_data['password']
+      if "@willamette.edu" in email:
+        logger.warning("willamette.edu")
+        user = User.objects.create_user(username = email, password = password)
+        return render(request, 'auth/signup.html', {'user': user})
+      else:
+        logger.warning("not willamette.edu")
+        return render(request, 'auth/signup.html', {'errors': "Email must be valid Willamette email", 'form': form})
+    logger.warning("form not valid")
+    logger.warning(form.cleaned_data['email'], )
+    logger.warning(form.cleaned_data['password'])
+  else:
+    form = SignupForm()
+  return render(request, 'auth/signup.html', {'form': form})
 
 class LogoutView(base.View):
    
@@ -476,7 +486,7 @@ new_article_view = CKEditor.as_view(extra_context=set_context('new-article'))
 edit_about_view = CKEditor.as_view(extra_context=set_context('edit-about'))
 edit_article_view = CKEditor.as_view(extra_context=set_context('edit-article'))
 
-login_view = LoginView.as_view(extra_context={'site_key': settings.RECAPTCHA_SITE_KEY})
-signup_view = SignupView.as_view()
+#login_view = LoginView.as_view(extra_context={'site_key': settings.RECAPTCHA_SITE_KEY})
+#signup_view = SignupView.as_view()
 logout_view = LogoutView.as_view()
 not_found = NotFound.as_view()

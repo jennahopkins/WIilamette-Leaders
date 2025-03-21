@@ -28,7 +28,8 @@ RECAPTCHA_SECRET_KEY = env('RECAPTCHA_SECRET')
 RECAPTCHA_SITE_KEY=env('RECAPTCHA_SITE_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True if env('DEBUG') == 'True' else False
+DEBUG = True
+#True if env('DEBUG') == 'True' else False
 
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = [
