@@ -4,7 +4,7 @@ from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 
 # models jenna made
-"""class Post(models.Model):
+class Post(models.Model):
   image = models.ImageField(upload_to = "uploads/")
   caption = RichTextField(("caption"), blank = True)
   posted_at = models.DateTimeField(("posted_at"), auto_now = True)
@@ -16,7 +16,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
     return list(self.authors.all())
 
   def __str__(self):
-    return self.caption"""
+    return self.caption
 
 
 class Club(models.Model):
@@ -26,7 +26,7 @@ class Club(models.Model):
   president_email = models.EmailField(("president_email"), max_length = 100)
   advisor_name = models.CharField(("advisor_name"), max_length = 500)
   advisor_email = models.EmailField(("advisor_email"), max_length = 100)
-  #posts = models.ManyToManyField(Post, blank = True, related_name = "authors")
+  posts = models.ManyToManyField(Post, blank = True, related_name = "authors")
   slug = models.CharField(("slug"), max_length=250)
   class Meta:
     verbose_name = "club"
