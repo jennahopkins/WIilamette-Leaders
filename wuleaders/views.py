@@ -446,8 +446,6 @@ def login_view(request):
             posts_dict[post.posted_at] = post
             posts_dates.append(post.posted_at)
         posts_dates = sorted(posts_dates, reverse = True)
-        for date in posts_dates:
-          logger.warning(posts_dict[date].caption)
 
         return render(request, 'home.html', {'user': user, 'member': member, 'posts_dict': posts_dict, 'posts_dates': posts_dates})
       else:
@@ -468,10 +466,18 @@ def home_view(request):
         posts_dict[post.posted_at] = post
         posts_dates.append(post.posted_at)
     posts_dates = sorted(posts_dates, reverse = True)
-    for date in posts_dates:
-      logger.warning(posts_dict[date].caption)
 
     return render(request, 'home.html', {'user': user, 'member': member, 'posts_dict': posts_dict, 'posts_dates': posts_dates})
+  else:
+    return render(request, "home.html", {})
+
+def profile_view(request):
+  user = request.user
+  #logger.warning(user.first_name)
+  if user.is_authenticated:
+    member = Member.objects.get(user = user)
+
+    return render(request, 'edit-profile.html', {'user': user, 'member': member})
   else:
     return render(request, "home.html", {})
 
@@ -501,7 +507,7 @@ def upload_image_view(request):
     form = PostForm(request.POST, request.FILES)
     if form.is_valid():
       form.save()
-      return redirect(reverse("home"))
+      return render(request, "home.html", {'user': request.user})
   else:
     form = PostForm()
   return render(request, "upload-image.html", {'form': form})

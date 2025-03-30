@@ -1,0 +1,95 @@
+{% extends "base.html" %} {% block title %}
+{% endblock %}
+{% load static %}
+{% block content %}
+
+<head>
+    <title>Willamette Leaders</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="static/css/style.css">
+    <style>
+    html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="topnav">
+    <div class="topnav">
+    <a href="./feed.html" class="topnav" title="Home"><i class="fa fa-home w3-margin-right"></i>WU Leaders</a>
+    <a href="#" class="topnav" title="Directory"><i class="fa fa-globe"></i></a>
+    <a href="./editprofile.html" class="topnav" title="Account"><i class="fa fa-user"></i></a>
+    </div>
+    </div>
+</body>
+
+<div class="row">
+    <div class="centercolumn">
+        <div class="card">
+            <h4>My Profile</h4>
+            <p>Name: user_name</p>
+            <p>user_profile_picture</p>
+            <p>button:edit_pfp</p>
+            <p>Pronouns:
+                <select id="options-in-menu" onchange="myFunction()">
+                    <option value="she/her">She/Her</option>
+                    <option value="they/them">They/Them</option>
+                    <option value="he/him">He/Him</option>
+                    <option value="any/all">Any/All</option>
+                    <option value="other/askme">Other/Ask Me</option>
+                </select>
+                <div id="selected-option">
+                    <div id="she/her">
+                        <p>She/Her</p>
+                    </div>
+                    <div id="they/them">
+                        <p>They/Them</p>
+                    </div>
+                    <div id="he/him">
+                        <p>He/Him</p>
+                    </div>
+                    <div id="any/all">
+                        <p>Any/All</p>
+                    </div>
+                    <div id="other/askme">
+                        <p>Other/Ask Me</p>
+                    </div>
+                </div>
+            </p>
+<script>
+function myFunction() {
+  var val = document.getElementById("options-in-menu").value;
+  document.getElementById("she/her").style.display = "none";
+  document.getElementById("they/them").style.display = "none";
+  document.getElementById("he/him").style.display = "none";
+  document.getElementById("any/all").style.display = "none";
+  document.getElementById("other/askme").style.display = "none";
+  document.getElementById(val).style.display = "block";
+}
+</script>
+            <p>Email: user_email</p>
+            <p>Clubs: user_club_roles</p>
+            <p> dropdown menu to add club_roles</p>
+            <!-- <label for="pronouns">Choose your preferred pronouns:</label>
+            <select name="pronouns" id="pronouns">
+            <option value="she/her">She/Her</option>
+            <option value="they/them">They/Them</option>
+            <option value="he/him">He/Him</option>
+            <option value="any/all">Any/All</option>
+            <option value="other/askme">Other/Ask Me</option>
+            </select>
+            <p>Email: user_email</p>
+            <p>Clubs: user_club_roles</p>
+            <p> dropdown menu to add club_roles</p> -->
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
