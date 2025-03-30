@@ -49,6 +49,12 @@
 }
 
 
+img {
+  width: 100%;
+  height: auto;
+}
+
+
 input[type=text]:focus, input[type=password]:focus {
   background-color: #ddd;
   outline: none;

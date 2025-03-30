@@ -438,13 +438,42 @@ def login_view(request):
       if user is not None:
         login(request, user)
         member = Member.objects.get(user = user)
-        return render(request, 'home.html', {'user': user, 'member': member})
+
+        posts_dict = {}
+        posts_dates = []
+        for club in member.clublist:
+          for post in club.postlist:
+            posts_dict[post.posted_at] = post
+            posts_dates.append(post.posted_at)
+        posts_dates = sorted(posts_dates, reverse = True)
+        for date in posts_dates:
+          logger.warning(posts_dict[date].caption)
+
+        return render(request, 'home.html', {'user': user, 'member': member, 'posts_dict': posts_dict, 'posts_dates': posts_dates})
       else:
         return render(request, 'auth/login.html', {'form': form, 'errors': form.errors})
   else:
     form = LoginForm()
   return render(request, 'auth/login.html', {'form': form})
 
+def home_view(request):
+  user = request.user
+  if user.is_authenticated:
+    member = Member.objects.get(user = user)
+
+    posts_dict = {}
+    posts_dates = []
+    for club in member.clublist:
+      for post in club.postlist:
+        posts_dict[post.posted_at] = post
+        posts_dates.append(post.posted_at)
+    posts_dates = sorted(posts_dates, reverse = True)
+    for date in posts_dates:
+      logger.warning(posts_dict[date].caption)
+
+    return render(request, 'home.html', {'user': user, 'member': member, 'posts_dict': posts_dict, 'posts_dates': posts_dates})
+  else:
+    return render(request, "home.html", {})
 
 def signup_view(request):
   if request.method == "POST":
@@ -491,7 +520,7 @@ class NotFound(base.View):
   def get(self, request):
     raise Http404
 
-home_view = HomeView.as_view()
+#home_view = HomeView.as_view()
 member_home_view = MemberHomeView.as_view()
 club_page_view = ClubPageView.as_view()
 

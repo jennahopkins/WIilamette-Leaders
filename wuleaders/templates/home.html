@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="static/css/style.css">
   <style>
   html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
   </style>
@@ -106,11 +106,21 @@
             {% endif %}
           </div>
           {% if member.clublist %}
-          <div class = "rightcolumn">
-            <div class="card">Club Post 1
-              <p>This is a club I follow's most recent post </p>
+          {% for posted_at in posts_dates %}
+            {% for date, post in posts_dict.items %}
+            {% if posted_at == date %}
+            <div class = "rightcolumn">
+              <div class="card">{{post.posted_at}}
+                <img src="{{post.image.url}}">
+                {% for author in post.authorlist %}
+                <p><b>{{author.club_name}}</b></p>
+                {% endfor %}
+                <p>{{post.caption}} </p>
+              </div>
             </div>
-          </div>
+            {% endif %}
+            {% endfor %}
+          {% endfor %}
           {% endif %}
         </div>  
 
@@ -126,7 +136,7 @@
 
 
 
-
+{% comment %}
       <h1 class="article-gallery-title">Articles</h1>
       {% if is_authenticated %}
       <form method="POST" id="delete-article-form" name="delete-articles-form">
@@ -184,6 +194,7 @@
 
     {% endfor %}
     </section>
+
   </section>
 </main>
 <script>

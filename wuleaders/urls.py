@@ -11,7 +11,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 urlpatterns = [
   #path('', if_authenthicated_redirect_from_login(login_view), name='login-home'),
   path('signup', signup_view, name ="signup"),
-  path('home', home_view, name = 'home'),
+  #path('home', home_view, name = 'home'),
   path('', home_view, name = "home"),
   path("login", views.login_view, name = "login"),
   path("upload-image", upload_image_view, name = "upload-image"),

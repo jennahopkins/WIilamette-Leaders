@@ -50,6 +50,12 @@ class Post(models.Model):
   class Meta:
     verbose_name = "post"
 
+  @property
+  def authorlist(self):
+    authors = self.authors.all()
+    for author in authors:
+      yield author
+
   def __str__(self):
     return self.caption
 
