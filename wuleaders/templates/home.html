@@ -69,32 +69,47 @@
   <section class="articles-container">
     <div class="{% if is_authenticated %}heading-container-logged-in{% else %}heading-container-logged-out{% endif %}">
       {% if user.is_authenticated %}
+      {% comment %}
         <div class='new-article-container' onClick="window.location.href = '/new-article'">
           <button class="add-article-button"><img width="16px" height="16px" src="{% static 'img/plus-icon.png' %}" alt="plus-icon" /></button>
           <span class="add-article-text d-none-mobile">Add</span>
         </div>
+      {% endcomment %}
 
         <div class="row">
           <div class = "leftcolumn">
             <div class="card">
               <h4>My Profile</h4>
-              <p>Name: {{user.first_name}} {{user.last_name}}</p>
+              <p> <b>Name:</b> {{user.first_name}} {{user.last_name}}</p>
               <p>user_profile_picture</p>
-              <p>Pronouns: user_pronouns</p>
-              <p>Email: {{user.email}}</p>
-              <p>Clubs: user_club_roles</p>
+              <p> <b>Pronouns:</b> user_pronouns</p>
+              <p> <b>Email:</b> {{user.email}}</p>
+              <p> <b>Clubs:</b> </p>
+              {% for club in member.clublist %}
+                {% for role in member.roleslist %}
+                  {% if role.club.club_name == club.club_name %}
+                    <p>{{club.club_name}} - {{role.role}}</p>
+                  {% endif %}
+                {% endfor %}
+              {% endfor %}
             </div>
           </div>
           <div class = "rightcolumn">
+            {% if member.clublist %}
             <div class="card">My Feed
               <p>This is my current feed </p>
             </div>
+            {% else %}
+            <p>You're not a member of any clubs! Join a club to see their posts</p>
+            {% endif %}
           </div>
+          {% if member.clublist %}
           <div class = "rightcolumn">
             <div class="card">Club Post 1
               <p>This is a club I follow's most recent post </p>
             </div>
           </div>
+          {% endif %}
         </div>  
 
       {% else %}
