@@ -7,6 +7,12 @@ from ckeditor.fields import RichTextFormField
 from ckeditor_uploader.fields import RichTextUploadingFormField
 
 from .utilities import *
+from .models import Post
+
+class PostForm(forms.ModelForm):
+  class Meta:
+    model = Post
+    fields = "__all__"
 
 class CkEditorArticleForm(forms.Form):
   title = RichTextFormField(
