@@ -91,7 +91,29 @@ class Command(BaseCommand):
     try:
       User.objects.get(username="jhopkins2@willamette.edu")
     except User.DoesNotExist:
-      User.objects.create_user(username = "jhopkins2@willamette.edu", password = "jhopkins2")
+      user = User.objects.create_user(
+        username = "jhopkins2@willamette.edu", 
+        password = "jhopkins2",
+        email = "jhopkins2@willamette.edu",
+        first_name = "Jenna",
+        last_name = "Hopkins"
+        )
+      saac_club = Club.objects.get(club_name = "Student Athlete Advisory Committee")
+      cssa_club = Club.objects.get(club_name = "Computer Science Students Association")
+      member = Member.objects.create(user = user)
+      role_saac = Role.objects.create(
+        role = "Member",
+        club = saac_club
+      )
+      role_cssa = Role.objects.create(
+        role = "Member",
+        club = cssa_club
+      )
+      member.clubs.add(saac_club)
+      member.clubs.add(cssa_club)
+      member.roles.add(role_saac)
+      member.roles.add(role_cssa)
+      member.save()
   
   
   def handle(self, *args, **options):

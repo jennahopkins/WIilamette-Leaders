@@ -436,7 +436,8 @@ def login_view(request):
       user = authenticate(request, username = email, password = password)
       if user is not None:
         login(request, user)
-        return render(request, 'home.html', {'user': user})
+        #member = Member.objects.get(user = user)
+        return render(request, 'home.html', {'user': user, 'member' = member})
       else:
         return render(request, 'auth/login.html', {'form': form, 'errors': form.errors})
   else:
