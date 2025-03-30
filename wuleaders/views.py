@@ -9,6 +9,7 @@ from django.shortcuts import HttpResponse, redirect, render
 from django.http import Http404, HttpResponseServerError
 from .models import *
 from .forms import *
+from .forms import PostForm
 from .utilities import *
 from django.contrib.auth import logout as custom_logout
 from django.conf import settings
@@ -464,6 +465,19 @@ def signup_view(request):
   else:
     form = SignupForm()
   return render(request, 'auth/signup.html', {'form': form})
+
+
+def upload_image_view(request):
+  if request.method == "POST":
+    form = PostForm(request.POST, request.FILES)
+    if form.is_valid():
+      form.save()
+      return redirect(reverse("home"))
+  else:
+    form = PostForm()
+  return render(request, "upload-image.html", {'form': form})
+
+
 
 class LogoutView(base.View):
    
