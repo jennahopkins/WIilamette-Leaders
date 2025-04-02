@@ -52,15 +52,6 @@
               {% endfor %}
             </div>
           </div>
-          <div class = "rightcolumn">
-            {% if member.clublist %}
-            <div class="card">My Feed
-              <p>{{request.session.session_key}} </p>
-            </div>
-            {% else %}
-            <p>You're not a member of any clubs! Join a club to see their posts</p>
-            {% endif %}
-          </div>
           {% if member.clublist %}
           {% for posted_at in posts_dates %}
             {% for date, post in posts_dict.items %}
