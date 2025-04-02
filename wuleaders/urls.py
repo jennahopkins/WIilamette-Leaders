@@ -9,10 +9,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 urlpatterns = [
-  #path('', if_authenthicated_redirect_from_login(login_view), name='login-home'),
-  path('signup', signup_view, name ="signup"),
-  #path('home', home_view, name = 'home'),
   path('', home_view, name = "home"),
+  path('signup', signup_view, name ="signup"),
   path("login", views.login_view, name = "login"),
   path("upload-image", upload_image_view, name = "upload-image"),
   path("profile", profile_view, name = "profile"),

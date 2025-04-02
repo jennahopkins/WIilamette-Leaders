@@ -429,6 +429,9 @@ class CKEditor(FormView):
       return redirect(redirect_url)
 
 def login_view(request):
+  logger.warning("login view")
+  logger.warning(request.session.session_key)
+  logger.warning(request.session.items())
   if request.method == "POST":
     form = LoginForm(request.POST)
     if form.is_valid():
@@ -447,14 +450,21 @@ def login_view(request):
             posts_dates.append(post.posted_at)
         posts_dates = sorted(posts_dates, reverse = True)
 
-        return render(request, 'home.html', {'user': user, 'member': member, 'posts_dict': posts_dict, 'posts_dates': posts_dates})
+        logger.warning("login successful")
+        logger.warning(request.session.session_key)
+        logger.warning(request.session.items())
+        request.session.save()
+        return render(request, 'home.html', {'request': request, 'user': user, 'member': member, 'posts_dict': posts_dict, 'posts_dates': posts_dates})
       else:
-        return render(request, 'auth/login.html', {'form': form, 'errors': form.errors})
+        return render(request, 'auth/login.html', {'request': request, 'form': form, 'errors': form.errors})
   else:
     form = LoginForm()
-  return render(request, 'auth/login.html', {'form': form})
+  return render(request, 'auth/login.html', {'request': request, 'form': form})
 
 def home_view(request):
+  logger.warning("home view")
+  logger.warning(request.session.session_key)
+  logger.warning(request.session.items())
   user = request.user
   if user.is_authenticated:
     member = Member.objects.get(user = user)
@@ -467,19 +477,20 @@ def home_view(request):
         posts_dates.append(post.posted_at)
     posts_dates = sorted(posts_dates, reverse = True)
 
-    return render(request, 'home.html', {'user': user, 'member': member, 'posts_dict': posts_dict, 'posts_dates': posts_dates})
+    return render(request, 'home.html', {'request': request, 'user': user, 'member': member, 'posts_dict': posts_dict, 'posts_dates': posts_dates})
   else:
-    return render(request, "home.html", {})
+    return render(request, "home.html", {'request': request})
 
 def profile_view(request):
+  logger.warning("profile view")
+  logger.warning(request.session.items())
   user = request.user
-  #logger.warning(user.first_name)
   if user.is_authenticated:
     member = Member.objects.get(user = user)
 
-    return render(request, 'edit-profile.html', {'user': user, 'member': member})
+    return render(request, 'edit-profile.html', {'request': request, 'user': user, 'member': member})
   else:
-    return render(request, "home.html", {})
+    return render(request, "home.html", {'request': request})
 
 def signup_view(request):
   if request.method == "POST":
@@ -503,14 +514,17 @@ def signup_view(request):
 
 
 def upload_image_view(request):
+  logger.warning("upload image view")
+  logger.warning(request)
+  logger.warning(request.session.items())
   if request.method == "POST":
     form = PostForm(request.POST, request.FILES)
     if form.is_valid():
       form.save()
-      return render(request, "home.html", {'user': request.user})
+      return render(request, "home.html", {'request': request, 'user': request.user})
   else:
     form = PostForm()
-  return render(request, "upload-image.html", {'form': form})
+  return render(request, "upload-image.html", {'request': request, 'form': form})
 
 
 
