@@ -43,7 +43,7 @@ CSRF_HEADER_NAME = 'CSRF_COOKIE'
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_SAVE_EVERY_REQUEST = True
 SESSION_COOKIE_SAMESITE = None
-SESSION_COOKIE_DOMAIN = ".wuleaders.w3spaces.com"
+SESSION_COOKIE_DOMAIN = None
 SESSION_COOKIE_AGE=43200
 # Application definition
 

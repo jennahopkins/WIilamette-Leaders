@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+{% if request_error %}
+<div class="notification notification-out">
+  <div class="content">
+    <div class="identifier"></div>
+    <div class="text">{{request_error}}</div>
+  </div>
+</div>
+{% endif %}
+
+
+{% for club in clublist %}
+<p>{{club.club_name}}</p>
+{% endfor %}
+
+
+
+
+
+
+
+
+{% endblock %}

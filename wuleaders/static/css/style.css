@@ -230,33 +230,24 @@ body {
 
 /* Right column */
 .rightcolumn {
+  float: left;
   width: 75%;
   padding: 20px;
-  right: 0;
-  margin-left: auto;
-}
-
-
-/* Remove extra left and right margins, due to padding in columns */
-.row {margin-left: 0px;
-        margin-right: 0px;
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  flex-wrap: wrap;
 }
 
 
 /* Clear floats after the columns */
 .row:after {
   content: "";
+  display: table;
   clear: both;
 }
 
 
 .centercolumn {
+  float: center;
   width: 75%;
-  padding: 20px;
+  padding: 20px
 }
 /* Style the counter cards */
 .card {
@@ -269,13 +260,12 @@ body {
 
 /* Responsive columns - one column layout (vertical) on small screens */
 @media screen and (max-width: 600px) {
-  .leftcolumn , .rightcolumn {
+  .column {
     width: 100%;
     display: block;
     margin-bottom: 20px;
   }
 }
-
 
 
 
