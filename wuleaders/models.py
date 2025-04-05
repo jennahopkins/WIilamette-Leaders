@@ -79,8 +79,8 @@ class Member(models.Model):
   user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete = models.CASCADE, primary_key = True)
   clubs = models.ManyToManyField(Club, blank = True, related_name = "member")
   roles = models.ManyToManyField(Role, blank = True, related_name = "member")
-  #photo = models.ImageField(upload_to = "uploads/", blank = True)
-  #pronouns = models.CharField(("pronouns"), max_length = 50, blank = True) 
+  photo = models.ImageField(upload_to = "uploads/", blank = True)
+  pronouns = models.CharField(("pronouns"), max_length = 50, blank = True) 
   class Meta:
     verbose_name = "member"
 

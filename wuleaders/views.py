@@ -490,8 +490,12 @@ def edit_profile_view(request):
       if form.is_valid():
         picture = form.cleaned_data["picture"]
         pronouns = form.cleaned_data["pronouns"]
+        logger.warning(pronouns)
 
         member = Member.objects.get(user = user)
+        member.photo = picture
+        member.pronouns = pronouns
+        member.save()
 
         return render(request, "profile.html", {'request': request, 'user': user, 'member': member})
       else:

@@ -22,10 +22,14 @@
     <div class="centercolumn">
         <div class="card">
             <h4>My Profile</h4>
-            <p> profile picture </p>
+            {% if member.photo %}
+                <img src="{{member.photo.url}}">
+            {% endif %}
             <p><b>Name:</b> {{user.first_name}} {{user.last_name}}</p>
-            <p> pronouns </p>
-            <p> email </p>
+            {% if member.pronouns %}
+                <p><b>Pronouns:</b> {{member.pronouns}} </p>
+            {% endif %}
+            <p><b>Email:</b> {{user.email}}</p>
             <p> <b>Clubs:</b> </p>
             {% for club in member.clublist %}
                 {% for role in member.roleslist %}
