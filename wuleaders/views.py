@@ -15,7 +15,7 @@ from django.contrib.auth import logout as custom_logout
 from django.conf import settings
 from django.contrib.auth.models import User
 
-from .forms import LoginForm
+from .forms import LoginForm, EditProfileForm
 from django.contrib.auth.views import LoginView
 import json
 
@@ -429,9 +429,6 @@ class CKEditor(FormView):
       return redirect(redirect_url)
 
 def login_view(request):
-  logger.warning("login view")
-  logger.warning(request.session.session_key)
-  logger.warning(request.session.items())
   if request.method == "POST":
     form = LoginForm(request.POST)
     if form.is_valid():
@@ -450,9 +447,6 @@ def login_view(request):
             posts_dates.append(post.posted_at)
         posts_dates = sorted(posts_dates, reverse = True)
 
-        logger.warning("login successful")
-        logger.warning(request.session.session_key)
-        logger.warning(request.session.items())
         request.session.save()
         return render(request, 'home.html', {'request': request, 'user': user, 'member': member, 'posts_dict': posts_dict, 'posts_dates': posts_dates})
       else:
@@ -462,9 +456,6 @@ def login_view(request):
   return render(request, 'auth/login.html', {'request': request, 'form': form})
 
 def home_view(request):
-  logger.warning("home view")
-  logger.warning(request.session.session_key)
-  logger.warning(request.session.items())
   user = request.user
   if user.is_authenticated:
     member = Member.objects.get(user = user)
@@ -482,15 +473,35 @@ def home_view(request):
     return render(request, "home.html", {'request': request})
 
 def profile_view(request):
-  logger.warning("profile view")
-  logger.warning(request.session.items())
   user = request.user
   if user.is_authenticated:
     member = Member.objects.get(user = user)
 
-    return render(request, 'edit-profile.html', {'request': request, 'user': user, 'member': member})
+    return render(request, 'profile.html', {'request': request, 'user': user, 'member': member})
   else:
     return render(request, "home.html", {'request': request})
+
+
+def edit_profile_view(request):
+  user = request.user
+  if user.is_authenticated:
+    if request.method == "POST":
+      form = EditProfileForm(request.POST, request.FILES)
+      if form.is_valid():
+        picture = form.cleaned_data["picture"]
+        pronouns = form.cleaned_data["pronouns"]
+
+        member = Member.objects.get(user = user)
+
+        return render(request, "profile.html", {'request': request, 'user': user, 'member': member})
+      else:
+        return render(request, "edit-profile.html", {'request': request, 'form': form})
+    else:
+      form = EditProfileForm()
+      return render(request, "edit-profile.html", {'request': request, 'form': form})
+  
+  return redirect(reverse("login"))
+  
 
 def signup_view(request):
   if request.method == "POST":
@@ -526,7 +537,12 @@ def upload_image_view(request):
     form = PostForm()
   return render(request, "upload-image.html", {'request': request, 'form': form})
 
-
+def directory_view(request):
+  if request.method == "GET":
+    clublist = Club.objects.all()
+    return render(request, "directory.html", {'request': request, 'clublist': clublist})
+  else:
+    return render(request, "directory.html", {'request': request})
 
 class LogoutView(base.View):
    

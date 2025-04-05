@@ -83,6 +83,25 @@ class SignupForm(forms.Form):
     widget=forms.PasswordInput()
   )
 
+class EditProfileForm(forms.Form):
+  CHOICES = [
+  ('she/her', 'she/her'),
+  ('they/them', 'they/them'),
+  ('he/him', 'he/him'),
+  ('any/all', 'any/all'),
+  ('other/ask me', 'other/ask me'),
+  ]
+  picture = forms.ImageField(
+    label = "Profile Picture:",
+    widget = forms.ClearableFileInput()
+  )
+  pronouns = forms.ChoiceField(
+    label = "Pronouns: ",
+    choices = CHOICES,
+    widget = forms.Select()
+  )
+
+
   """def __init__(self, *args, **kwargs):
     super(SignupForm, self).__init__(*args, **kwargs)
 
