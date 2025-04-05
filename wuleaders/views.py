@@ -488,7 +488,7 @@ def profile_view(request):
   if user.is_authenticated:
     member = Member.objects.get(user = user)
 
-    return render(request, 'profile.html', {'request': request, 'user': user, 'member': member})
+    return render(request, 'edit-profile.html', {'request': request, 'user': user, 'member': member})
   else:
     return render(request, "home.html", {'request': request})
 
@@ -525,13 +525,6 @@ def upload_image_view(request):
   else:
     form = PostForm()
   return render(request, "upload-image.html", {'request': request, 'form': form})
-
-def directory_view(request):
-  if request.method == "GET":
-    clublist = Club.objects.all()
-    return render(request, "directory.html", {'request': request, 'clublist': clublist})
-  else:
-    return render(request, "directory.html", {'request': request})
 
 
 
