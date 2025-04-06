@@ -15,7 +15,7 @@ from django.contrib.auth import logout as custom_logout
 from django.conf import settings
 from django.contrib.auth.models import User
 
-from .forms import LoginForm, EditProfileForm
+from .forms import LoginForm
 from django.contrib.auth.views import LoginView
 import json
 
@@ -146,45 +146,17 @@ class MemberHomeView(base.View):
       request.session['request_error'] = '500 - Server error.'
       return redirect(reverse("member-home"))
 
-class ClubPageView(base.View):
-
-  def get(self, request, slug):
-    is_auth = request.user.is_authenticated
-    context = {}
-    context['is_authenticated'] = is_auth
-    context['site_key'] = settings.RECAPTCHA_SITE_KEY
-    referer = ''
-    if 'HTTP_REFERER' in request.META:
-      referer = request.META.get('HTTP_REFERER')
-    if 'request_error' in request.session:
-      # Can be:
-      # - Failed to save comment.
-      # - Failed to delete comment.
-      # - 500 - Server error.
-      if request.session['request_error'] == 'Failed to save comment.':
-        context['request_error_content'] = request.session['request_error_content']
-      context['request_error'] = request.session['request_error']
-      del request.session['request_error']
-    try:
-      club = Club.objects.get(slug = quote_plus(slug))
-      context['club'] = club
-      return render(request, 'club-page.html', context)
-    except Club.DoesNotExist:
-      raise Http404
-    except Exception as e:
-      print(e)
-      context['request_error'] = 'Server error'
-      return redirect(reverse('member-home'))
-
-  def post(self, request, slug):
-    is_auth = request.user.is_authenticated
-    context = {}
-    context['is_authenticated'] = is_auth
-    try:
-      club = Club.objects.get(slug = slug)
-    except:
-      pass
-    return redirect(reverse('club-page', args = [slug]))
+def club_page_view(request, slug):
+  if request.method == "GET":
+    if request.user.is_authenticated:
+      member = Member.objects.get(user = request.user)
+      try:
+        club = Club.objects.get(slug = quote_plus(slug))
+        return render(request, 'club-page.html', {'request': request, 'club': club, 'member': member})
+      except Club.DoesNotExist:
+        raise Http404
+    return redirect(reverse('login'))
+  return(redirect(reverse('login')))
 
 
 class ArticleView(base.View):
@@ -429,6 +401,9 @@ class CKEditor(FormView):
       return redirect(redirect_url)
 
 def login_view(request):
+  logger.warning("login view")
+  logger.warning(request.session.session_key)
+  logger.warning(request.session.items())
   if request.method == "POST":
     form = LoginForm(request.POST)
     if form.is_valid():
@@ -447,6 +422,9 @@ def login_view(request):
             posts_dates.append(post.posted_at)
         posts_dates = sorted(posts_dates, reverse = True)
 
+        logger.warning("login successful")
+        logger.warning(request.session.session_key)
+        logger.warning(request.session.items())
         request.session.save()
         return render(request, 'home.html', {'request': request, 'user': user, 'member': member, 'posts_dict': posts_dict, 'posts_dates': posts_dates})
       else:
@@ -456,6 +434,9 @@ def login_view(request):
   return render(request, 'auth/login.html', {'request': request, 'form': form})
 
 def home_view(request):
+  logger.warning("home view")
+  logger.warning(request.session.session_key)
+  logger.warning(request.session.items())
   user = request.user
   if user.is_authenticated:
     member = Member.objects.get(user = user)
@@ -473,6 +454,8 @@ def home_view(request):
     return render(request, "home.html", {'request': request})
 
 def profile_view(request):
+  logger.warning("profile view")
+  logger.warning(request.session.items())
   user = request.user
   if user.is_authenticated:
     member = Member.objects.get(user = user)
@@ -480,32 +463,6 @@ def profile_view(request):
     return render(request, 'profile.html', {'request': request, 'user': user, 'member': member})
   else:
     return render(request, "home.html", {'request': request})
-
-
-def edit_profile_view(request):
-  user = request.user
-  if user.is_authenticated:
-    if request.method == "POST":
-      form = EditProfileForm(request.POST, request.FILES)
-      if form.is_valid():
-        picture = form.cleaned_data["picture"]
-        pronouns = form.cleaned_data["pronouns"]
-        logger.warning(pronouns)
-
-        member = Member.objects.get(user = user)
-        member.photo = picture
-        member.pronouns = pronouns
-        member.save()
-
-        return render(request, "profile.html", {'request': request, 'user': user, 'member': member})
-      else:
-        return render(request, "edit-profile.html", {'request': request, 'form': form})
-    else:
-      form = EditProfileForm()
-      return render(request, "edit-profile.html", {'request': request, 'form': form})
-  
-  return redirect(reverse("login"))
-  
 
 def signup_view(request):
   if request.method == "POST":
@@ -548,6 +505,8 @@ def directory_view(request):
   else:
     return render(request, "directory.html", {'request': request})
 
+
+
 class LogoutView(base.View):
    
    def post(self, request):
@@ -560,9 +519,8 @@ class NotFound(base.View):
   def get(self, request):
     raise Http404
 
-#home_view = HomeView.as_view()
+
 member_home_view = MemberHomeView.as_view()
-club_page_view = ClubPageView.as_view()
 
 article_view = ArticleView.as_view()
 
@@ -570,7 +528,5 @@ new_article_view = CKEditor.as_view(extra_context=set_context('new-article'))
 edit_about_view = CKEditor.as_view(extra_context=set_context('edit-about'))
 edit_article_view = CKEditor.as_view(extra_context=set_context('edit-article'))
 
-#login_view = LoginView.as_view(extra_context={'site_key': settings.RECAPTCHA_SITE_KEY})
-#signup_view = SignupView.as_view()
 logout_view = LogoutView.as_view()
 not_found = NotFound.as_view()

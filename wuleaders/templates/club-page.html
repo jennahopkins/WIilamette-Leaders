@@ -1,0 +1,53 @@
+{% extends "base.html" %} {% block title %}
+{% endblock %}
+{% load static %}
+{% block content %}
+
+
+<head>
+<title>Willamette Leaders</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="style.css">
+<style>
+html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
+</style>
+</head>
+
+
+<div class="row">
+    <div class = "leftcolumn">
+    <div class="card">
+    <h4>Club Profile</h4>
+    <p><b>Name:</b>{{club.club_name}}</p>
+    <p>club_profile_picture</p>
+    <p>Emails: user_emails</p>
+  </div>
+    <div class="card">
+        <h4> Club Members </h4>
+        {% for person in club.memberlist %}
+          <p>{{person.name}}</p>
+        {% endfor %}
+    </div>
+    </div>
+  {% for post in club.postlist %}
+  <div class = "rightcolumn">
+    <div class="card">{{post.posted_at}}
+      <img src="{{post.image.url}}">
+      {% for author in post.authorlist %}
+      <p OnClick = "window.location.href = '/club/{{author.slug}}'"><b>{{author.club_name}}</b></p>
+      {% endfor %}
+      <p>{{post.caption}} </p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+
+
+
+{% endblock %}

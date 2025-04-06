@@ -39,12 +39,8 @@
             <div class="card">
               <h4>My Profile</h4>
               <p> <b>Name:</b> {{user.first_name}} {{user.last_name}}</p>
-              {% if member.photo %}
-                <img src="{{member.photo.url}}">
-              {% endif %}
-              {% if member.pronouns %}
-                <p> <b>Pronouns:</b> {{member.pronouns}}</p>
-              {% endif %}
+              <p>user_profile_picture</p>
+              <p> <b>Pronouns:</b> user_pronouns</p>
               <p> <b>Email:</b> {{user.email}}</p>
               <p> <b>Clubs:</b> </p>
               {% for club in member.clublist %}
@@ -55,7 +51,6 @@
                 {% endfor %}
               {% endfor %}
             </div>
-            
           </div>
           {% if member.clublist %}
           {% for posted_at in posts_dates %}
@@ -65,7 +60,7 @@
               <div class="card">{{post.posted_at}}
                 <img src="{{post.image.url}}">
                 {% for author in post.authorlist %}
-                <p><b>{{author.club_name}}</b></p>
+                <p OnClick = "window.location.href = '/club/{{author.slug}}'"><b>{{author.club_name}}</b></p>
                 {% endfor %}
                 <p>{{post.caption}} </p>
               </div>
