@@ -16,8 +16,6 @@
     <div class="{% if is_authenticated %}heading-container-logged-in{% else %}heading-container-logged-out{% endif %}">
       {% if user.is_authenticated %}
 
-        <a href = "{% url 'upload-image' %}">Upload Image</a>
-
         <div class="row">
           <div class = "leftcolumn">
             <div class="card">

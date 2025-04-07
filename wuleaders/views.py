@@ -188,6 +188,37 @@ def edit_club_page_view(request, slug):
   
   return redirect(reverse("login"))
 
+def make_post_view(request, slug):
+  user = request.user
+  member = Member.objects.get(user = user)
+  try:
+    club = Club.objects.get(slug = quote_plus(slug))
+  except Club.DoesNotExist:
+    raise Http404
+  if user.is_authenticated and member in club.editors:
+    if request.method == "POST":
+      form = PostForm(request.POST, request.FILES)
+      if form.is_valid():
+        picture = form.cleaned_data['picture']
+        caption = form.cleaned_data['caption']
+
+        post = Post.objects.create(
+          image = picture,
+          caption = caption,
+          posted_at = timezone.now() 
+        )
+        post.authors.add(club)
+        post.save()
+
+        return render(request, "club-page.html", {'request': request, 'club': club, 'member': member, 'editor': True})
+      else:
+        return render(request, "edit-club-page.html", {'request': request, 'form': form})
+    else:
+      form = PostForm()
+    return render(request, "make-post.html", {'request': request, 'form': form})
+  
+  return redirect(reverse("login"))
+
 
 class ArticleView(base.View):
 
@@ -526,17 +557,6 @@ def signup_view(request):
   else:
     form = SignupForm()
   return render(request, 'auth/signup.html', {'form': form})
-
-
-def upload_image_view(request):
-  if request.method == "POST":
-    form = PostForm(request.POST, request.FILES)
-    if form.is_valid():
-      form.save()
-      return render(request, "home.html", {'request': request, 'user': request.user})
-  else:
-    form = PostForm()
-  return render(request, "upload-image.html", {'request': request, 'form': form})
 
 
 def directory_view(request):

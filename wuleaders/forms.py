@@ -9,10 +9,11 @@ from ckeditor_uploader.fields import RichTextUploadingFormField
 from .utilities import *
 from .models import Post
 
-class PostForm(forms.ModelForm):
+"""class PostForm(forms.ModelForm):
   class Meta:
     model = Post
     fields = "__all__"
+"""
 
 class CkEditorArticleForm(forms.Form):
   title = RichTextFormField(
@@ -107,6 +108,18 @@ class EditClubForm(forms.Form):
   picture = forms.ImageField(
     label = "Club Photo:",
     widget = forms.ClearableFileInput(),
+    required = False
+  )
+
+class PostForm(forms.Form):
+  picture = forms.ImageField(
+    label = "Post Image:",
+    widget = forms.ClearableFileInput(),
+    required = False
+  )
+  caption = forms.TextField(
+    label = "Caption:",
+    widget = forms.TextInput(),
     required = False
   )
 
