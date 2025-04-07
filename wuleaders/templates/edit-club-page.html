@@ -1,0 +1,22 @@
+ {% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<body>
+<form method="post" enctype="multipart/form-data" class="edit-profile-form" id="edit-profile-form">
+    {% csrf_token %}
+
+    {{form.as_p}}
+
+    <button class="save-button" type = "submit">Save Changes</button>
+</form>
+</body>
+
+
+
+
+
+
+
+
+{% endblock %}

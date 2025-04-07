@@ -39,7 +39,8 @@ class Command(BaseCommand):
           user = User.objects.get(username = self.json_data[club]['president']['email'])
           role_obj = Role.objects.create(
             role = "President",
-            club = club_obj
+            club = club_obj,
+            can_edit = True
           )
           member = Member.objects.get(user = user)
           member.clubs.add(club_obj)
@@ -56,7 +57,8 @@ class Command(BaseCommand):
           member = Member.objects.create(user = user)
           role_obj = Role.objects.create(
             role = "President",
-            club = club_obj
+            club = club_obj,
+            can_edit = True
           )
           member.clubs.add(club_obj)
           member.roles.add(role_obj)
@@ -66,7 +68,8 @@ class Command(BaseCommand):
           user = User.objects.get(username = self.json_data[club]['advisor']['email'])
           role_obj = Role.objects.create(
             role = "Advisor",
-            club = club_obj
+            club = club_obj,
+            can_edit = True
           )
           member = Member.objects.get(user = user)
           member.clubs.add(club_obj)
@@ -83,7 +86,8 @@ class Command(BaseCommand):
           member = Member.objects.create(user = user)
           role_obj = Role.objects.create(
             role = "Advisor",
-            club = club_obj
+            club = club_obj,
+            can_edit = True
           )
           member.clubs.add(club_obj)
           member.roles.add(role_obj)
@@ -106,7 +110,8 @@ class Command(BaseCommand):
       member = Member.objects.create(user = user)
       role_saac = Role.objects.create(
         role = "Member",
-        club = saac_club
+        club = saac_club,
+        can_edit = True
       )
       role_cssa = Role.objects.create(
         role = "Member",
@@ -127,18 +132,6 @@ class Command(BaseCommand):
       )
       member = Member.objects.create(user = user2)
 
-
-  def make_posts(self):
-    image_path = r"C:\Users\jenna\Downloads\PDN Program 2025.docx conv 1.png"
-    club = Club.objects.get(club_name = "Student Athlete Advisory Committee")
-    with open(image_path, 'rb') as f:
-      image_file = ImageFile(f)
-      post = Post.objects.create(
-        image=image_file,
-        caption = "Professional Development Night!",
-        authors = club
-        )
-      instance.save()
   
   
   def handle(self, *args, **options):
@@ -146,7 +139,6 @@ class Command(BaseCommand):
     try:
       print('Populating database . . .')
       self.populate_clubs()
-      self.make_posts()
       print('Populating database completed!')
     except Exception as e:
       print('Populating database failed . . .')

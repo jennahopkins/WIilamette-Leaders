@@ -13,6 +13,7 @@ class Club(models.Model):
   advisor_name = models.CharField(("advisor_name"), max_length = 500)
   advisor_email = models.EmailField(("advisor_email"), max_length = 100)
   slug = models.CharField(("slug"), max_length=250)
+  photo = models.ImageField(upload_to = "uploads/", blank = True)
   class Meta:
     verbose_name = "club"
     constraints = [
@@ -36,6 +37,15 @@ class Club(models.Model):
     for role in rolelist:
       roledict[role] = role.memberlist
     return roledict
+
+  @property
+  def editors(self):
+    rolelist = list(self.role.all())
+    edit_roles = list(filter(lambda _role: _role.can_edit == True, rolelist))
+    editors = []
+    for _role in edit_roles:
+      editors += _role.memberlist
+    return editors
 
   
   def __str__(self):
@@ -63,6 +73,7 @@ class Post(models.Model):
 class Role(models.Model):
   club = models.ForeignKey(Club, related_name = "role", on_delete = models.CASCADE)
   role = models.CharField(("role"), max_length = 100)
+  can_edit = models.BooleanField(("can_edit"), default = False)
 
   @property
   def memberlist(self):

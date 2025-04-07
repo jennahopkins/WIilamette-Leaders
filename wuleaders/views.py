@@ -9,7 +9,7 @@ from django.shortcuts import HttpResponse, redirect, render
 from django.http import Http404, HttpResponseServerError
 from .models import *
 from .forms import *
-from .forms import PostForm
+from .forms import PostForm, EditProfileForm
 from .utilities import *
 from django.contrib.auth import logout as custom_logout
 from django.conf import settings
@@ -152,11 +152,41 @@ def club_page_view(request, slug):
       member = Member.objects.get(user = request.user)
       try:
         club = Club.objects.get(slug = quote_plus(slug))
-        return render(request, 'club-page.html', {'request': request, 'club': club, 'member': member})
+        if member in club.editors:
+          editor = True
+        else:
+          editor = False
+        return render(request, 'club-page.html', {'request': request, 'club': club, 'member': member, 'editor': editor})
       except Club.DoesNotExist:
         raise Http404
     return redirect(reverse('login'))
   return(redirect(reverse('login')))
+
+
+def edit_club_page_view(request, slug):
+  user = request.user
+  member = Member.objects.get(user = user)
+  try:
+    club = Club.objects.get(slug = quote_plus(slug))
+  except Club.DoesNotExist:
+    raise Http404
+  if user.is_authenticated and member in club.editors:
+    if request.method == "POST":
+      form = EditClubForm(request.POST, request.FILES)
+      if form.is_valid():
+        picture = form.cleaned_data["picture"]
+
+        club.photo = picture
+        club.save()
+
+        return render(request, "club-page.html", {'request': request, 'club': club, 'member': member, 'editor': True})
+      else:
+        return render(request, "edit-club-page.html", {'request': request, 'form': form})
+    else:
+      form = EditClubForm()
+      return render(request, "edit-club-page.html", {'request': request, 'form': form})
+  
+  return redirect(reverse("login"))
 
 
 class ArticleView(base.View):
@@ -401,9 +431,6 @@ class CKEditor(FormView):
       return redirect(redirect_url)
 
 def login_view(request):
-  logger.warning("login view")
-  logger.warning(request.session.session_key)
-  logger.warning(request.session.items())
   if request.method == "POST":
     form = LoginForm(request.POST)
     if form.is_valid():
@@ -422,10 +449,6 @@ def login_view(request):
             posts_dates.append(post.posted_at)
         posts_dates = sorted(posts_dates, reverse = True)
 
-        logger.warning("login successful")
-        logger.warning(request.session.session_key)
-        logger.warning(request.session.items())
-        request.session.save()
         return render(request, 'home.html', {'request': request, 'user': user, 'member': member, 'posts_dict': posts_dict, 'posts_dates': posts_dates})
       else:
         return render(request, 'auth/login.html', {'request': request, 'form': form, 'errors': form.errors})
@@ -433,10 +456,8 @@ def login_view(request):
     form = LoginForm()
   return render(request, 'auth/login.html', {'request': request, 'form': form})
 
+
 def home_view(request):
-  logger.warning("home view")
-  logger.warning(request.session.session_key)
-  logger.warning(request.session.items())
   user = request.user
   if user.is_authenticated:
     member = Member.objects.get(user = user)
@@ -454,8 +475,6 @@ def home_view(request):
     return render(request, "home.html", {'request': request})
 
 def profile_view(request):
-  logger.warning("profile view")
-  logger.warning(request.session.items())
   user = request.user
   if user.is_authenticated:
     member = Member.objects.get(user = user)
@@ -463,6 +482,30 @@ def profile_view(request):
     return render(request, 'profile.html', {'request': request, 'user': user, 'member': member})
   else:
     return render(request, "home.html", {'request': request})
+
+def edit_profile_view(request):
+  user = request.user
+  if user.is_authenticated:
+    if request.method == "POST":
+      form = EditProfileForm(request.POST, request.FILES)
+      if form.is_valid():
+        picture = form.cleaned_data["picture"]
+        pronouns = form.cleaned_data["pronouns"]
+
+        member = Member.objects.get(user = user)
+        member.photo = picture
+        member.pronouns = pronouns
+        member.save()
+
+        return render(request, "profile.html", {'request': request, 'user': user, 'member': member})
+      else:
+        return render(request, "edit-profile.html", {'request': request, 'form': form})
+    else:
+      form = EditProfileForm()
+      return render(request, "edit-profile.html", {'request': request, 'form': form})
+  
+  return redirect(reverse("login"))
+
 
 def signup_view(request):
   if request.method == "POST":
@@ -486,9 +529,6 @@ def signup_view(request):
 
 
 def upload_image_view(request):
-  logger.warning("upload image view")
-  logger.warning(request)
-  logger.warning(request.session.items())
   if request.method == "POST":
     form = PostForm(request.POST, request.FILES)
     if form.is_valid():
@@ -497,6 +537,7 @@ def upload_image_view(request):
   else:
     form = PostForm()
   return render(request, "upload-image.html", {'request': request, 'form': form})
+
 
 def directory_view(request):
   if request.method == "GET":

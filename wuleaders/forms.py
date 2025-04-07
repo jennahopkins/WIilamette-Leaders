@@ -93,13 +93,23 @@ class EditProfileForm(forms.Form):
   ]
   picture = forms.ImageField(
     label = "Profile Picture:",
-    widget = forms.ClearableFileInput()
+    widget = forms.ClearableFileInput(),
+    required = False
   )
   pronouns = forms.ChoiceField(
     label = "Pronouns: ",
     choices = CHOICES,
-    widget = forms.Select()
+    widget = forms.Select(),
+    required = False
   )
+
+class EditClubForm(forms.Form):
+  picture = forms.ImageField(
+    label = "Club Photo:",
+    widget = forms.ClearableFileInput(),
+    required = False
+  )
+
 
 
   """def __init__(self, *args, **kwargs):

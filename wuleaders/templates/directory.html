@@ -11,9 +11,16 @@
 {% endif %}
 
 
-{% for club in clublist %}
-<p>{{club.club_name}}</p>
-{% endfor %}
+<div class="row">
+  <div class = "maincolumn">
+    <div class="card">
+      <h4> Club Directory </h4>
+      {% for club in clublist %}
+        <button type="button" class ="clubbtn" onclick="window.location.href = '/club/{{club.slug}}'"> {{club.club_name}} </button>
+      {% endfor %}
+    </div>
+  </div>
+</div>
 
 
 
