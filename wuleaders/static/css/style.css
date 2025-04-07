@@ -167,6 +167,22 @@ button:hover {
   background-color: #f44336;
 }
 
+/* Extra style for the cancel button (red) */
+.clubbtn {
+  padding: 10px 18px;
+  background-color: #dfc036;
+  text-align: left;
+}
+
+
+.maincolumn {
+  width: 75%;
+  padding: 20px;
+  text-align: left;
+  margin-right: auto;
+}
+
+
 
 /* Center the avatar image inside this container */
 .imgcontainer {
@@ -276,21 +292,15 @@ body {
   }
 }
 
-/* Extra style for the cancel button (red) */
-.clubbtn {
-  padding: 10px 18px;
-  background-color: #eadc9c;
-  text-align: left;
+
+.editbtn {
+  padding: 14px 20px;
+  background-color: #daa821;
 }
-
-
-.maincolumn {
-  width: 75%;
-  padding: 20px;
-  text-align: left;
-  margin-right: auto;
+.editbtn {
+  width: 20%;
+  margin-left: auto;
 }
-
 
 
 
