@@ -42,7 +42,7 @@
               <div class="card">{{post.posted_at}}
                 <img src="{{post.image.url}}">
                 {% for author in post.authorlist %}
-                <p OnClick = "window.location.href = '/club/{{author.slug}}'"><b>{{author.club_name}}</b></p>
+                <a href = "#" OnClick = "window.location.href = '/club/{{author.slug}}'"><b>{{author.club_name}}</b></a>
                 {% endfor %}
                 <p>{{post.caption}} </p>
               </div>
