@@ -21,14 +21,18 @@
             <div class="card">
               <h4>My Profile</h4>
               <p> <b>Name:</b> {{user.first_name}} {{user.last_name}}</p>
-              <p>user_profile_picture</p>
-              <p> <b>Pronouns:</b> user_pronouns</p>
+              {% if member.photo %}
+                <img src="{{member.photo.url}}">
+              {% endif %}
+              {% if member.pronouns %}
+                <p> <b>Pronouns:</b> {{member.pronouns}}</p>
+              {% endif %}
               <p> <b>Email:</b> {{user.email}}</p>
               <p> <b>Clubs:</b> </p>
               {% for club in member.clublist %}
                 {% for role in member.roleslist %}
                   {% if role.club.club_name == club.club_name %}
-                    <p>{{club.club_name}} - {{role.role}}</p>
+                    <p><a href = "#" OnClick = "window.location.href = '/club/{{club.slug}}'">{{club.club_name}}</a> - {{role.role}}</p>
                   {% endif %}
                 {% endfor %}
               {% endfor %}

@@ -8,33 +8,56 @@
   <button class = "editbtn" type = "button" onClick="window.location.href = '/club/{{club.slug}}/make-post'"> Make Post </button>
 {% endif %}
 
+{% if not follower %}
+  {% if member not in club.memberlist %}
+    <form action="" method="post">
+      <input type="submit" name="upvote" value="Upvote" />
+    </form>
+  {% endif %}
+{% else %}
+  <form action="" method="post">
+      <input type="submit" name="upvote" value="Following" />
+  </form>
+{% endif %}
 
 <div class="row">
     <div class = "leftcolumn">
     <div class="card">
-    <h4>Club Profile</h4>
-    <p><b>Name:</b>{{club.club_name}}</p>
-    <p>club_profile_picture</p>
-    <p>Emails: user_emails</p>
+    <h4><b>{{club.club_name}}</b></h4>
+    {% if club.photo %}
+      <img src="{{club.photo.url}}">
+    {% endif %}
+    <p><b>Description: </b>{{club.description}}<p>
+    <p><b>Contact:</b></p>
+    <p>Advisor: {{club.advisor_name}} {{club.advisor_email}}</p>
+    <p>President: {{club.president_name}} {{club.president_email}}</p>
   </div>
     <div class="card">
-        <h4> Club Members </h4>
-        {% for person in club.memberlist %}
-          <p>{{person.name}}</p>
+        <h4><b>Club Members</b></h4>
+        {% for person, role in member_roles_dict.items %}
+          <p>{{person.name}} - {{role.role}}</p>
         {% endfor %}
     </div>
     </div>
-  {% for post in club.postlist %}
-  <div class = "rightcolumn">
-    <div class="card">{{post.posted_at}}
-      <img src="{{post.image.url}}">
-      {% for author in post.authorlist %}
-      <a href = "#" OnClick = "window.location.href = '/club/{{author.slug}}'"><b>{{author.club_name}}</b></a>
-      {% endfor %}
-      <p>{{post.caption}} </p>
+  {% if club.postlist %}
+    {% for post in club.postlist %}
+    <div class = "rightcolumn">
+      <div class="card">{{post.posted_at}}
+        <img src="{{post.image.url}}">
+        {% for author in post.authorlist %}
+        <a href = "#" OnClick = "window.location.href = '/club/{{author.slug}}'"><b>{{author.club_name}}</b></a>
+        {% endfor %}
+        <p>{{post.caption}} </p>
+      </div>
     </div>
-  </div>
-  {% endfor %}
+    {% endfor %}
+  {% else %}
+    <div class = "rightcolumn">
+      <div class="card">
+        <p>This club has not posted anything yet, check back later!</p>
+      </div>
+    </div>
+  {% endif %}
 </div>
 
 

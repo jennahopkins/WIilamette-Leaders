@@ -157,10 +157,47 @@ def club_page_view(request, slug):
           editor = True
         else:
           editor = False
-        return render(request, 'club-page.html', {'request': request, 'club': club, 'member': member, 'editor': editor})
+          
+        if member in club.followers:
+          follower = True
+        else:
+          follower = False
+
+        member_roles_dict = {}
+        for member in club.memberlist:
+          role = list(filter(lambda _role: _role.club == club, member.roleslist))
+          member_roles_dict[member] = role[0]
+
+
+        return render(request, 'club-page.html', {'request': request, 'club': club, 'member': member, 'editor': editor, 'follower': follower, 'member_roles_dict': member_roles_dict})
       except Club.DoesNotExist:
         raise Http404
     return redirect(reverse('login'))
+  elif request.method == "POST":
+    if request.user.is_authenticated:
+      member = Member.objects.get(user = request.user)
+      try:
+        club = Club.objects.get(slug = quote_plus(slug))
+        if member in club.followers:
+          role_obj = Role.objects.get(role = "Follower", club = club)
+          role_obj.delete()
+          member.save()
+          follower = False
+        else:
+          role_obj = Role.objects.create(
+            role = "Follower",
+            club = club
+          )
+          member.roles.add(role_obj)
+          member.clubs.add(club)
+          member.save()
+          follower = True
+
+        return render(request, 'club-page.html', {'request': request, 'club': club, 'member': member, 'editor': False, 'follower': follower})
+      except Club.DoesNotExist:
+        raise Http404
+    return redirect(reverse('login'))
+      
   return(redirect(reverse('login')))
 
 

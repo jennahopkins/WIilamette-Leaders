@@ -28,7 +28,12 @@ class Club(models.Model):
 
   @property
   def memberlist(self):
-    return list(self.member.all())
+    rolelist = list(self.role.all())
+    member_roles = list(filter(lambda _role: _role.role != "Follower", rolelist))
+    members = []
+    for _role in member_roles:
+      members += _role.memberlist
+    return members
 
   @property
   def roledict(self):
@@ -46,6 +51,15 @@ class Club(models.Model):
     for _role in edit_roles:
       editors += _role.memberlist
     return editors
+
+  @property
+  def followers(self):
+    rolelist = list(self.role.all())
+    follow_roles = list(filter(lambda _role: _role.role == "Follower", rolelist))
+    followers = []
+    for _role in follow_roles:
+      followers += _role.memberlist
+    return followers
 
   
   def __str__(self):
