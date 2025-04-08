@@ -157,17 +157,16 @@ def club_page_view(request, slug):
           editor = True
         else:
           editor = False
-          
+
         if member in club.followers:
           follower = True
         else:
           follower = False
 
         member_roles_dict = {}
-        for member in club.memberlist:
-          role = list(filter(lambda _role: _role.club == club, member.roleslist))
-          member_roles_dict[member] = role[0]
-
+        for person in club.memberlist:
+          role = list(filter(lambda _role: _role.club == club, person.roleslist))
+          member_roles_dict[person] = role[0]
 
         return render(request, 'club-page.html', {'request': request, 'club': club, 'member': member, 'editor': editor, 'follower': follower, 'member_roles_dict': member_roles_dict})
       except Club.DoesNotExist:
