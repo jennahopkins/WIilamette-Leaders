@@ -12,12 +12,12 @@
 {% if not follower %}
   {% if member not in club.memberlist %}
     <form action="" method="post">
-      <input type="submit" value="Follow" />
+      <input class = "followbtn" type="submit" value="Follow" />
     </form>
   {% endif %}
 {% else %}
   <form action="" method="post">
-      <input type="submit" name="upvote" value="Following" />
+      <input class = "followbtn" type="submit" name="upvote" value="Following" />
   </form>
 {% endif %}
 

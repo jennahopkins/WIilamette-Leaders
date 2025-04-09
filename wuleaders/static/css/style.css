@@ -300,6 +300,18 @@ body {
   margin-left: auto;
 }
 
+.followbtn {
+  background-color: #daa821; 
+  text-align: left;
+  float: right;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+}
+
+
+
 
 
 .cke_top {
