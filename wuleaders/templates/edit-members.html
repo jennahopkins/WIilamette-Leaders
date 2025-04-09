@@ -1,0 +1,41 @@
+{% extends "base.html" %} {% block title %}
+{% endblock %}
+{% load static %}
+{% block content %}
+
+
+
+<div class="row">
+    <div class = "maincolumn">
+    <div class="card">
+        <h4> Edit Members </h4>
+        <form action="{% url 'edit-members' club.slug %}" method="post">
+            {% csrf_token %}
+            {% for person, role in member_roles_dict.items %}
+                <p>{{person.name}}: </p>
+                <input type = "checkbox" id = "membership" name = "{{person.name}} membership" value = "is_member" checked>
+                <label for = "membership"> Is Member: </label>
+                <input type = "text" id = "role" name = "{{person.name}} role" value = "{{role.role}}">
+                <label for = "role"> Role: </label>
+                <input type = "checkbox" id = "editing" name = "{{person.name}} editing" value = "can_edit" {% if role.can_edit %} checked{% endif %}>
+                <label for = "editing"> Can Edit: </label>
+            {% endfor %}
+            <button type = "submit">Save</button>
+        </form>
+        
+        
+        {% comment %}
+        <input type="checkbox" id="approved" name="approved" value="Approved">
+        <label for="approved"> Approved</label><br>
+        <input type="checkbox" id="pending" name="pending" value="Pending">
+        <label for="pending">Pending</label><br>
+        <input type="checkbox" id="denied" name="denied" value="Denied">
+        <label for="denied"> Denied</label><br>
+        {% endcomment %}
+
+    </div>
+    </div>
+</div>
+
+
+{% endblock %}

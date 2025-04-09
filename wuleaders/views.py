@@ -225,6 +225,56 @@ def edit_club_page_view(request, slug):
   
   return redirect(reverse("login"))
 
+
+def edit_club_members_view(request, slug):
+  user = request.user
+  if user.is_authenticated:
+    if request.method == "GET":
+      member = Member.objects.get(user = user)
+      try:
+        club = Club.objects.get(slug = quote_plus(slug))
+      except ClubDoesNotExist:
+        raise Http404
+      
+      member_roles_dict = {}
+      for person in club.memberlist:
+        role = list(filter(lambda _role: _role.club == club, person.roleslist))
+        member_roles_dict[person] = role[0]
+
+      return render(request, "edit-members.html", {'request': request, 'user': user, 'member': member, 'club': club, 'member_roles_dict': member_roles_dict})
+    elif request.method == "POST":
+      member = Member.objects.get(user = user)
+      try:
+        club = Club.objects.get(slug = quote_plus(slug))
+      except ClubDoesNotExist:
+        raise Http404
+      
+      member_roles_dict = {}
+      for person in club.memberlist:
+        role = list(filter(lambda _role: _role.club == club, person.roleslist))
+        member_roles_dict[person] = role[0]
+      
+      for person, role_obj in member_roles_dict.items():
+        membership = request.POST[f"{person.name} membership"]
+        role = request.POST[f"{person.name} role"]
+        editing = request.POST[f"{person.name} editing"]
+
+        if not membership:
+          person.clubs_set.remove(club)
+        role_obj.role = role
+        if editing:
+          role_obj.can_edit = True
+        else:
+          role_obj.can_edit = False
+
+        role_obj.save()
+        person.save()
+        
+      return redirect(reverse('club-page', args=(club.slug,)))
+
+  return redirect(reverse("login"))
+
+
 def make_post_view(request, slug):
   user = request.user
   member = Member.objects.get(user = user)
