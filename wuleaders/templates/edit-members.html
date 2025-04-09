@@ -12,13 +12,13 @@
         <form action="{% url 'edit-members' club.slug %}" method="post">
             {% csrf_token %}
             {% for person, role in member_roles_dict.items %}
-                <p>{{person.name}}: </p>
-                <input type = "checkbox" id = "membership" name = "{{person.name}} membership" value = "is_member" checked>
+                <p><b>{{person.name}}: </b></p>
                 <label for = "membership"> Is Member: </label>
-                <input type = "text" id = "role" name = "{{person.name}} role" value = "{{role.role}}">
+                <input type = "checkbox" id = "membership" name = "{{person.name}} membership" value = "is_member" checked><br>
                 <label for = "role"> Role: </label>
-                <input type = "checkbox" id = "editing" name = "{{person.name}} editing" value = "can_edit" {% if role.can_edit %} checked{% endif %}>
+                <input type = "text" id = "role" name = "{{person.name}} role" value = "{{role.role}}"><br>
                 <label for = "editing"> Can Edit: </label>
+                <input type = "checkbox" id = "editing" name = "{{person.name}} editing" value = "can_edit" {% if role.can_edit %} checked{% endif %}><br>
             {% endfor %}
             <button type = "submit">Save</button>
         </form>
