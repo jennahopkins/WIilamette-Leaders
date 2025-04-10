@@ -628,19 +628,23 @@ def edit_profile_view(request):
 def signup_view(request):
   if request.method == "POST":
     form = SignupForm(request.POST)
+    #user = User.objects.get(username = "reharvey@willamette.edu")
+    #user.delete()
     if form.is_valid():
+      logger.warning("valid")
+      first_name = form.cleaned_data['first_name']
+      last_name = form.cleaned_data['last_name']
       email = form.cleaned_data['email']
       password = form.cleaned_data['password']
       if "@willamette.edu" in email:
-        logger.warning("willamette.edu")
-        user = User.objects.create_user(username = email, password = password)
-        return render(request, 'auth/signup.html', {'user': user})
+        logger.warning("willamette email")
+        user = User.objects.create_user(username = email, email = email, password = password, first_name = first_name, last_name = last_name)
+        member = Member.objects.create(user = user)
+        return render(request, 'auth/signup.html', {'request': request, 'user': user, 'member': member})
       else:
-        logger.warning("not willamette.edu")
+        logger.warning("not willamette email")
         return render(request, 'auth/signup.html', {'errors': "Email must be valid Willamette email", 'form': form})
-    logger.warning("form not valid")
-    logger.warning(form.cleaned_data['email'], )
-    logger.warning(form.cleaned_data['password'])
+    logger.warning("not valid")
   else:
     form = SignupForm()
   return render(request, 'auth/signup.html', {'form': form})

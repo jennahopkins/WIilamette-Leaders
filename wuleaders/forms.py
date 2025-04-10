@@ -69,6 +69,14 @@ class LoginForm(forms.Form):
   )
 
 class SignupForm(forms.Form):
+  first_name = forms.CharField(
+    label = "First Name: ",
+    widget = forms.TextInput()
+  )
+  last_name = forms.CharField(
+    label = "Last Name: ",
+    widget = forms.TextInput()
+  )
   email = forms.CharField(
     label='Email:',
     widget=forms.TextInput()

@@ -69,7 +69,7 @@ hr {
 
 /* Set a style for all buttons */
 button {
-  background-color: #04AA6D;
+  background-color: #daa821;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -144,7 +144,7 @@ input[type=text], input[type=password] {
 
 /* Set a style for all buttons */
 button {
-  background-color: #04AA6D;
+  background-color: #daa821;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -306,8 +306,10 @@ body {
   float: right;
   color: white;
   padding: 14px 20px;
-  margin: 8px 0;
+  margin: 20px;
   border: none;
+  padding-top: 16px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 
@@ -726,9 +728,7 @@ article {
   flex-direction: row-reverse;
   align-items: center;
   background: var(--gray-background);
-  display: flex;
   justify-content: space-between;
-  align-items: center;
   word-break: break-word;
 }
 
@@ -759,7 +759,7 @@ article {
   margin: auto;
   margin-top: 16px;
   padding: 8px 16px;
-  background-color: #04AA6D;
+  background-color: #daa821;
   color: white;
   border: none;
   font-size: 18px;

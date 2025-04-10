@@ -58,8 +58,31 @@
         </div>  
 
       {% else %}
+        <div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
+          <div class="w3-card w3-round w3-white">
+            <div class="w3-container">
+              <h4 class="w3-left">Continue With Willamette Email Address</h4>
+              <hr>
+              <hr>
+              <div class="container">
+                <p>This website only accepts Willamette University email addresses.</p>
+                <hr>
+                <div class="clearfix">
+                  <a href = "{% url 'login' %}">
+                    <button type="button" class="loginbtn">Login</button></a>
+                  <a href = "{% url 'signup' %}">
+                    <button type="button" class="loginbtn">Sign Up</button></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      {% comment %}
       <p> You are not logged in </p>
       <a href = "{% url 'login' %}">Log In</a>
+      {% endcomment %}
       {% endif %}
 
 
