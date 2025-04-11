@@ -11,7 +11,7 @@ from .models import *
 from .forms import *
 from .forms import PostForm, EditProfileForm
 from .utilities import *
-from django.contrib.auth import logout as custom_logout
+from django.contrib.auth import logout
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -192,7 +192,12 @@ def club_page_view(request, slug):
           member.save()
           follower = True
 
-        return render(request, 'club-page.html', {'request': request, 'club': club, 'member': member, 'editor': False, 'follower': follower})
+        member_roles_dict = {}
+        for person in club.memberlist:
+          role = list(filter(lambda _role: _role.club == club, person.roleslist))
+          member_roles_dict[person] = role[0]
+
+        return render(request, 'club-page.html', {'request': request, 'club': club, 'member': member, 'editor': False, 'follower': follower, 'member_roles_dict': member_roles_dict})
       except Club.DoesNotExist:
         raise Http404
     return redirect(reverse('login'))
@@ -594,8 +599,9 @@ def home_view(request):
     posts_dates = []
     for club in member.clublist:
       for post in club.postlist:
-        posts_dict[post.posted_at] = post
-        posts_dates.append(post.posted_at)
+        if not post in posts_dict.values():
+          posts_dict[post.posted_at] = post
+          posts_dates.append(post.posted_at)
     posts_dates = sorted(posts_dates, reverse = True)
 
     return render(request, 'home.html', {'request': request, 'user': user, 'member': member, 'posts_dict': posts_dict, 'posts_dates': posts_dates})
@@ -661,14 +667,11 @@ def directory_view(request):
   else:
     return render(request, "directory.html", {'request': request})
 
+def logout_view(request):
+  if request.user.is_authenticated:
+    logout(request)
+  return redirect(reverse('home'))
 
-
-class LogoutView(base.View):
-   
-   def post(self, request):
-    if request.user.is_authenticated:
-      custom_logout(request)
-    return redirect(reverse('home'))
 
 class NotFound(base.View):
 
@@ -684,5 +687,4 @@ new_article_view = CKEditor.as_view(extra_context=set_context('new-article'))
 edit_about_view = CKEditor.as_view(extra_context=set_context('edit-about'))
 edit_article_view = CKEditor.as_view(extra_context=set_context('edit-article'))
 
-logout_view = LogoutView.as_view()
 not_found = NotFound.as_view()
