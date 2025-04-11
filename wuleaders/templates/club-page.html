@@ -46,7 +46,11 @@
       <div class="card">{{post.posted_at}}
         <img src="{{post.image.url}}">
         {% for author in post.authorlist %}
-        <a href = "#" OnClick = "window.location.href = '/club/{{author.slug}}'"><b>{{author.club_name}}</b></a>
+          {% if forloop.last %}
+            <a href = "#" OnClick = "window.location.href = '/club/{{author.slug}}'"><b>{{author.club_name}}</b></a>
+          {% else %}
+            <a href = "#" OnClick = "window.location.href = '/club/{{author.slug}}'"><b>{{author.club_name}}, </b></a>
+          {% endif %}
         {% endfor %}
         <p>{{post.caption}} </p>
       </div>

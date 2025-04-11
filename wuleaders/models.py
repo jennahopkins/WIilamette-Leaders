@@ -69,7 +69,7 @@ class Club(models.Model):
 class Post(models.Model):
   image = models.ImageField(upload_to = "uploads/", blank = True)
   caption = RichTextField(("caption"))
-  posted_at = models.DateTimeField(("posted_at"), auto_now = True)
+  posted_at = models.DateTimeField(("posted_at"), auto_now_add = True)
   authors = models.ManyToManyField(Club, related_name = "posts", blank = True)
   class Meta:
     verbose_name = "post"

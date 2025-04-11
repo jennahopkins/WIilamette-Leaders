@@ -216,7 +216,12 @@ def edit_club_page_view(request, slug):
         club.photo = picture
         club.save()
 
-        return render(request, "club-page.html", {'request': request, 'club': club, 'member': member, 'editor': True})
+        member_roles_dict = {}
+        for person in club.memberlist:
+          role = list(filter(lambda _role: _role.club == club, person.roleslist))
+          member_roles_dict[person] = role[0]
+
+        return render(request, "club-page.html", {'request': request, 'club': club, 'member': member, 'editor': True, 'member_roles_dict': member_roles_dict})
       else:
         return render(request, "edit-club-page.html", {'request': request, 'form': form})
     else:
@@ -297,7 +302,12 @@ def make_post_view(request, slug):
         post.authors.add(club)
         post.save()
 
-        return render(request, "club-page.html", {'request': request, 'club': club, 'member': member, 'editor': True})
+        member_roles_dict = {}
+        for person in club.memberlist:
+          role = list(filter(lambda _role: _role.club == club, person.roleslist))
+          member_roles_dict[person] = role[0]
+
+        return render(request, "club-page.html", {'request': request, 'club': club, 'member': member, 'editor': True, 'member_roles_dict': member_roles_dict})
       else:
         return render(request, "edit-club-page.html", {'request': request, 'form': form})
     else:
@@ -628,23 +638,17 @@ def edit_profile_view(request):
 def signup_view(request):
   if request.method == "POST":
     form = SignupForm(request.POST)
-    #user = User.objects.get(username = "reharvey@willamette.edu")
-    #user.delete()
     if form.is_valid():
-      logger.warning("valid")
       first_name = form.cleaned_data['first_name']
       last_name = form.cleaned_data['last_name']
       email = form.cleaned_data['email']
       password = form.cleaned_data['password']
       if "@willamette.edu" in email:
-        logger.warning("willamette email")
         user = User.objects.create_user(username = email, email = email, password = password, first_name = first_name, last_name = last_name)
         member = Member.objects.create(user = user)
         return render(request, 'auth/signup.html', {'request': request, 'user': user, 'member': member})
       else:
-        logger.warning("not willamette email")
         return render(request, 'auth/signup.html', {'errors': "Email must be valid Willamette email", 'form': form})
-    logger.warning("not valid")
   else:
     form = SignupForm()
   return render(request, 'auth/signup.html', {'form': form})
