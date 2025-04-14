@@ -13,7 +13,7 @@
         <div class="card">
             <h4>My Profile</h4>
             {% if member.photo %}
-                <img src="{{member.photo.url}}">
+                <img src="{{member.photo.url}}" width = "300" height = "100">
             {% endif %}
             <p><b>Name:</b> {{user.first_name}} {{user.last_name}}</p>
             {% if member.pronouns %}
