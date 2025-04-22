@@ -19,6 +19,7 @@ urlpatterns = [
   path('club/<str:slug>/edit', edit_club_page_view, name = "edit-club-page"),
   path("club/<str:slug>/make-post", make_post_view, name = "make-post"),
   path("club/<str:slug>/edit-members", edit_club_members_view, name = "edit-members"),
+  path('club/<str:slug>/<int:post_id>/delete/', delete_post_view, name='delete-post'),
 
   path('new-article', authentication_required(new_article_view), name="new-article"),
   path('edit-about', authentication_required(edit_about_view), name="edit-about"),

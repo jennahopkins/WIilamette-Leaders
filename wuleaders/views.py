@@ -325,6 +325,22 @@ def make_post_view(request, slug):
   
   return redirect(reverse("login"))
 
+def delete_post_view(request, slug, post_id):
+  post = Post.objects.get(id=post_id)
+  user = request.user
+  member = Member.objects.get(user = user)
+  club = Club.objects.get(slug = slug)
+
+  if user.is_authenticated and member in club.editors:
+    if request.method == "POST":
+        post.delete()
+        return redirect(reverse('club-page', args=(slug,))) 
+
+  return redirect(reverse('club-page', args=(slug,)))
+
+
+
+
 
 class ArticleView(base.View):
 

@@ -44,6 +44,10 @@
     {% for post in club.postlist %}
     <div class = "rightcolumn">
       <div class="card">{{post.posted_at}}
+        <form action="{% url 'delete-post' slug=club.slug post_id=post.id %}" method="POST" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit">Delete Post</button>
+        </form>
         <img src="{{post.image.url}}">
         {% for author in post.authorlist %}
           {% if forloop.last %}
