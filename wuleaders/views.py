@@ -294,7 +294,7 @@ def make_post_view(request, slug):
     raise Http404
   if user.is_authenticated and member in club.editors:
     if request.method == "POST":
-      form = PostForm(request.POST, request.FILES)
+      form = PostForm(request.POST, request.FILES, club_obj = club)
       if form.is_valid():
         picture = form.cleaned_data['picture']
         caption = form.cleaned_data['caption']
@@ -304,7 +304,11 @@ def make_post_view(request, slug):
           caption = caption,
           posted_at = timezone.now() 
         )
+        authors = form.cleaned_data['collaborators']
         post.authors.add(club)
+        if authors != None:
+          for author in authors:
+            post.authors.add(Club.objects.get(club_name = author))
         post.save()
 
         member_roles_dict = {}
@@ -316,7 +320,7 @@ def make_post_view(request, slug):
       else:
         return render(request, "edit-club-page.html", {'request': request, 'form': form})
     else:
-      form = PostForm()
+      form = PostForm(club_obj = club)
     return render(request, "make-post.html", {'request': request, 'form': form})
   
   return redirect(reverse("login"))

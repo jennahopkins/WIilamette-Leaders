@@ -1,3 +1,4 @@
+import logging
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login
@@ -7,7 +8,9 @@ from ckeditor.fields import RichTextFormField
 from ckeditor_uploader.fields import RichTextUploadingFormField
 
 from .utilities import *
-from .models import Post
+from .models import Post, Club
+
+logger = logging.getLogger(__name__)
 
 class CkEditorArticleForm(forms.Form):
   title = RichTextFormField(
@@ -24,39 +27,6 @@ class CkEditorAboutForm(forms.Form):
   content = RichTextUploadingFormField(
     config_name="content-editor"
   )
-"""class LoginForm(AuthenticationForm):
-  email = forms.CharField(
-    label='Email:',
-    widget=forms.TextInput()
-  )
-  password = forms.CharField(
-    label='Password:', 
-    widget=forms.PasswordInput()
-  )
-
-  def __init__(self, *args, **kwargs):
-    super(LoginForm, self).__init__(*args, **kwargs)
-
-  class Meta:
-    model = User
-    fields = ('username', 'password',)
-
-  def clean(self, *args, **kwargs):
-    username = self.cleaned_data.get('username')
-    password = self.cleaned_data.get('password')
-    user = authenticate(self, username=username, password=password)
-    if user is not None:
-      if not user:
-        print('No user found')
-        raise forms.ValidationError('No user found')
-      if not user.is_active:
-        print('User is unable to login')
-        raise forms.ValidationError('User is unable to login')
-      login(self.request, user)
-    elif user is None:
-      print('Email or password are incorrect')
-      raise forms.ValidationError('Email or password are incorrect')
-    return super(LoginForm, self).clean(*args, **kwargs)"""
 
 class LoginForm(forms.Form):
   email = forms.CharField(
@@ -114,6 +84,7 @@ class EditClubForm(forms.Form):
   )
 
 class PostForm(forms.Form):
+
   picture = forms.ImageField(
     label = "Post Image:",
     widget = forms.ClearableFileInput(),
@@ -124,29 +95,22 @@ class PostForm(forms.Form):
     widget = forms.TextInput(),
     required = False
   )
+  collaborators = forms.MultipleChoiceField(
+    label = "Collaborators",
+    choices = [],
+    widget = forms.CheckboxSelectMultiple(),
+    required = False
+  )
+  def __init__(self, *args, club_obj = None, **kwargs):
+    super().__init__(*args, **kwargs)
+    self.club_obj= club_obj
+    if club_obj:
+      clubs = Club.objects.all()
+      CHOICES = []
+      for club in clubs:
+        if club != club_obj:
+          CHOICES.append((club.club_name, club.club_name))
+      self.fields['collaborators'].choices = CHOICES
 
 
 
-  """def __init__(self, *args, **kwargs):
-    super(SignupForm, self).__init__(*args, **kwargs)
-
-  class Meta:
-    model = User
-    fields = ('username', 'password',)
-
-  def clean(self, *args, **kwargs):
-    username = self.cleaned_data.get('username')
-    password = self.cleaned_data.get('password')
-    user = authenticate(self, username=username, password=password)
-    if user is not None:
-      if not user:
-        print('No user found')
-        raise forms.ValidationError('No user found')
-      if not user.is_active:
-        print('User is unable to login')
-        raise forms.ValidationError('User is unable to login')
-      login(self.request, user)
-    elif user is None:
-      print('Email or password are incorrect')
-      raise forms.ValidationError('Email or password are incorrect')
-    return super(SignupForm, self).clean(*args, **kwargs)"""

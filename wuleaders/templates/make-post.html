@@ -11,10 +11,37 @@
 <body>
     <form method = "post" enctype = "multipart/form-data">
         {% csrf_token %}
-        {{form.as_p}}
+        {{ form.picture.label_tag }}
+        {{ form.picture }}
+        <br>
+        {{ form.caption.label_tag }}
+        {{ form.caption }}
+        <div class="dropdown">
+            <button type="button" class = "dropbtn">Collaborators:</button>
+                <div id="clubDropdown" class="dropdown-content">
+                    {{form.collaborators}}
+                </div>
+        </div>
         <button type = "submit">Upload</button>
     </form>
 </body>
+
+
+<script>
+document.querySelector(".dropbtn").addEventListener("click", function() {
+  document.getElementById("clubDropdown").classList.toggle("show");
+});
+
+window.addEventListener("click", function(event) {
+  if (!event.target.closest(".dropdown")) {
+    let dropdown = document.querySelector(".dropdown-content");
+    if (dropdown.classList.contains("show")) {
+      dropdown.classList.remove("show");
+    }
+  }
+});
+</script>
+
 
 
 {% endblock %}
