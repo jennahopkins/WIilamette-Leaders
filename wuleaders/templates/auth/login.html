@@ -8,6 +8,14 @@
 {% block content %}
 <div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
   <div class="w3-card w3-round w3-white">
+    {% if error %}
+      <div class="error-box">
+        <div class="message">
+          <p>Credentials didn't match.</p>
+          <p>Please try again.</p>
+        </div>
+      </div>
+      {% endif %}
     <div class="w3-container">
       <p>This page only accepts Willamette University email addresses.</p>
       <form method="post" class="login-form" id="login-form">
@@ -24,16 +32,6 @@
 
         <a href="{% url 'signup'%}">
         <button class="sign-up-button" type = "button">Sign Up</button></a>
-
-
-        <div class="error-box">
-          {% if errors %}
-          <div class="message">
-            <p>Credentials didn't match.</p>
-            <p>Please try again.</p>
-          </div>
-          {% endif %}
-        </div>
       </form>
     </div>
   </div>

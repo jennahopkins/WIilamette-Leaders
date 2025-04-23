@@ -31,49 +31,7 @@
 
             <a href="{% url 'edit-profile' %}">
                 <button class="button" type = "button">Edit Profile</button></a>
-
-            {% comment %}
-            <p>Pronouns:
-                <select id="options-in-menu" onchange="myFunction()">
-                    <option value="she/her">She/Her</option>
-                    <option value="they/them">They/Them</option>
-                    <option value="he/him">He/Him</option>
-                    <option value="any/all">Any/All</option>
-                    <option value="other/askme">Other/Ask Me</option>
-                </select>
-                <div id="selected-option">
-                    <div id="she/her">
-                        <p>She/Her</p>
-                    </div>
-                    <div id="they/them">
-                        <p>They/Them</p>
-                    </div>
-                    <div id="he/him">
-                        <p>He/Him</p>
-                    </div>
-                    <div id="any/all">
-                        <p>Any/All</p>
-                    </div>
-                    <div id="other/askme">
-                        <p>Other/Ask Me</p>
-                    </div>
-                </div>
-            </p>
-            {% endcomment %}
-<script>
-function myFunction() {
-  var val = document.getElementById("options-in-menu").value;
-  document.getElementById("she/her").style.display = "none";
-  document.getElementById("they/them").style.display = "none";
-  document.getElementById("he/him").style.display = "none";
-  document.getElementById("any/all").style.display = "none";
-  document.getElementById("other/askme").style.display = "none";
-  document.getElementById(val).style.display = "block";
-}
-</script>
-
         </div>
-
     </div>
 </div>
 

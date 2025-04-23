@@ -20,13 +20,6 @@ urlpatterns = [
   path("club/<str:slug>/make-post", make_post_view, name = "make-post"),
   path("club/<str:slug>/edit-members", edit_club_members_view, name = "edit-members"),
   path('club/<str:slug>/<int:post_id>/delete/', delete_post_view, name='delete-post'),
-
-  path('new-article', authentication_required(new_article_view), name="new-article"),
-  path('edit-about', authentication_required(edit_about_view), name="edit-about"),
-  path('article/<str:slug>', article_view, name="article"),
-  path('article/<str:slug>/edit', authentication_required(edit_article_view), name="edit-article"),
-  # LoginView is a built-in Django view
-  path(env('LOGIN_ROUTE_PATH'), if_authenthicated_redirect_from_login(login_view), name="login"),
   path('logout', logout_view, name="logout"),
   path('not-found', not_found, name="not-found")
 ]

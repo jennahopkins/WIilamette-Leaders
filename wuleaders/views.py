@@ -22,130 +22,6 @@ import json
 
 logger = logging.getLogger(__name__)
 
-class HomeView(base.View):
-
-  def get(self, request):
-    is_auth = request.user.is_authenticated
-    context = {}
-    context['is_authenticated'] = is_auth
-    if 'request_error' in request.session:
-      # Can be:
-      # - Article not found.
-      # - 500 - Server error.
-      # - Server failed.
-      context['request_error'] = request.session['request_error']
-      del request.session['request_error']
-    try:
-      context['about'] = About.objects.get(id=1)
-    except About.DoesNotExist:
-      context['about'] = None
-      context['error'] = "About not found."
-    except Exception as e:
-      print(e)
-      context['about'] = None
-      context['error'] = '500 - Server error'
-    try:
-      articles = Article.objects.all().order_by('created_at').reverse()
-      context['articles'] = articles
-      for article in context['articles']:
-        try:
-          comments = Comment.objects.filter(article_id=article.id)
-        except Exception as e:
-          print(e)
-          comments=[]
-        titleParser = ArticleHTMLParser()
-        contentParser = ArticleHTMLParser()
-        contentParser.feed(article.content)
-        if(contentParser.sources and contentParser.sources[0]):
-          article.img_source = contentParser.sources[0]
-          article.content = re.sub("(<img.*?>)", "", article.content, 0, re.IGNORECASE | re.DOTALL | re.MULTILINE)
-          contentParser.sources.clear()
-        contentParser.data = ''
-        article.title = re.sub("(<img.*?>)", "", article.title, 0, re.IGNORECASE | re.DOTALL | re.MULTILINE)
-        titleParser.feed(article.title)
-        contentParser.feed(article.content)
-        if(len(titleParser.data) > 45):
-          slicer = slice(45)
-          article.title = titleParser.data[slicer] + '...'
-        else:
-          article.title = titleParser.data
-        article.content = contentParser.data
-        article.total_comments = len(comments)
-      return render(request, 'home.html', context)
-    except Exception as e:
-      print(e)
-      context['articles'] = None
-      context['error'] = '500 - Server error'
-      raise Http404
-
-  def post(self, request):
-    try:
-      id_list = [int(x) for x in request.POST['id-list'].split(',')]
-      for article_id in id_list:
-        article = Article.objects.get(id=article_id)
-        slug = article.slug
-        article.delete()
-        new_images_handler('delete', slug)
-      return redirect(reverse('home'))
-
-    except Article.DoesNotExist:
-      request.session['request_error'] = 'Article not found.'
-      return redirect(reverse('home'))
-    except Exception as e:
-      print(e)
-      request.session['request_error'] = '500 - Server error.'
-      return redirect(reverse("home"))
-
-
-class MemberHomeView(base.View):
-
-  def get(self, request):
-    is_auth = request.user.is_authenticated
-    context = {}
-    context['is_authenticated'] = is_auth
-    if 'request_error' in request.session:
-      # Can be:
-      # - Article not found.
-      # - 500 - Server error.
-      # - Server failed.
-      context['request_error'] = request.session['request_error']
-      del request.session['request_error']
-
-    member = Member.objects.get(user = request.user.id)
-    posts_dict = {}
-    posts_dates = []
-    for club in member.clublist:
-      for post in club.postlist:
-        posts_dict[post.posted_at] = post
-        posts_dates.append(post.posted_at)
-    posts_dates = sorted(posts_dates, reverse = True)
-
-    try:
-      context['posts_dict'] = posts_dict
-      context['posts_dates'] = posts_dates
-    except Exception as e:
-      print(e)
-      context['error'] = '500 - Server error'
-
-    return render(request, 'member-home.html', context)
-    
-  def post(self, request):
-    try:
-      id_list = [int(x) for x in request.POST['id-list'].split(',')]
-      for post_id in id_list:
-        post = Post.objects.get(id=post_id)
-        #slug = article.slug
-        #article.delete()
-        #new_images_handler('delete', slug)
-      return redirect(reverse('member-home'))
-
-    except Post.DoesNotExist:
-      request.session['request_error'] = 'Article not found.'
-      return redirect(reverse('member-home'))
-    except Exception as e:
-      print(e)
-      request.session['request_error'] = '500 - Server error.'
-      return redirect(reverse("member-home"))
 
 def club_page_view(request, slug):
   if request.method == "GET":
@@ -202,7 +78,7 @@ def club_page_view(request, slug):
         raise Http404
     return redirect(reverse('login'))
       
-  return(redirect(reverse('login')))
+  return redirect(reverse('login'))
 
 
 def edit_club_page_view(request, slug):
@@ -604,7 +480,9 @@ def login_view(request):
 
         return render(request, 'home.html', {'request': request, 'user': user, 'member': member, 'posts_dict': posts_dict, 'posts_dates': posts_dates})
       else:
-        return render(request, 'auth/login.html', {'request': request, 'form': form, 'errors': form.errors})
+        return render(request, 'auth/login.html', {'request': request, 'form': form, 'error': "User Not Found"})
+    else:
+      return render(request, 'auth/login.html', {'request': request, 'form': form, 'error': "Not Valid"})
   else:
     form = LoginForm()
   return render(request, 'auth/login.html', {'request': request, 'form': form})
@@ -670,11 +548,18 @@ def signup_view(request):
       email = form.cleaned_data['email']
       password = form.cleaned_data['password']
       if "@willamette.edu" in email:
+        users = User.objects.all()
+        for user in users:
+          if user.email == email:
+            return render(request, 'auth/signup.html', {'error': "Email already used for an account", 'form': form})
         user = User.objects.create_user(username = email, email = email, password = password, first_name = first_name, last_name = last_name)
         member = Member.objects.create(user = user)
+        
         return render(request, 'auth/signup.html', {'request': request, 'user': user, 'member': member})
       else:
-        return render(request, 'auth/signup.html', {'errors': "Email must be valid Willamette email", 'form': form})
+        return render(request, 'auth/signup.html', {'error': "Email must be valid Willamette email", 'form': form})
+    else:
+      return render(request, 'auth/signup.html', {'error': "Please make sure all information is entered and valid", 'form': form})
   else:
     form = SignupForm()
   return render(request, 'auth/signup.html', {'form': form})
@@ -699,12 +584,5 @@ class NotFound(base.View):
     raise Http404
 
 
-member_home_view = MemberHomeView.as_view()
-
-article_view = ArticleView.as_view()
-
-new_article_view = CKEditor.as_view(extra_context=set_context('new-article'))
-edit_about_view = CKEditor.as_view(extra_context=set_context('edit-about'))
-edit_article_view = CKEditor.as_view(extra_context=set_context('edit-article'))
 
 not_found = NotFound.as_view()
