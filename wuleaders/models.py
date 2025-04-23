@@ -125,6 +125,10 @@ class Member(models.Model):
   def email(self):
     return self.user.email
 
+  @property
+  def email(self):
+    return self.user.email
+
   def __str__(self):
     return self.name
 

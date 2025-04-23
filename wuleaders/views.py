@@ -506,6 +506,16 @@ def home_view(request):
   else:
     return render(request, "home.html", {'request': request})
 
+def member_page_view(request, user_id):
+  user = request.user
+  if user.is_authenticated:
+    member = Member.objects.get(user_id = user_id)
+    if user == member.user:
+      return redirect(reverse('profile'))
+    return render(request, 'member-page.html', {'request': request, 'member': member})
+  else:
+    return render(request, "home.html", {'request': request})
+
 def profile_view(request):
   user = request.user
   if user.is_authenticated:

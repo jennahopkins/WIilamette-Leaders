@@ -1,0 +1,36 @@
+{% extends "base.html" %} {% block title %}
+{% endblock %}
+{% load static %}
+{% block content %}
+
+
+
+<div class="row">
+    <div class="centercolumn">
+
+        <div class="card">
+            <h4>Member Profile</h4>
+            {% if member.photo %}
+                <img src="{{member.photo.url}}" width = "300" height = "100">
+            {% endif %}
+            <p><b>Name:</b> {{member.name}}</p>
+            {% if member.pronouns %}
+                <p><b>Pronouns:</b> {{member.pronouns}} </p>
+            {% endif %}
+            <p><b>Email:</b> {{member.email}}</p>
+            <p> <b>Clubs:</b> </p>
+            {% for club in member.clublist %}
+                {% for role in member.roleslist %}
+                  {% if role.club.club_name == club.club_name %}
+                    <a href = "#" OnClick = "window.location.href = '/club/{{club.slug}}'">{{club.club_name}}</a> <p> - {{role.role}}</p>
+                  {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
