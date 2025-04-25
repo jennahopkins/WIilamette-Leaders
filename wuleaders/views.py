@@ -561,6 +561,14 @@ def signup_view(request):
         users = User.objects.all()
         for user in users:
           if user.email == email:
+            if user.last_login == None:
+              if user.first_name == first_name:
+                user.set_password = password
+                user.save()
+                member = Member.objects.get(user = user)
+                return render(request, 'auth/signup.html', {'request': request, 'user': user, 'member': member})
+              else:
+                return render(request, 'auth/signup.html', {'error': "Make sure name is correct", 'form': form})
             return render(request, 'auth/signup.html', {'error': "Email already used for an account", 'form': form})
         user = User.objects.create_user(username = email, email = email, password = password, first_name = first_name, last_name = last_name)
         member = Member.objects.create(user = user)
