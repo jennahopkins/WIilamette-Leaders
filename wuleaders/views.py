@@ -23,40 +23,65 @@ logger = logging.getLogger(__name__)
 
 
 def club_page_view(request, slug):
+  """
+  View that corresponds with getting information to make a club's page;
+  If user is not logged in, sent to login page
+
+  Inputs:
+    request: HTTP request through the url; to GET or POST and contains info about user and session
+    slug: unique slug that represents which club being accessed
+
+  Outputs:
+    the club's page if user is logged in, otherwise the login page; home page if some error has occurred
+  """
+  # if user is just getting the page information
   if request.method == "GET":
+    # checking if the user is logged in
     if request.user.is_authenticated:
       member = Member.objects.get(user = request.user)
       try:
+        # getting the club that the page is of
         club = Club.objects.get(slug = quote_plus(slug))
+        # determining if the user is an editor of the club
         if member in club.editors:
           editor = True
         else:
           editor = False
-
+        # determining if the user is a follower of the club
         if member in club.followers:
           follower = True
         else:
           follower = False
 
+        # creating dictionary of each member of the club and their corresponding role
         member_roles_dict = {}
         for person in club.memberlist:
           role = list(filter(lambda _role: _role.club == club, person.roleslist))
           member_roles_dict[person] = role[0]
 
         return render(request, 'club-page.html', {'request': request, 'club': club, 'member': member, 'editor': editor, 'follower': follower, 'member_roles_dict': member_roles_dict})
+      # if slug does not correspond with a Club object
       except Club.DoesNotExist:
         raise Http404
+    # user is not logged in
     return redirect(reverse('login'))
+
+  # user is posting information; in this case toggling the follow button
   elif request.method == "POST":
+    # checking if the user is logged in
     if request.user.is_authenticated:
       member = Member.objects.get(user = request.user)
       try:
+        # getting the club the page is a part of
         club = Club.objects.get(slug = quote_plus(slug))
+        
+        # if the user is already a follower, remove them as a follower
         if member in club.followers:
           role_obj = Role.objects.get(role = "Follower", club = club)
           role_obj.delete()
           member.save()
           follower = False
+        # if the user is not a follower, add them as a follower
         else:
           role_obj = Role.objects.create(
             role = "Follower",
@@ -67,86 +92,138 @@ def club_page_view(request, slug):
           member.save()
           follower = True
 
+        # creating dictionary of each member of the club and their corresponding role
         member_roles_dict = {}
         for person in club.memberlist:
           role = list(filter(lambda _role: _role.club == club, person.roleslist))
           member_roles_dict[person] = role[0]
 
         return render(request, 'club-page.html', {'request': request, 'club': club, 'member': member, 'editor': False, 'follower': follower, 'member_roles_dict': member_roles_dict})
+      # if slug does not correspond with a Club object
       except Club.DoesNotExist:
         raise Http404
+    # user is not logged in
     return redirect(reverse('login'))
-      
-  return redirect(reverse('login'))
+  
+  # some error has occurred and the request is not GET or POST
+  return redirect(reverse('home'))
 
 
 def edit_club_page_view(request, slug):
+  """
+  View that corresponds with getting information to make the edit club page; 
+  If user is not logged in, sent to login/home page
+
+  Inputs:
+    request: HTTP request through the url; to GET or POST and contains info about user and session
+    slug: unique slug that represents which club being accessed
+
+  Outputs:
+    the club's page if user is logged in and/or edit successful, otherwise the home/login page
+  """
+  # getting user info
   user = request.user
   member = Member.objects.get(user = user)
   try:
+    # getting the club the page corresponds to
     club = Club.objects.get(slug = quote_plus(slug))
+  # if the slug doesn't correspond to a Club object
   except Club.DoesNotExist:
     raise Http404
+  # checking the user is logged in and able to edit
   if user.is_authenticated and member in club.editors:
+
+    # edited information is being submitted
     if request.method == "POST":
       form = EditClubForm(request.POST, request.FILES)
+      # making sure form has all correct info
       if form.is_valid():
         picture = form.cleaned_data["picture"]
-
         club.photo = picture
         club.save()
 
+        # creating dictionary of each member of the club and their corresponding role
         member_roles_dict = {}
         for person in club.memberlist:
           role = list(filter(lambda _role: _role.club == club, person.roleslist))
           member_roles_dict[person] = role[0]
 
         return render(request, "club-page.html", {'request': request, 'club': club, 'member': member, 'editor': True, 'member_roles_dict': member_roles_dict})
+      # form has errors in it; try again
       else:
         return render(request, "edit-club-page.html", {'request': request, 'form': form})
+
+    # GET request, creating blank form for user to fill in
     else:
       form = EditClubForm()
       return render(request, "edit-club-page.html", {'request': request, 'form': form})
   
-  return redirect(reverse("login"))
+  # user should not be on this page, send them to home
+  return redirect(reverse("home"))
 
 
 def edit_club_members_view(request, slug):
+  """
+  View that corresponds with getting information to make the edit club members page; 
+  If user is not logged in, sent to home page
+
+  Inputs:
+    request: HTTP request through the url; to GET or POST and contains info about user and session
+    slug: unique slug that represents which club being accessed
+
+  Outputs:
+    the club's page if user is logged in and/or edit successful, otherwise the home/login page
+  """
+  # getting user and checking if they're logged in
   user = request.user
   if user.is_authenticated:
+
+    # user is just accessing page
     if request.method == "GET":
       member = Member.objects.get(user = user)
       try:
+        # getting specific club
         club = Club.objects.get(slug = quote_plus(slug))
+      # if slug doesn't correspond to Club object
       except ClubDoesNotExist:
         raise Http404
       
+      # creating dictionary of each member of the club and their role
       member_roles_dict = {}
       for person in club.memberlist:
         role = list(filter(lambda _role: _role.club == club, person.roleslist))
         member_roles_dict[person] = role[0]
 
       return render(request, "edit-members.html", {'request': request, 'user': user, 'member': member, 'club': club, 'member_roles_dict': member_roles_dict})
+    
+    # user submitted editing changes
     elif request.method == "POST":
       member = Member.objects.get(user = user)
       try:
+        # getting specific club
         club = Club.objects.get(slug = quote_plus(slug))
+      # if slug doesn't correspond to Club object
       except ClubDoesNotExist:
         raise Http404
       
+      # creating dictionary of each member of the club and their role
       member_roles_dict = {}
       for person in club.memberlist:
         role = list(filter(lambda _role: _role.club == club, person.roleslist))
         member_roles_dict[person] = role[0]
       
+      # getting edited information from the POST for each member of the club
       for person, role_obj in member_roles_dict.items():
         membership = request.POST[f"{person.name} membership"]
         role = request.POST[f"{person.name} role"]
         editing = request.POST[f"{person.name} editing"]
 
+        # remove person as member
         if not membership:
           person.clubs_set.remove(club)
         role_obj.role = role
+
+        # add or remove person as editor of club
         if editing:
           role_obj.can_edit = True
         else:
@@ -157,23 +234,43 @@ def edit_club_members_view(request, slug):
         
       return redirect(reverse('club-page', args=(club.slug,)))
 
-  return redirect(reverse("login"))
+  # user should not be on this page, send them home
+  return redirect(reverse("home"))
 
 
 def make_post_view(request, slug):
+  """
+  View that corresponds with getting information to make the make post page; 
+  If user is not logged in, sent to home page
+
+  Inputs:
+    request: HTTP request through the url; to GET or POST and contains info about user and session
+    slug: unique slug that represents which club being accessed
+
+  Outputs:
+    the club's page if user is logged in and/or make post successful, otherwise the home/login page
+  """
+  # getting info about user
   user = request.user
   member = Member.objects.get(user = user)
   try:
+    # get specific club
     club = Club.objects.get(slug = quote_plus(slug))
+  # if slug doesn't correspond to a Club object
   except Club.DoesNotExist:
     raise Http404
+  # checking if user is logged in and has editing privileges
   if user.is_authenticated and member in club.editors:
+
+    # user submitted post to be made
     if request.method == "POST":
       form = PostForm(request.POST, request.FILES, club_obj = club)
+      # all post info is there and correct
       if form.is_valid():
         picture = form.cleaned_data['picture']
         caption = form.cleaned_data['caption']
 
+        # create Post object from form
         post = Post.objects.create(
           image = picture,
           caption = caption,
@@ -181,53 +278,88 @@ def make_post_view(request, slug):
         )
         authors = form.cleaned_data['collaborators']
         post.authors.add(club)
+        # add any collaborators as authors
         if authors != None:
           for author in authors:
             post.authors.add(Club.objects.get(club_name = author))
         post.save()
 
+        # make dictionary of club members and their roles
         member_roles_dict = {}
         for person in club.memberlist:
           role = list(filter(lambda _role: _role.club == club, person.roleslist))
           member_roles_dict[person] = role[0]
 
         return render(request, "club-page.html", {'request': request, 'club': club, 'member': member, 'editor': True, 'member_roles_dict': member_roles_dict})
+      # post info wasn't all there or correct; try again
       else:
-        return render(request, "edit-club-page.html", {'request': request, 'form': form})
+        return render(request, "make-post.html", {'request': request, 'form': form})
+    
+    # GET request, make blank form for the user to fill in with post info
     else:
       form = PostForm(club_obj = club)
     return render(request, "make-post.html", {'request': request, 'form': form})
   
-  return redirect(reverse("login"))
+  # user should not be here; send them to home
+  return redirect(reverse("home"))
+
 
 def delete_post_view(request, slug, post_id):
+  """
+  View that corresponds with getting information to delete a club post; 
+  Redirected to club-page url view
+
+  Inputs:
+    request: HTTP request through the url; to GET or POST and contains info about user and session
+    slug: unique slug that represents which club being accessed
+    post_id: unique id that represents which post is being deleted
+
+  Outputs:
+    redirect to club-page url view
+  """
+  # get info about post, user, and club
   post = Post.objects.get(id=post_id)
   user = request.user
   member = Member.objects.get(user = user)
   club = Club.objects.get(slug = slug)
 
+  # checking if the user is logged in and has editing privileges
   if user.is_authenticated and member in club.editors:
+
+    # clicked delete post button
     if request.method == "POST":
         post.delete()
         return redirect(reverse('club-page', args=(slug,))) 
 
+  # redirecting to club-page url view anyways because it will send anything else to correct place
   return redirect(reverse('club-page', args=(slug,)))
 
 
-
-
-
 def login_view(request):
+  """
+  View that corresponds with getting information to make the login page
+
+  Inputs:
+    request: HTTP request through the url; to GET or POST and contains info about user and session
+
+  Outputs:
+    if user successfully logs in, sent to home page, otherwise still at login page
+  """
+  # user submitted login credentials
   if request.method == "POST":
     form = LoginForm(request.POST)
+    # all fields are filled in to login
     if form.is_valid():
       email = form.cleaned_data['email']
       password = form.cleaned_data['password']
+      # check if user exists with given information; None if no user exists otherwise the User object
       user = authenticate(request, username = email, password = password)
+      # user provided correct credentials; log them in
       if user is not None:
         login(request, user)
         member = Member.objects.get(user = user)
 
+        # get posts that will show up on user's feed sorted by most recent
         posts_dict = {}
         posts_dates = []
         for club in member.clublist:
@@ -237,20 +369,36 @@ def login_view(request):
         posts_dates = sorted(posts_dates, reverse = True)
 
         return render(request, 'home.html', {'request': request, 'user': user, 'member': member, 'posts_dict': posts_dict, 'posts_dates': posts_dates})
+      # user provided wrong credentials; try again
       else:
         return render(request, 'auth/login.html', {'request': request, 'form': form, 'error': "User Not Found"})
+    # user didn't provide all required information; try again
     else:
       return render(request, 'auth/login.html', {'request': request, 'form': form, 'error': "Not Valid"})
+  
+  # GET request, make blank login form for user to fill in
   else:
     form = LoginForm()
   return render(request, 'auth/login.html', {'request': request, 'form': form})
 
 
 def home_view(request):
+  """
+  View that corresponds with getting information to make the home page; 
+  If user is not logged in, sent to home page
+
+  Inputs:
+    request: HTTP request through the url; to GET or POST and contains info about user and session
+
+  Outputs:
+    the home page, personalized if the user is logged in
+  """
   user = request.user
+  # checking if the user is logged in
   if user.is_authenticated:
     member = Member.objects.get(user = user)
 
+    # make list of posts from the clubs the user follows/is a member of, most recent first
     posts_dict = {}
     posts_dates = []
     for club in member.clublist:
@@ -261,43 +409,90 @@ def home_view(request):
     posts_dates = sorted(posts_dates, reverse = True)
 
     return render(request, 'home.html', {'request': request, 'user': user, 'member': member, 'posts_dict': posts_dict, 'posts_dates': posts_dates})
+  
+  # user is not logged in
   else:
     return render(request, "home.html", {'request': request})
 
 def member_page_view(request, user_id):
+  """
+  View that corresponds with getting information to make the member page; 
+  If user is not logged in, sent to home page
+
+  Inputs:
+    request: HTTP request through the url; to GET or POST and contains info about user and session
+    user_id: unique id of the user to view their own profile page
+
+  Outputs:
+    the club's page if user is logged in and/or edit successful, otherwise the home/login page
+  """
   user = request.user
+  # checking if the user is logged in
   if user.is_authenticated:
     member = Member.objects.get(user_id = user_id)
+    # if clicked on their own name, sent to their profile page; otherwise taken to other member page
     if user == member.user:
       return redirect(reverse('profile'))
+
     return render(request, 'member-page.html', {'request': request, 'member': member})
+  # user not logged in; sent home
   else:
     return render(request, "home.html", {'request': request})
 
 def profile_view(request):
+  """
+  View that corresponds with getting information to make the profile page; 
+  If user is not logged in, sent to home page
+
+  Inputs:
+    request: HTTP request through the url; to GET or POST and contains info about user and session
+
+  Outputs:
+    the user's profile if logged in, home otherwise
+  """
   user = request.user
+  # checking if the user is logged in
   if user.is_authenticated:
     member = Member.objects.get(user = user)
 
     return render(request, 'profile.html', {'request': request, 'user': user, 'member': member})
+  
+  # user is not logged in; send them home
   else:
     return render(request, "home.html", {'request': request})
 
 def edit_profile_view(request):
+  """
+  View that corresponds with getting information to make the edit profile page; 
+  If user is not logged in, sent to login page
+
+  Inputs:
+    request: HTTP request through the url; to GET or POST and contains info about user and session
+    slug: unique slug that represents which club being accessed
+
+  Outputs:
+    the club's page if user is logged in and/or edit successful, otherwise the home/login page
+  """
   user = request.user
+  # checking if the user is logged in
   if user.is_authenticated:
+
+    # user submitted profile information
     if request.method == "POST":
       form = EditProfileForm(request.POST, request.FILES)
+      # all fields are taken and correct
       if form.is_valid():
         picture = form.cleaned_data["picture"]
         pronouns = form.cleaned_data["pronouns"]
 
+        # add profile pic and/or pronouns if any were uploaded
         member = Member.objects.get(user = user)
         member.photo = picture
         member.pronouns = pronouns
         member.save()
 
         return render(request, "profile.html", {'request': request, 'user': user, 'member': member})
+      
       else:
         return render(request, "edit-profile.html", {'request': request, 'form': form})
     else:
