@@ -126,6 +126,9 @@ class PostForm(forms.Form):
 
     Inputs:
       club_obj: the Club object that is the current club making the post; will be taken out of available collaborators
+
+    Outputs:
+      None
     """
     super().__init__(*args, **kwargs)
     self.club_obj= club_obj
