@@ -1,4 +1,4 @@
-import re
+"""import re
 import requests
 from .models import *
 from html.parser import HTMLParser
@@ -146,4 +146,4 @@ def recaptchaCheck(token):
   if reCAPCTHA_response['success'] == False:
     return False
   else:
-    return True
+    return True"""
