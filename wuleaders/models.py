@@ -3,6 +3,17 @@ from django.conf import settings
 
 
 class Club(models.Model):
+  """
+  Model that represents a Willamette club
+
+  Fields:
+    club_name: name of the club as appears on the Willamette website
+    description: description of the club as appears on the Willamette website
+    president_name: name of the president of the club as appears on the Willamette website
+    president_email: email of the president of the club as appears on the Willamette website
+    advisor_name: name of the advisor of the club as appears on the Willamette website
+    advisor_email: email of the president
+  """
   club_name = models.CharField(("club_name"), max_length = 500)
   description = models.TextField(("description"))
   president_name = models.CharField(("president_name"), max_length = 500)
