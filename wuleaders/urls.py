@@ -1,6 +1,5 @@
 from django.urls import path
 from .views import *
-from .decorators.decorators import authentication_required, if_authenthicated_redirect_from_login
 import os, environ
 from. import views
 

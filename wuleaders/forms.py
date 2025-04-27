@@ -4,29 +4,12 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 
-from ckeditor.fields import RichTextFormField
-from ckeditor_uploader.fields import RichTextUploadingFormField
 
 from .utilities import *
 from .models import Post, Club
 
 logger = logging.getLogger(__name__)
 
-class CkEditorArticleForm(forms.Form):
-  title = RichTextFormField(
-    config_name="title-article-editor"
-  )
-  content = RichTextUploadingFormField(
-    config_name="content-editor"
-  )
-
-class CkEditorAboutForm(forms.Form):
-  title = RichTextFormField(
-    config_name="title-about-editor"
-  )
-  content = RichTextUploadingFormField(
-    config_name="content-editor"
-  )
 
 class LoginForm(forms.Form):
   email = forms.CharField(
