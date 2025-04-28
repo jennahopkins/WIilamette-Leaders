@@ -29,6 +29,7 @@ Last edited:
                 <label for = "editing"> Can Edit: </label>
                 <!-- checked if the member already has editing privileges -->
                 <input type = "checkbox" id = "editing" name = "{{person.name}} editing" value = "can_edit" {% if role.can_edit %} checked{% endif %}><br>
+                <br>
             {% endfor %}
             <button type = "submit">Save</button>
         </form>

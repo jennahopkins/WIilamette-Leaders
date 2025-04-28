@@ -37,6 +37,19 @@ Last edited:
     </form>
 </body>
 
+<script>
+document.querySelector(".dropbtn").addEventListener("click", function() {
+  document.getElementById("clubDropdown").classList.toggle("show");
+});
 
+window.addEventListener("click", function(event) {
+  if (!event.target.closest(".dropdown")) {
+    let dropdown = document.querySelector(".dropdown-content");
+    if (dropdown.classList.contains("show")) {
+      dropdown.classList.remove("show");
+    }
+  }
+});
+</script>
 
 {% endblock %}
