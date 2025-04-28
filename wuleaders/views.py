@@ -17,13 +17,10 @@ from django.shortcuts import HttpResponse, redirect, render
 from django.http import Http404, HttpResponseServerError
 from .models import *
 from .forms import *
-from .forms import PostForm, EditProfileForm
-from .utilities import *
 from django.contrib.auth import logout
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils import timezone
-from .forms import LoginForm
 from django.contrib.auth.views import LoginView
 import json
 
