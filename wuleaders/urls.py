@@ -1,3 +1,11 @@
+"""
+urls.py
+File to store all url paths and patterns as the user navigates the app
+
+Last edited:
+4.27.25 by Jenna - added additional documentation comments
+"""
+
 from django.urls import path
 from .views import *
 import os, environ

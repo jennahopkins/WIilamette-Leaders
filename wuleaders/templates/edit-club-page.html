@@ -1,7 +1,17 @@
- {% extends "base.html" %}
+<!--
+edit-club-page.html
+Page for user with editing privileges to edit a club's info
+
+Last edited:
+4.27.25 by Jenna - added additional documentation comments
+-->
+
+
+{% extends "base.html" %}
 {% load static %}
 {% block content %}
 
+<!-- displays form to user to edit info about the club -->
 <body>
 <form method="post" enctype="multipart/form-data" class="edit-profile-form" id="edit-profile-form">
     {% csrf_token %}

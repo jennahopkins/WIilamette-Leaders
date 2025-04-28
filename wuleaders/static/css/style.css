@@ -1,3 +1,8 @@
+/* style.css */
+/* styling for all html templates other than login and signup pages */
+/* last edited 4.27.25 by Jenna - added additional documentation comments */
+
+/* for collaborators on make post page */
 .dropdown {
   position: relative;
   display: inline-block;
@@ -324,7 +329,7 @@ body {
   text-align: left;
 }
 
-
+/* center column */
 .maincolumn {
   width: 75%;
   padding: 20px;
@@ -332,6 +337,7 @@ body {
   margin-right: auto;
 }
 
+/* button to edit club/post/members, shows on exec member's club page */
 .editbtn {
   padding: 14px 20px;
   background-color: #daa821;
@@ -341,6 +347,7 @@ body {
   margin-left: auto;
 }
 
+/* button to follow a club, shows on non-member's club page */
 .followbtn {
   background-color: #daa821; 
   text-align: left;
@@ -355,7 +362,9 @@ body {
 
 
 
-
+/* all this below contains styling that was included in the template; Rory and Jenna did not add */
+/* did not delete in case anything was dependent on it */
+/* less documentation because we did not do/edit it */
 
 .cke_top {
   background: #fff !important;

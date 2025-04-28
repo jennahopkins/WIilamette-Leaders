@@ -163,11 +163,22 @@ class Command(BaseCommand):
   
   
   def handle(self, *args, **options):
+    """
+    Main function ran when the command is used
+
+    Inputs:
+      *args and **options: provides places for additional arguments to be passed into the function, by single or dictionary respectively
+
+    Outputs:
+      prints to the terminal the status of the function and any exceptions
+    """
     print('Populating database starting . . .')
     try:
+      # populates database with populate_clubs function
       print('Populating database . . .')
       self.populate_clubs()
       print('Populating database completed!')
+    # some error occurred
     except Exception as e:
       print('Populating database failed . . .')
       print(e)

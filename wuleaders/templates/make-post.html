@@ -1,14 +1,23 @@
- {% extends "base.html" %} {% block title %}
- {% endblock %}
- {% load static %}
- {% block content %}
+<!--
+make-post.html
+Page for club exec members to make a post for the club
+
+Last edited:
+4.27.25 by Jenna - added additional documentation comments
+  -->
+
+{% extends "base.html" %} {% block title %}
+{% endblock %}
+{% load static %}
+{% block content %}
 
 
- <head>
-    <meta charset = "UTF-8">
-    <title>Make Post</title>
+<head>
+  <meta charset = "UTF-8">
+  <title>Make Post</title>
 </head>
 <body>
+  <!-- form for user to fill in info to make a post -->
     <form method = "post" enctype = "multipart/form-data">
         {% csrf_token %}
         {{ form.picture.label_tag }}
@@ -16,6 +25,7 @@
         <br>
         {{ form.caption.label_tag }}
         {{ form.caption }}
+        <!-- dropdown to select any collaborators for the post -->
         <div class="dropdown">
             <button type="button" class = "dropbtn">Collaborators:</button>
                 <div id="clubDropdown" class="dropdown-content">
@@ -25,22 +35,6 @@
         <button type = "submit">Upload</button>
     </form>
 </body>
-
-
-<script>
-document.querySelector(".dropbtn").addEventListener("click", function() {
-  document.getElementById("clubDropdown").classList.toggle("show");
-});
-
-window.addEventListener("click", function(event) {
-  if (!event.target.closest(".dropdown")) {
-    let dropdown = document.querySelector(".dropdown-content");
-    if (dropdown.classList.contains("show")) {
-      dropdown.classList.remove("show");
-    }
-  }
-});
-</script>
 
 
 

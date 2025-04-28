@@ -1,3 +1,11 @@
+"""
+views.py
+File to store all views that correspond to each url; views contain logic to get/post information and render each html page
+
+Last edited:
+4.25.27 by Jenna - added additional documentation comments
+"""
+
 import logging
 import re
 from urllib.parse import quote_plus

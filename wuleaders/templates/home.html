@@ -1,6 +1,15 @@
+<!--
+home.html
+Home page, landing page after login, contains profile info and posts of all followed/member clubs
+
+Last edited:
+4.27.25 by Jenna - added additional documentation comments
+-->
+
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
+<!-- if any errors, display to user -->
 {% if request_error %}
 <div class="notification notification-out">
   <div class="content">
@@ -14,9 +23,12 @@
 
   <section class="articles-container">
     <div class="{% if is_authenticated %}heading-container-logged-in{% else %}heading-container-logged-out{% endif %}">
+      
+      <!-- check if user is logged in -->
       {% if user.is_authenticated %}
 
         <div class="row">
+          <!-- left side with user profile info -->
           <div class = "leftcolumn">
             <div class="card">
               <h4>My Profile</h4>
@@ -29,6 +41,7 @@
               {% endif %}
               <p> <b>Email:</b> {{user.email}}</p>
               <p> <b>Clubs:</b> </p>
+              <!-- provides all clubs the user is a member of/following and their role -->
               {% for club in member.clublist %}
                 {% for role in member.roleslist %}
                   {% if role.club.club_name == club.club_name %}
@@ -38,6 +51,7 @@
               {% endfor %}
             </div>
           </div>
+          <!-- on right side, all posts of followed/member clubs by most recent -->
           {% if member.clublist %}
           {% for posted_at in posts_dates %}
             {% for date, post in posts_dict.items %}
@@ -45,6 +59,7 @@
             <div class = "rightcolumn">
               <div class="card">{{post.posted_at}}
                 <img src="{{post.image.url}}">
+                <!-- displaying all authors as links to their club page -->
                 {% for author in post.authorlist %}
                   {% if forloop.last %}
                     <a href = "#" OnClick = "window.location.href = '/club/{{author.slug}}'"><b>{{author.club_name}}</b></a>
@@ -61,6 +76,7 @@
           {% endif %}
         </div>  
 
+      <!-- user is not logged in, provide links to login and signup button -->
       {% else %}
         <div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
           <div class="w3-card w3-round w3-white">
@@ -82,129 +98,9 @@
           </div>
         </div>
 
-
-      {% comment %}
-      <p> You are not logged in </p>
-      <a href = "{% url 'login' %}">Log In</a>
-      {% endcomment %}
       {% endif %}
-
-
-
-
-
-
-
-
-{% comment %}
-      <h1 class="article-gallery-title">Articles</h1>
-      {% if is_authenticated %}
-      <form method="POST" id="delete-article-form" name="delete-articles-form">
-        {% csrf_token %}
-        <input id="id-list-input" type="hidden" name="id-list" value="" />
-        <div class='delete-article-container with-tooltip'>
-          <span class="tooltiptext">Delete articles</span>
-          <button class="delete-article-button" type="button"><img width="16px" height="16px" src="{% static 'img/trash.png' %}" alt="trash-icon" /></button>
-        </div>
-      </form>
-      {% endif %}
-    </div>
-    <hr>
-    {% comment %}
-      New article button
-    {% endcomment %}
-    <section class="article-gallery">
-    {% for article in articles %}
-      <article>
-        <div class="delete-article">
-          {% if is_authenticated %}
-          <label for="delete-article">
-              <input type="checkbox" name="delete-article" id="{{article.id}}" class="delete-article-checkbox" onchange="check()">
-          </label>
-          {% endif %}
-        </div>
-        {% comment %}
-          Valid date sequence for the tag <time> is year-month-day
-        {% endcomment %}
-        {% if article.img_source %}
-        <div class="article-thumbnail-container" onClick="window.location.href = '/article/{{article.slug}}'">
-            <img src="{{article.img_source}}" alt="Article thumbnail image">
-        </div>
-        {% endif %}
-        <div class="{% if article.img_source %}article-details-container-with-thumbnail{% else %}article-details-container-no-thumbnail{% endif %}" onClick="window.location.href = '/article/{{article.slug}}'">
-          <div class="article-details-container--div">
-            <div>{{article.created_at|date}}</div>
-            <div class="article-details-container--div--text-div">
-              <h2 class="header-truncate {% if article.img_source %}with-thumbnail{% endif %}">{{article.title|safe}}</h2>
-              <p class="truncate article-details-container--div--text-div--description {% if article.imgSource %}with-thumbnail{% endif %}">{{article.content|safe}}</p>
-            </div>
-          </div>
-        </div>
-        <div class="article-stats-container">
-          <div class="article-view-count">
-            <img class="stat-icons" src="{% static 'img/eye-icon.png' %}" alt="eye-icon">
-            <span class="details-number-span">{{article.views}}</span>
-          </div>
-          <div class="article-comment-count">
-            <img class="stat-icons" src="{% static 'img/comments-icon.png' %}" alt="text-bubble">
-            <span class="details-number-span">{% if article.total_comments%}{{article.total_comments}}{% else %}0{% endif %}</span>
-          </div>
-        </div>
-      </article>
-
-    {% endfor %}
-    </section>
 
   </section>
 </main>
-<script>
-  const paragraphs = document.querySelectorAll(".truncate")
-  const headers = document.querySelectorAll('.header-truncate')
-  headers.forEach(header => {
-    const elementStyles = getComputedStyle(header)
-    const elementHeight = header.clientHeight - (parseFloat(elementStyles.paddingBottom)+parseFloat(elementStyles.paddingTop))
-    if(header.classList.contains('with-thumbnail')) {
-      header.style.webkitLineClamp = 1
-    } else {
-      header.style.webkitLineClamp = 2
-      header.style.height = '75px';
-    }
-  })
-  paragraphs.forEach(description => {
-    const elementStyles = getComputedStyle(description)
-    const elementHeight = description.clientHeight - (parseFloat(elementStyles.paddingBottom)+parseFloat(elementStyles.paddingTop))
-    let lines = elementHeight / parseFloat(elementStyles.lineHeight)
-    elementHeight
 
-    lines = Math.floor(lines)
-  })
-  const fetchCheckedArticles = () => {
-    const checkedArticles = document.querySelectorAll('input[type=checkbox]:checked')
-    deleteArticlesComments('article', checkedArticles)
-  }
-
-  const check = () => {
-    checkedValues = [];
-    const checked = document.querySelectorAll('input[type="checkbox"]:checked');
-    const deleteArticleButton = document.querySelector('.delete-article-button');
-    const deletedArticleContainer = document.querySelector('.delete-article-container');
-    const idListInput = document.querySelector('#id-list-input');
-    for (let i = 0; i < checked.length; i++) {
-      checkedValues.push(checked[i].id);
-    }
-    
-    if(checked.length > 0) {
-      deleteArticleButton.type = 'submit';
-      deleteArticleButton.style.cursor = 'pointer';
-      deleteArticleButton.style.opacity = '1';
-      idListInput.value = checkedValues;
-    } else {
-      deleteArticleButton.type = 'button';
-      deleteArticleButton.style.cursor = 'default';
-      deleteArticleButton.style.opacity = '.4';
-      idListInput.value = null;
-    }
-  }  
-
-</script>
 {% endblock %}

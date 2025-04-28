@@ -1,15 +1,24 @@
+<!--
+profile.html
+Page for the user to see their own profile info and buttons to edit and logout
+
+Last edited:
+4.27.25 by Jenna - added additional documentation comments
+-->
+
 {% extends "base.html" %} {% block title %}
 {% endblock %}
 {% load static %}
 {% block content %}
 
 
-
 <div class="row">
     <div class="centercolumn">
+        <!-- button for the user to logout -->
         <a href = "{% url 'logout' %}">
             <button type="button" class="logoutbtn">Logout</button></a>
 
+        <!-- main profile info: photo, name, pronouns, email, clubs user is a member of and their roles -->
         <div class="card">
             <h4>My Profile</h4>
             {% if member.photo %}
@@ -21,6 +30,7 @@
             {% endif %}
             <p><b>Email:</b> {{user.email}}</p>
             <p> <b>Clubs:</b> </p>
+            <!-- logic to display each club and the role -->
             {% for club in member.clublist %}
                 {% for role in member.roleslist %}
                   {% if role.club.club_name == club.club_name %}
@@ -29,6 +39,7 @@
                 {% endfor %}
             {% endfor %}
 
+            <!-- edit profile button -->
             <a href="{% url 'edit-profile' %}">
                 <button class="button" type = "button">Edit Profile</button></a>
         </div>

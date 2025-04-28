@@ -1,4 +1,8 @@
-/* AUTH FORM */
+/* auth.style.css */
+/* css styling for login and signup pages */
+/* last edited 4.27.25 by Jenna - added additional documentation comments */
+
+/* AUTH FORM, on login page */
 .login-form-container {
   width: 400px;
   margin: 0 auto;
@@ -53,6 +57,7 @@
   white-space: nowrap;
 }
 
+/* on signup page */
 .sign-up-button {
   display: block;
   margin: auto;
@@ -68,6 +73,7 @@
   white-space: nowrap;
 }
 
+/* any errors in logging/signing in will appear in this box */
 .error-box {
   text-align: center;
   padding: .25em .5em;

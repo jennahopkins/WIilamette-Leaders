@@ -1,13 +1,20 @@
+<!-- 
+member-page.html
+Page displaying basic info for any member on the site
+
+Last edited:
+4.27.25 by Jenna - added additional documentation comments
+-->
+
 {% extends "base.html" %} {% block title %}
 {% endblock %}
 {% load static %}
 {% block content %}
 
 
-
 <div class="row">
+    <!-- display user photo, name, email, pronouns, and clubs they are members of and their role -->
     <div class="centercolumn">
-
         <div class="card">
             <h4>Member Profile</h4>
             {% if member.photo %}
@@ -19,6 +26,7 @@
             {% endif %}
             <p><b>Email:</b> {{member.email}}</p>
             <p> <b>Clubs:</b> </p>
+            <!-- logic to show clubs and roles of the member -->
             {% for club in member.clublist %}
                 {% for role in member.roleslist %}
                   {% if role.club.club_name == club.club_name %}

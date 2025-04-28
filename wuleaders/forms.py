@@ -1,9 +1,16 @@
+"""
+forms.py
+File that contains all forms used in app; forms are used for user to enter information to be stored/changed
+
+Last edited:
+4.27.25 by Jenna - added additional documentation comments
+"""
+
 import logging
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-
 from .models import Post, Club
 
 logger = logging.getLogger(__name__)

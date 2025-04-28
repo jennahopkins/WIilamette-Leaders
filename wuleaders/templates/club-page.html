@@ -1,14 +1,24 @@
+<!--
+club-page.html
+Main page for a club; displays their basic info, members, posts, and options to follow club for non-members and to make posts and edit info for exec members
+
+Last edited:
+4.27.25 by Jenna - added additional documentation comments
+  -->
+
 {% extends "base.html" %} {% block title %}
 {% endblock %}
 {% load static %}
 {% block content %}
 
+<!-- if user has editing privileges, they can make posts and edit members and club info -->
 {% if editor %}
   <button class = "editbtn" type = "button" onClick="window.location.href = '/club/{{club.slug}}/edit'"> Edit Club </button>
   <button class = "editbtn" type = "button" onClick="window.location.href = '/club/{{club.slug}}/make-post'"> Make Post </button>
   <button class = "editbtn" type = "button" onClick="window.location.href = '/club/{{club.slug}}/edit-members'"> Edit Members </button>
 {% endif %}
 
+<!-- if user is not a member of the club, they have the option to follow/unfollow it -->
 {% if not follower %}
   {% if member not in club.memberlist %}
     <form action="" method="post">
@@ -21,6 +31,7 @@
   </form>
 {% endif %}
 
+<!-- club descriptive info on the left side -->
 <div class="row">
     <div class = "leftcolumn">
     <div class="card">
@@ -33,6 +44,7 @@
     <p>Advisor: {{club.advisor_name}} {{club.advisor_email}}</p>
     <p>President: {{club.president_name}} {{club.president_email}}</p>
   </div>
+  <!-- displaying club members under info -->
     <div class="card">
         <h4><b>Club Members</b></h4>
         {% for person, role in member_roles_dict.items %}
@@ -40,10 +52,12 @@
         {% endfor %}
     </div>
     </div>
+  <!-- displaying most recent posts on the right side -->
   {% if club.postlist %}
     {% for post in club.postlist %}
     <div class = "rightcolumn">
       <div class="card">{{post.posted_at}}
+        <!-- option to delete post for members with editing privileges -->
         {% if editor %}
           <form action="{% url 'delete-post' slug=club.slug post_id=post.id %}" method="POST" style="display:inline;">
             {% csrf_token %}
@@ -51,6 +65,7 @@
           </form>
         {% endif %}
         <img src="{{post.image.url}}">
+        <!-- clicking on any of the 'authors' takes user to their club page -->
         {% for author in post.authorlist %}
           {% if forloop.last %}
             <a href = "#" OnClick = "window.location.href = '/club/{{author.slug}}'"><b>{{author.club_name}}</b></a>
@@ -62,6 +77,8 @@
       </div>
     </div>
     {% endfor %}
+
+  <!-- if the club doesn't have any posts -->
   {% else %}
     <div class = "rightcolumn">
       <div class="card">

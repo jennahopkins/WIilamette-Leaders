@@ -1,8 +1,17 @@
+<!-- 
+edit-profile.html
+Page to edit user's personal profile; can upload file or add their pronouns
+
+Last edited:
+4.27.25 by Jenna - added additional documentation comments
+-->
+
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
 
 <body>
+<!-- form for user to fill in with their picture and/or pronouns -->
 <form method="post" enctype="multipart/form-data" class="edit-profile-form" id="edit-profile-form">
     {% csrf_token %}
 

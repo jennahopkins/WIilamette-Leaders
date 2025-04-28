@@ -1,37 +1,38 @@
+<!-- 
+edit-members.html
+Page for club exec members to edit all members in the club's role and status
+
+Last edited:
+4.27.25 by Jenna - added additional documentation comments
+-->
+
 {% extends "base.html" %} {% block title %}
 {% endblock %}
 {% load static %}
 {% block content %}
 
-
-
 <div class="row">
     <div class = "maincolumn">
     <div class="card">
         <h4> Edit Members </h4>
+        <!-- form for user to fill out info about all current members -->
         <form action="{% url 'edit-members' club.slug %}" method="post">
             {% csrf_token %}
             {% for person, role in member_roles_dict.items %}
                 <p><b>{{person.name}}: </b></p>
                 <label for = "membership"> Is Member: </label>
+                <!-- checked originally for every member -->
                 <input type = "checkbox" id = "membership" name = "{{person.name}} membership" value = "is_member" checked><br>
                 <label for = "role"> Role: </label>
+                <!-- text input -->
                 <input type = "text" id = "role" name = "{{person.name}} role" value = "{{role.role}}"><br>
                 <label for = "editing"> Can Edit: </label>
+                <!-- checked if the member already has editing privileges -->
                 <input type = "checkbox" id = "editing" name = "{{person.name}} editing" value = "can_edit" {% if role.can_edit %} checked{% endif %}><br>
             {% endfor %}
             <button type = "submit">Save</button>
         </form>
-        
-        
-        {% comment %}
-        <input type="checkbox" id="approved" name="approved" value="Approved">
-        <label for="approved"> Approved</label><br>
-        <input type="checkbox" id="pending" name="pending" value="Pending">
-        <label for="pending">Pending</label><br>
-        <input type="checkbox" id="denied" name="denied" value="Denied">
-        <label for="denied"> Denied</label><br>
-        {% endcomment %}
+
 
     </div>
     </div>

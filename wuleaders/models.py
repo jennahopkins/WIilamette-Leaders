@@ -1,3 +1,11 @@
+"""
+models.py
+File that contains all models used in app; models are used to store information about clubs, members, roles, posts in database
+
+Last edited:
+4.27.25 by Jenna - added additional documentation comments
+"""
+
 from django.db import models
 from django.conf import settings
 

@@ -1,6 +1,15 @@
+<!--
+  directory.html
+  Club directory page displaying all clubs at Willamette as appears on their website; clicking on a club takes user to their club page
+
+  Last edited:
+  4.27.25 by Jenna - added additional documentation comments
+  -->
+
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
+<!-- if there are any errors, display them -->
 {% if request_error %}
 <div class="notification notification-out">
   <div class="content">
@@ -10,7 +19,7 @@
 </div>
 {% endif %}
 
-
+<!-- main directory, a bunch of buttons for each club -->
 <div class="row">
   <div class = "maincolumn">
     <div class="card">
