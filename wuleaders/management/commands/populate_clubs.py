@@ -1,3 +1,11 @@
+"""
+populate_clubs.py
+Provides a command to be used in the terminal to populate the clubs and users based on the clubs.json file with information from Willamette's website
+
+Last edited:
+4.27.25 by Jenna - provide additional documentation comments
+"""
+
 import logging
 from django.core.management.base import BaseCommand
 from django.core.files.images import ImageFile
@@ -12,10 +20,21 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 logger = logging.getLogger(__name__)
 
 class Command(BaseCommand):
+  """
+  Class to provide a command to be used in the terminal to populate the clubs and users based on the clubs.json file
+
+  Variables:
+    help: str to help describe class function
+    json_file: filename of the file to be read in to get data from (clubs.json)
+    json_data: loaded data of the json file
+    logger: logger to log messages and warnings to be used in debug
+  """ 
   help = 'Seeds the database with club data'
   json_file = open(dir_path + '/data/' + 'clubs.json')
   json_data = json.load(json_file)
   logger = logging.getLogger(__name__)
+
+  # deleting all existing Clubs, Users, Roles, Members, and Posts
   Club.objects.all().delete()
   User.objects.all().delete()
   Role.objects.all().delete()
@@ -23,8 +42,18 @@ class Command(BaseCommand):
   Post.objects.all().delete()
   
   def populate_clubs(self):
+    """
+    Main helping function to populate the clubs and users based on the file
+
+    Inputs:
+      None
+
+    Outputs:
+      None
+    """
     for club in self.json_data:
       try:
+        # create Club object
         club_obj = Club.objects.create(
             club_name = club,
             description = self.json_data[club]['description'],
@@ -35,6 +64,7 @@ class Command(BaseCommand):
             slug = club.replace(" ", "-")
         )
 
+        # get User and Member objects for the president of the club and create new Role object
         try:
           user = User.objects.get(username = self.json_data[club]['president']['email'])
           role_obj = Role.objects.create(
@@ -46,6 +76,7 @@ class Command(BaseCommand):
           member.clubs.add(club_obj)
           member.roles.add(role_obj)
           member.save()
+        # create User, Role, and Member objects for the president of the club if they don't already exist
         except User.DoesNotExist:
           name = self.json_data[club]['president']['name'].split(" ", 1)
           user = User.objects.create_user(
@@ -64,6 +95,7 @@ class Command(BaseCommand):
           member.roles.add(role_obj)
           member.save()
         
+        # get User and Member objects for the advisor of the club and create a new Role object
         try:
           user = User.objects.get(username = self.json_data[club]['advisor']['email'])
           role_obj = Role.objects.create(
@@ -75,6 +107,7 @@ class Command(BaseCommand):
           member.clubs.add(club_obj)
           member.roles.add(role_obj)
           member.save()
+        # create User, Role, and Member objects for the advisor of the club if they don't already exist
         except User.DoesNotExist:
           name = self.json_data[club]['advisor']['name'].split(" ", 1)
           user = User.objects.create_user(
@@ -92,11 +125,14 @@ class Command(BaseCommand):
           member.clubs.add(club_obj)
           member.roles.add(role_obj)
           member.save()
+      # if any errors prevent club from being created, skip it
       except:
         pass
+
+    # get User object for jenna if it exists
     try:
-      User.objects.get(username="jhopkins2@willamette.edu")
-      User.objects.get(username = "jenna")
+      user = User.objects.get(username="jhopkins2@willamette.edu")
+    # create User object for jenna if it doesn't exist
     except User.DoesNotExist:
       user = User.objects.create_user(
         username = "jhopkins2@willamette.edu", 
@@ -105,6 +141,7 @@ class Command(BaseCommand):
         first_name = "Jenna",
         last_name = "Hopkins"
         )
+      # make her part of saac and cssa with roles as members
       saac_club = Club.objects.get(club_name = "Student Athlete Advisory Committee")
       cssa_club = Club.objects.get(club_name = "Computer Science Students Association")
       member = Member.objects.create(user = user)
@@ -122,15 +159,6 @@ class Command(BaseCommand):
       member.roles.add(role_saac)
       member.roles.add(role_cssa)
       member.save()
-
-      user2 = User.objects.create_user(
-        username = "jenna",
-        password = "jenna",
-        email = "jenna",
-        first_name = "jenna",
-        last_name = "hopkins"
-      )
-      member = Member.objects.create(user = user2)
 
   
   

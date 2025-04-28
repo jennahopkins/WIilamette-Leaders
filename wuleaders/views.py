@@ -464,14 +464,13 @@ def profile_view(request):
 def edit_profile_view(request):
   """
   View that corresponds with getting information to make the edit profile page; 
-  If user is not logged in, sent to login page
+  If user is not logged in, sent to login/home page
 
   Inputs:
     request: HTTP request through the url; to GET or POST and contains info about user and session
-    slug: unique slug that represents which club being accessed
 
   Outputs:
-    the club's page if user is logged in and/or edit successful, otherwise the home/login page
+    the user's profile page if user is logged in and/or edit successful, otherwise the home/login page
   """
   user = request.user
   # checking if the user is logged in
@@ -493,67 +492,120 @@ def edit_profile_view(request):
 
         return render(request, "profile.html", {'request': request, 'user': user, 'member': member})
       
+      # form has errors in it; try again
       else:
         return render(request, "edit-profile.html", {'request': request, 'form': form})
+    
+    # GET request, make empty form for user to fill in
     else:
       form = EditProfileForm()
       return render(request, "edit-profile.html", {'request': request, 'form': form})
   
-  return redirect(reverse("login"))
+  # user not logged in; send them home
+  return redirect(reverse("home"))
 
 
 def signup_view(request):
+  """
+  View that corresponds with getting information to make the signup page; 
+
+  Inputs:
+    request: HTTP request through the url; to GET or POST and contains info about user and session
+
+  Outputs:
+    the signup page for users to create an account and be taken to home page once account is created
+  """
+  # user has submitted information to sign up for an account
   if request.method == "POST":
     form = SignupForm(request.POST)
+    # user provided all correct information
     if form.is_valid():
       first_name = form.cleaned_data['first_name']
       last_name = form.cleaned_data['last_name']
       email = form.cleaned_data['email']
       password = form.cleaned_data['password']
+      
+      # make sure only people with Willamette students are making accounts
       if "@willamette.edu" in email:
         users = User.objects.all()
         for user in users:
           if user.email == email:
+            # premade account for club presidents and advisors being accessed
             if user.last_login == None:
               if user.first_name == first_name:
                 user.set_password = password
                 user.save()
                 member = Member.objects.get(user = user)
                 return render(request, 'auth/signup.html', {'request': request, 'user': user, 'member': member})
+              # name entered doesn't match what is on Willamette website associated with that email; try again
               else:
                 return render(request, 'auth/signup.html', {'error': "Make sure name is correct", 'form': form})
+            # an account with provided email already exists and is being used; try again
             return render(request, 'auth/signup.html', {'error': "Email already used for an account", 'form': form})
+        
+        # passed all checks, free to make new account
         user = User.objects.create_user(username = email, email = email, password = password, first_name = first_name, last_name = last_name)
         member = Member.objects.create(user = user)
-        
         return render(request, 'auth/signup.html', {'request': request, 'user': user, 'member': member})
+      
+      # not a Willamette email
       else:
         return render(request, 'auth/signup.html', {'error': "Email must be valid Willamette email", 'form': form})
+    # not all/correct information provided
     else:
       return render(request, 'auth/signup.html', {'error': "Please make sure all information is entered and valid", 'form': form})
+  
+  # GET request, create empty form for user to fill in
   else:
     form = SignupForm()
   return render(request, 'auth/signup.html', {'form': form})
 
 
 def directory_view(request):
+  """
+  View that corresponds with getting information to make the directory page; 
+
+  Inputs:
+    request: HTTP request through the url; to GET or POST and contains info about user and session
+
+  Outputs:
+    the directory, doesn't matter if user is logged in or not as people can view it without an account as they can on Willamette website
+  """
+  # user is accessing page, populate with list of clubs
   if request.method == "GET":
     clublist = Club.objects.all()
     return render(request, "directory.html", {'request': request, 'clublist': clublist})
+  # any other request method
   else:
     return render(request, "directory.html", {'request': request})
 
 def logout_view(request):
+  """
+  View that corresponds with getting information to make the logout page
+
+  Inputs:
+    request: HTTP request through the url; to GET or POST and contains info about user and session
+
+  Outputs:
+    the home page once the user is logged out
+  """
+  # making sure user is logged in to be logged out
   if request.user.is_authenticated:
     logout(request)
   return redirect(reverse('home'))
 
 
 class NotFound(base.View):
+  """
+  Class view that corresponds with raising the not found page, http404
 
+  Function Inputs:
+    request: HTTP request through the url; to GET or POST and contains info about user and session
+
+  Function Outputs:
+    Http404
+  """
   def get(self, request):
     raise Http404
-
-
-
+    
 not_found = NotFound.as_view()
