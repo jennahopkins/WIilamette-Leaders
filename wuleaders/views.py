@@ -193,11 +193,14 @@ def edit_club_members_view(request, slug):
       except ClubDoesNotExist:
         raise Http404
       
-      # creating dictionary of each member of the club and their role
+      # creating dictionary of each member and follower of the club and their role
       member_roles_dict = {}
       for person in club.memberlist:
         role = list(filter(lambda _role: _role.club == club, person.roleslist))
         member_roles_dict[person] = role[0]
+      for follower in club.followers:
+        role = list(filter(lambda _role: _role.club == club, follower.roleslist))
+        member_roles_dict[follower] = role[0]
 
       return render(request, "edit-members.html", {'request': request, 'user': user, 'member': member, 'club': club, 'member_roles_dict': member_roles_dict})
     
@@ -216,23 +219,29 @@ def edit_club_members_view(request, slug):
       for person in club.memberlist:
         role = list(filter(lambda _role: _role.club == club, person.roleslist))
         member_roles_dict[person] = role[0]
+      for follower in club.followers:
+        role = list(filter(lambda _role: _role.club == club, follower.roleslist))
+        member_roles_dict[follower] = role[0]
       
       # getting edited information from the POST for each member of the club
       for person, role_obj in member_roles_dict.items():
-        membership = request.POST[f"{person.name} membership"]
-        role = request.POST[f"{person.name} role"]
-        editing = request.POST[f"{person.name} editing"]
+        membership = request.POST.get(f"{person.name} membership", False)
+        role = request.POST.get(f"{person.name} role", False)
+        editing = request.POST.get(f"{person.name} editing", False)
 
         # remove person as member
         if not membership:
-          person.clubs_set.remove(club)
-        role_obj.role = role
-
-        # add or remove person as editor of club
-        if editing:
-          role_obj.can_edit = True
+          person.clubs.remove(club)
+          person.roles.remove(role_obj)
+          person.save()
         else:
-          role_obj.can_edit = False
+          # update role
+          role_obj.role = role
+          # add or remove person as editor of club
+          if editing:
+            role_obj.can_edit = True
+          else:
+            role_obj.can_edit = False
 
         role_obj.save()
         person.save()

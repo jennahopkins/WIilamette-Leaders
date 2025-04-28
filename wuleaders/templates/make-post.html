@@ -19,6 +19,7 @@ Last edited:
 <body>
   <!-- form for user to fill in info to make a post -->
     <form method = "post" enctype = "multipart/form-data">
+      <p> Note: large file sizes not supported </p>
         {% csrf_token %}
         {{ form.picture.label_tag }}
         {{ form.picture }}
